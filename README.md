@@ -1,1 +1,1 @@
-# generic-parts
+# generic-parts-bundle
