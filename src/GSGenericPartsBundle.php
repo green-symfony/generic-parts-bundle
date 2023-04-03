@@ -32,6 +32,11 @@ class GSGenericPartsBundle extends Bundle
 		return $this->extension;
 	}
 	
+	public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+	
 	/*
 	public function loadExtension(
 		array $config,
