@@ -1,0 +1,6 @@
+framework:
+    
+    ###> FRAGMENT ###
+    fragments:
+        enabled:    true
+        path:       /_fragment

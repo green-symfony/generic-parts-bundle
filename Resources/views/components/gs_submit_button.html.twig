@@ -1,0 +1,14 @@
+{#
+	Usage:
+		{{ component('gs_submit_button', {
+			text:		'Отправить',
+		}) }}
+#}
+
+<button
+	type="submit"
+	class="{{- class -}}"
+	{{- attr|gs_array_to_attribute -}}
+>
+{{- text -}}
+</button>

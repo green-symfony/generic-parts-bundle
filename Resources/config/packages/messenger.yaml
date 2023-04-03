@@ -1,0 +1,5 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.gs_generic_parts_default
+        buses:
+            messenger.bus.gs_generic_parts_default:     ~

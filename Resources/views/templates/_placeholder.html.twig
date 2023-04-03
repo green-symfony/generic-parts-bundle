@@ -1,0 +1,14 @@
+{# 
+	Usage:
+	{{ include('@GSGenericParts/_templates/_placeholder.html.twig', { attr: {} , placeholderClass: '' }) }}
+#}
+
+<span
+	{{ attr|default([])|gs_array_to_attribute }}
+	class="placeholder-glow  fade show  w-100"
+>
+	<span
+		class="placeholder rounded  h-100 {{ placeholderClass|default('w-100') }}"
+	>
+	</span>
+</span>

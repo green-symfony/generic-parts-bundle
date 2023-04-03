@@ -1,0 +1,107 @@
+parameters:
+    gs_generic_parts.timezone:                          'UTC'
+    gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
+    gs_generic_parts.locale:                            'en'
+        
+services:
+    _defaults:
+        autowire:           true
+        autoconfigure:      true
+        #bind:           
+    
+    
+    ###> TEST SERVICE ###
+    gs_generic_parts.test_service:
+        class:      GS\GenericParts\Service\TestService
+    ###< TEST SERVICE ###
+    
+    
+    ###> CONTROLLERS ###
+    GS\GenericParts\Controller\ApiUtcDtController:
+        class:                  GS\GenericParts\Controller\ApiUtcDtController
+        arguments:
+            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+    
+    GS\GenericParts\Controller\ApiSetTimezoneController:
+        class:                  GS\GenericParts\Controller\ApiSetTimezoneController
+        arguments:
+            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+    ###< CONTROLLERS ###
+    
+    
+    ###> API SERVICES ###
+    ###> CARBON ###
+    gs_generic_parts.carbon_factory_ru_RU_UTC:
+        class:          Carbon\FactoryImmutable
+        arguments:
+        -   locale:                   '%gs_generic_parts.locale%'
+            strictMode:               true
+            timezone:                 '%gs_generic_parts.timezone%'
+            toStringFormat:           'd.m.Y H:i:s P'
+            monthOverflow:            true # addXXX add(<>, <>)
+            yearOverflow:             true        
+    ###< CARBON ###
+    
+    ###> FAKER ###
+    gs_generic_parts.faker:
+        class:          Faker\Factory
+        factory:        ['Faker\Factory', 'create']
+        arguments:
+            - '%gs_generic_parts.locale%'
+    ###< FAKER ###
+    
+    ###> MESSENGER ###
+    ###> A handy way to get result of a sync message | $result = $thisService(new Message) ###
+    gs_generic_parts.sync_message:
+        public:         false
+        class:          GS\GenericParts\Messenger\SyncMessage
+        arguments:
+            $messageBus:    '@Symfony\Component\Messenger\MessageBusInterface'
+    ###< MESSENGER ###
+    ###< API SERVICES ###
+    
+    
+    ###> KERNEL SUBSCRIBER ###
+    gs_generic_parts.init_subscriber:
+        public:         false
+        class:          GS\GenericParts\EventSubscriber\InitSubscriber
+        arguments:
+            $defaultTimeZone:           '%gs_generic_parts.timezone%'
+    ###< KERNEL SUBSCRIBER ###
+    
+    
+    ###> TWIG ###
+    ###> COMPONENT ###  
+    GS\GenericParts\Twig\Component\GSAlertComponent:            ~
+    GS\GenericParts\Twig\Component\GSDtComponent:
+        class:              GS\GenericParts\Twig\Component\GSDtComponent
+        public:             false
+        arguments:
+            $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC' 
+    GS\GenericParts\Twig\Component\GSNavsComponent:             ~
+    GS\GenericParts\Twig\Component\GSSpriteComponent:           ~
+    GS\GenericParts\Twig\Component\GSSubmitButtonComponent:     ~
+    GS\GenericParts\Twig\Component\GSWatchComponent:            ~
+    
+    ###> EXTENSION ###
+    GS\GenericParts\Twig\Extension\ByteForHumansExtension:      ~
+    GS\GenericParts\Twig\Extension\DefaultExtension:
+        class:              GS\GenericParts\Twig\Extension\DefaultExtension
+        public:             false
+        arguments:
+            $faker:             '@gs_generic_parts.faker'
+            $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC'
+    ###< TWIG ###
+    
+    
+    ###> MESSENGER ###
+    ###> HANDLERS ###
+    gs_generic_parts.init_carbon_handler:
+        public:         false
+        class:          GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
+        arguments:
+            $defaultLocale: '%gs_generic_parts.locale%'
+    
+    GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:        ~
+    ###< HANDLERS ###
+    ###< MESSENGER ###
