@@ -56,7 +56,8 @@
         "symfony/options-resolver": "^6|^5|^4",
         "symfony/webpack-encore-bundle": "^1.16",
         "symfony/serializer-pack": "^1.2",
-        "symfony/serializer": "^6|^5|^4"
+        "symfony/serializer": "^6|^5|^4",
+        "symfony/translation": "^6|^5|^4"
     },
     "config": {
         "allow-plugins": {

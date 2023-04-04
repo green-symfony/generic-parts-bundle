@@ -2,7 +2,7 @@ parameters:
     gs_generic_parts.timezone:                          'UTC'
     gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
     gs_generic_parts.locale:                            'en'
-        
+    
 services:
     _defaults:
         autowire:           false
@@ -72,13 +72,19 @@ services:
             $messageBus:    '@Symfony\Component\Messenger\MessageBusInterface'
     ###< MESSENGER ###
     ###< API SERVICES ###
+
+    
+    ###> EXCEPTION ###
+    ###< EXCEPTION ###
     
     
     ###> KERNEL SUBSCRIBER ###
     gs_generic_parts.exception_subscriber:
         autoconfigure:          true
         class:                  GS\GenericParts\EventSubscriber\GSExceptionSubscriber
-    
+        arguments:
+            $t:                         '@translator.data_collector'
+        
     gs_generic_parts.init_subscriber:
         autoconfigure:          true
         class:                  GS\GenericParts\EventSubscriber\InitSubscriber

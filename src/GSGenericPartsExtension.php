@@ -25,6 +25,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 			['config/packages',		'twig.yaml'],
 			['config/packages',		'messenger.yaml'],
 			['config/packages',		'framework.yaml'],
+			['config/packages',		'translation.yaml'],
 		] as [$relPath, $filename]) {
 			$this->loadYaml($container, $relPath, $filename);			
 		}

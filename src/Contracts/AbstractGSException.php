@@ -21,30 +21,16 @@ abstract class AbstractGSException extends \Exception
 		protected array $params			= [],
 	) {
 		$this->httpCode			= $httpCode		?? static::HTTP_CODE;
-		
-		$this->message = $this->getConstructedMessage($message ?? static::MESSAGE);
+		$this->message			= $message		?? static::MESSAGE;
 	}
 	
 	public function getHttpCode(): int {
 		return $this->httpCode;
 	}
 	
-	###> HELPER ###
-	
-	private function getConstructedMessage(
-		string $message,
-	): string {
-		$resultMessage				= $message;
-		
-		if (!empty($this->params)) {
-			$params = [];
-			\array_walk($this->params, static function($v, $k) use (&$params) { $params[] = $k.': '.$v; } );
-			
-			$resultMessage			= (
-				(string) u($message)->ensureEnd(': ')
-			) . '['.\implode(', ', $params).']';
-		}
-		
-		return $resultMessage;
+	public function getParams(): array {
+		return $this->params;
 	}
+	
+	###> HELPER ###
 }

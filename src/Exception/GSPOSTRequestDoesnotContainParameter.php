@@ -9,6 +9,6 @@ use GS\GenericParts\Contracts\AbstractGSException;
 
 class GSPOSTRequestDoesnotContainParameter extends AbstractGSException
 {
-	public const MESSAGE		= 'POST request doesn\'t contain parameters';
+	public const MESSAGE		= 'exception.post_doesnot_contain';
 	public const HTTP_CODE		= Response::HTTP_BAD_REQUEST;
 }

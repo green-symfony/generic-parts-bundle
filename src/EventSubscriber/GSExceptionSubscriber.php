@@ -2,6 +2,7 @@
 
 namespace GS\GenericParts\EventSubscriber;
 
+use function Symfony\Component\String\u;
 use Symfony\Component\HttpFoundation\{
 	Response,
 	JsonResponse
@@ -12,7 +13,12 @@ use GS\GenericParts\Contracts\AbstractGSException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class GSExceptionSubscriber implements EventSubscriberInterface
-{
+{	
+    public function __construct(
+		private $t,
+	) {
+	}
+	
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception			= $event->getThrowable();
@@ -21,7 +27,7 @@ class GSExceptionSubscriber implements EventSubscriberInterface
 		
 		$responseData		= [
 			'error'		=> [
-				'message'	=> $exception->getMessage(),
+				'message'	=> $this->getMessageWithParams($exception),
 				'http_code' => $httpCode = $exception->getHttpCode(),
 				'file'		=> $exception->getFile(),
 				'line'		=> $exception->getLine(),
@@ -43,4 +49,21 @@ class GSExceptionSubscriber implements EventSubscriberInterface
             KernelEvents::EXCEPTION => 'onKernelException',
         ];
     }
+	
+	//###> HELPER ###
+	
+	private function getMessageWithParams(AbstractGSException $exception): string {
+		$resultMessage			= $this->t->trans($exception->getMessage(), domain: 'gs_generic_parts');
+		
+		if (!empty($exceptionParams = $exception->getParams())) {
+			$params = [];
+			\array_walk($exceptionParams, static function($v, $k) use (&$params) { $params[] = $k.': '.$v; } );
+			
+			$resultMessage			= (
+				(string) u($message)->ensureEnd(': ')
+			) . '['.\implode(', ', $params).']';
+		}
+		
+		return $resultMessage;
+	}
 }
