@@ -10,7 +10,8 @@
     "description":	"Basic components of Symfony application for a web project.",
     "authors":		[
         {
-            "name": "Grigory Koblitsky"
+            "name":			"Grigory Koblitsky",
+			"email":		"son5-29@mail.ru"
         }
     ],
     "keywords":		["GSC", "green-symfony", "general-parts"],
