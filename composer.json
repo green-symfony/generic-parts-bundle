@@ -6,7 +6,7 @@
         }
     },
 	"version":		"0.0.0",
-    "type":			"symfony-library",
+    "type":			"symfony-bundle",
     "description":	"Basic components of Symfony application for a web project.",
     "authors":		[
         {
