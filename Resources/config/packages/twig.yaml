@@ -1,4 +1,5 @@
 twig:
     paths:
         "%kernel.project_dir%/vendor/green-symfony/generic-parts-bundle/Resources":        GSGenericPartsResources
-        "%kernel.project_dir%/vendor/green-symfony/generic-parts-bundle/Resources/views":  GSGenericParts
+        #"%kernel.project_dir%/vendor/green-symfony/generic-parts-bundle/Resources/views":  GSGenericParts
+        #"%kernel.project_dir%/vendor/green-symfony/generic-parts-bundle/Resources":         GSGenericParts

@@ -5,43 +5,43 @@ parameters:
         
 services:
     _defaults:
-        autowire:           true
-        autoconfigure:      true
+        autowire:           false
+        autoconfigure:      false
+        public:             false
         #bind: # only for these services
     
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
-        autoconfigure:          false
-        autowire:               false
-        public:                 false
         class:                  GS\GenericParts\Service\TestService
     ###< TEST SERVICE ###
     
     
     ###> CONTROLLERS ###
+    gs_generic_parts.abstract_controller:
+        abstract:               true
+        public:                 true
+        class:                  GS\GenericParts\Controller\GSAbstractController
+        autowire:               true
+        arguments:
+            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+            
     GS\GenericParts\Controller\ApiUtcDtController:
-        autoconfigure:          false
-        autowire:               false
-        public:                 true
+        parent:                 gs_generic_parts.abstract_controller
         class:                  GS\GenericParts\Controller\ApiUtcDtController
-        arguments:
-            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
-    
+        tags:
+        -   'controller.service_arguments'
+        
     GS\GenericParts\Controller\ApiSetTimezoneController:
-        autoconfigure:          false
-        autowire:               false
-        public:                 true
+        parent:                 gs_generic_parts.abstract_controller
         class:                  GS\GenericParts\Controller\ApiSetTimezoneController
-        arguments:
-            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+        tags:
+        -   'controller.service_arguments'
     ###< CONTROLLERS ###
     
     
     ###> API SERVICES ###
     ###> CARBON ###
     gs_generic_parts.carbon_factory_ru_RU_UTC:
-        autoconfigure:          false
-        autowire:               false
         public:                 true
         class:                  Carbon\FactoryImmutable
         arguments:
@@ -55,8 +55,6 @@ services:
     
     ###> FAKER ###
     gs_generic_parts.faker:
-        autoconfigure:          false
-        autowire:               false
         public:                 true
         class:                  Faker\Factory
         factory:        ['Faker\Factory', 'create']
@@ -68,7 +66,6 @@ services:
     ###> A handy way to get result of a sync message | $result = $thisService(new Message) ###
     gs_generic_parts.sync_message:
         autoconfigure:          true
-        autowire:               false
         public:                 true
         class:                  GS\GenericParts\Messenger\SyncMessage
         arguments:
@@ -78,10 +75,12 @@ services:
     
     
     ###> KERNEL SUBSCRIBER ###
+    gs_generic_parts.exception_subscriber:
+        autoconfigure:          true
+        class:                  GS\GenericParts\EventSubscriber\GSExceptionSubscriber
+    
     gs_generic_parts.init_subscriber:
         autoconfigure:          true
-        autowire:               false
-        public:                 false
         class:                  GS\GenericParts\EventSubscriber\InitSubscriber
         arguments:
             $defaultTimeZone:           '%gs_generic_parts.timezone%'
@@ -94,47 +93,31 @@ services:
     GS\GenericParts\Twig\Component\GSAlertComponent:
         class:                  GS\GenericParts\Twig\Component\GSAlertComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     GS\GenericParts\Twig\Component\GSDtComponent:
         class:                  GS\GenericParts\Twig\Component\GSDtComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
         arguments:
             $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC' 
     GS\GenericParts\Twig\Component\GSNavsComponent:
         class:                  GS\GenericParts\Twig\Component\GSNavsComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     GS\GenericParts\Twig\Component\GSSpriteComponent:
         class:                  GS\GenericParts\Twig\Component\GSSpriteComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     GS\GenericParts\Twig\Component\GSSubmitButtonComponent:
         class:                  GS\GenericParts\Twig\Component\GSSubmitButtonComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     GS\GenericParts\Twig\Component\GSWatchComponent:
         class:                  GS\GenericParts\Twig\Component\GSWatchComponent
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     
     ###> EXTENSION ###
     GS\GenericParts\Twig\Extension\ByteForHumansExtension:
         class:                  GS\GenericParts\Twig\Extension\ByteForHumansExtension
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     GS\GenericParts\Twig\Extension\DefaultExtension:
         class:                  GS\GenericParts\Twig\Extension\DefaultExtension
         autoconfigure:          true
-        autowire:               false
-        public:                 false
         arguments:
             $faker:             '@gs_generic_parts.faker'
             $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC'
@@ -147,15 +130,11 @@ services:
     gs_generic_parts.init_carbon_handler:
         class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
         autoconfigure:          true
-        autowire:               false
-        public:                 false
         arguments:
             $defaultLocale: '%gs_generic_parts.locale%'
     
     GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:
         class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler
         autoconfigure:          true
-        autowire:               false
-        public:                 false
     ###< HANDLERS ###
     ###< MESSENGER ###

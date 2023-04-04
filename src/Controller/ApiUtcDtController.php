@@ -12,13 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApiUtcDtController extends AbstractController
+class ApiUtcDtController extends GSAbstractController
 {
 	public function __construct(
-		private $tzSessionName,
-	) {}
+		$tzSessionName,
+	) {
+		parent::__construct(
+			$tzSessionName,
+		);
+	}
 	
-    #[Route('/api/utc/dt', name: 'gs_generic_parts.api.utc_dt')]
+    #[Route('/api/utc/dt')]
     public function index(
 		Request $request,
 	): JsonResponse {

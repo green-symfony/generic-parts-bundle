@@ -1,3 +1,4 @@
 gs_generic_parts_routes:
     type:           annotation
     resource:       ../../src/Controller
+    prefix:         /gs/generic-parts

@@ -2,7 +2,10 @@
 
 namespace GS\GenericParts\Controller;
 
-use Symfony\Component\Serializer\SerializerInterface;
+use GS\GenericParts\Exception\{
+	GSPOSTRequestDoesnotContainParameter,
+	GSSerializerParseException
+};
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{
@@ -12,28 +15,37 @@ use Symfony\Component\HttpFoundation\{
 };
 use Symfony\Component\Routing\Annotation\Route;
 use Carbon\Carbon;
+use Symfony\Component\Serializer\{
+	SerializerInterface,
+	Serializer
+};
 
-class ApiSetTimezoneController extends AbstractController
+class ApiSetTimezoneController extends GSAbstractController
 {
 	public function __construct(
-        private $tzSessionName,
-	) {}
+		$tzSessionName,
+	) {
+		parent::__construct(
+			$tzSessionName,
+		);
+	}
 	
-	#[Route('/api/set/timezone', name: 'gs_generic_parts.api.set_timezone')]
+	#[Route('/api/set/timezone')]
     public function index(
         Request $request,
         SerializerInterface $serializer,
     ): JsonResponse {
+		try {
+			$data = $serializer->decode($request->getContent(), 'json');
+		} catch (\Exception $e) {
+			throw new GSSerializerParseException;
+		}
 
-        $data = $serializer->decode($request->getContent(), 'json');
-
-        if ($tz = $data['tz']) {
+        if (isset($data['tz']) && ($tz = $data['tz'])) {
             $request->getSession()->set($this->tzSessionName, $tz);
             return new JsonResponse();
         }
 
-        return new JsonResponse([
-            'error' => 'POST request doesn\'t contain "tz" paramenter',
-        ], status: Response::HTTP_PRECONDITION_FAILED);
+        throw new GSPOSTRequestDoesnotContainParameter(params: ['tz']);
     }
 }

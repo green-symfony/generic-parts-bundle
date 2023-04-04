@@ -1,6 +1,6 @@
 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-function gsGenericPartsupdateDtUpdateableFrames() {
+function gsGenericPartsUpdateDtUpdateableFrames() {
 	const $frames = document.querySelectorAll('turbo-frame[data-dt-updateable]');
 	
 	$frames.forEach( $el => {
@@ -21,7 +21,7 @@ fetch('/gs/generic-parts/api/set/timezone', {
 			console.error(`status: ${result.status}, error: ${response.error}`);
 			return;
 		}
-		gsGenericPartsupdateDtUpdateableFrames();
+		gsGenericPartsUpdateDtUpdateableFrames();
 	})
 	.catch(error => {
 		console.error(error);
