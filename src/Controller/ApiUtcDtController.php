@@ -2,6 +2,9 @@
 
 namespace GS\GenericParts\Controller;
 
+use GS\GenericParts\Exception\{
+	GSDateTimeBadLocaleOrTimezoneException
+};
 use function Symfony\Component\String\u;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{
@@ -27,10 +30,15 @@ class ApiUtcDtController extends GSAbstractController
 		Request $request,
 	): JsonResponse {
 		$carbon = Carbon::now();
-		$carbon = $carbon->forUser(
-			locale:	$request->getLocale(),
-			tz:		$request->getSession()->get($this->tzSessionName),
-		);
+		
+		try {
+			$carbon = $carbon->forUser(
+				locale:	$locale		= $request->getLocale(),
+				tz:		$tz			= $request->getSession()->get($this->tzSessionName),
+			);
+		} catch (\Exception $e) {
+			throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
+		}
 		
 		$dt		= (string) u($carbon->isoFormat('dddd, MMMM D, YYYY h:mm:ss A') . ' ['.$carbon->tz.']')->title(true);
 		

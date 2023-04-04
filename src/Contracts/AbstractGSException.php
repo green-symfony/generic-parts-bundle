@@ -2,13 +2,16 @@
 
 namespace GS\GenericParts\Contracts;
 
+use Symfony\Component\HttpFoundation\{
+	Response
+};
 use function Symfony\Component\String\u;
 
 abstract class AbstractGSException extends \Exception
 {
 	###> CAN OVERRIDE IT ###
 	public const MESSAGE		= self::class;
-	public const HTTP_CODE		= 500;
+	public const HTTP_CODE		= Response::HTTP_INTERNAL_SERVER_ERROR;
 	###< CAN OVERRIDE IT ###
 	
 	protected int $httpCode;
@@ -34,9 +37,12 @@ abstract class AbstractGSException extends \Exception
 		$resultMessage				= $message;
 		
 		if (!empty($this->params)) {
+			$params = [];
+			\array_walk($this->params, static function($v, $k) use (&$params) { $params[] = $k.': '.$v; } );
+			
 			$resultMessage			= (
 				(string) u($message)->ensureEnd(': ')
-			) . \implode(', ', $this->params);
+			) . '['.\implode(', ', $params).']';
 		}
 		
 		return $resultMessage;
