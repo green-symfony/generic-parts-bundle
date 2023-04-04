@@ -2,8 +2,12 @@
 
 namespace GS\GenericParts\Controller;
 
+use GS\GenericParts\Service\{
+	DataTimeValidator
+};
 use GS\GenericParts\Exception\{
 	GSPOSTRequestDoesnotContainParameter,
+	GSCarbonInvalidTimezone,
 	GSSerializerParseException
 };
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -41,13 +45,20 @@ class ApiSetTimezoneController extends GSAbstractController
 			throw new GSSerializerParseException;
 		}
 
-        if (isset($data['tz']) && ($tz = $data['tz'])) {
-            $request->getSession()->set($this->tzSessionName, $tz);
-            return new JsonResponse();
-        }
+		if (!isset($data['tz'])) {
+			throw new GSPOSTRequestDoesnotContainParameter(
+				params: ['tz'],
+			);
+		}
+		$tz = $data['tz'];
 
-        throw new GSPOSTRequestDoesnotContainParameter(
-			params: ['tz'],
-		);
-    }
+		if (!DataTimeValidator::isCarbonTimezone($tz)) {
+			throw new GSCarbonInvalidTimezone(
+				params: ['tz' => $tz],
+			);
+		}
+
+		$request->getSession()->set($this->tzSessionName, $tz);
+		return new JsonResponse();
+	}
 }

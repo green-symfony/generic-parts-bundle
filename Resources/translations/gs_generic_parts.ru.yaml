@@ -2,3 +2,4 @@ exception:
     bad_locale_or_timezone:                 "Недопустимый формат локали или временной зоны"
     post_doesnot_contain:                   "POST запрос не содержит параметров"
     serializer_parse:                       "Serializer не смог распарсить содержимое, потому что оно не корректно или пустое"
+    carbon_invalid_timezone:                "Недопустимый формат временной зоны для библиотеки Carbon\\Carbon"
