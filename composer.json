@@ -5,6 +5,11 @@
             "GS\\GenericParts\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GS\\GenericParts\\Tests\\": "tests/"
+        }
+    },
 	"version":		"0.0.0",
     "type":			"symfony-bundle",
     "description":	"Basic components of Symfony application for a web project.",
