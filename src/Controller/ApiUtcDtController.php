@@ -44,6 +44,9 @@ class ApiUtcDtController extends GSAbstractController
 		
 		return $this->json(
 			$dt,
+			context:	[
+				'json_encode_options'		=> \JSON_UNESCAPED_UNICODE,
+			],
 		);
     }
 }
