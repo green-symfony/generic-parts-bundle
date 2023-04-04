@@ -1,5 +1,5 @@
 {
-    "name":			"green-symfony/generic-parts",
+    "name":			"green-symfony/generic-parts-bundle",
     "autoload": {
         "psr-4": {
             "GS\\GenericParts\\": "src/"

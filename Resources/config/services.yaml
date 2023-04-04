@@ -7,22 +7,30 @@ services:
     _defaults:
         autowire:           true
         autoconfigure:      true
-        #bind:           
-    
+        #bind: # only for these services
     
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
-        class:      GS\GenericParts\Service\TestService
+        autoconfigure:          false
+        autowire:               false
+        public:                 false
+        class:                  GS\GenericParts\Service\TestService
     ###< TEST SERVICE ###
     
     
     ###> CONTROLLERS ###
     GS\GenericParts\Controller\ApiUtcDtController:
+        autoconfigure:          false
+        autowire:               false
+        public:                 true
         class:                  GS\GenericParts\Controller\ApiUtcDtController
         arguments:
             $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
     
     GS\GenericParts\Controller\ApiSetTimezoneController:
+        autoconfigure:          false
+        autowire:               false
+        public:                 true
         class:                  GS\GenericParts\Controller\ApiSetTimezoneController
         arguments:
             $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
@@ -32,7 +40,10 @@ services:
     ###> API SERVICES ###
     ###> CARBON ###
     gs_generic_parts.carbon_factory_ru_RU_UTC:
-        class:          Carbon\FactoryImmutable
+        autoconfigure:          false
+        autowire:               false
+        public:                 true
+        class:                  Carbon\FactoryImmutable
         arguments:
         -   locale:                   '%gs_generic_parts.locale%'
             strictMode:               true
@@ -44,7 +55,10 @@ services:
     
     ###> FAKER ###
     gs_generic_parts.faker:
-        class:          Faker\Factory
+        autoconfigure:          false
+        autowire:               false
+        public:                 true
+        class:                  Faker\Factory
         factory:        ['Faker\Factory', 'create']
         arguments:
             - '%gs_generic_parts.locale%'
@@ -53,8 +67,10 @@ services:
     ###> MESSENGER ###
     ###> A handy way to get result of a sync message | $result = $thisService(new Message) ###
     gs_generic_parts.sync_message:
-        public:         false
-        class:          GS\GenericParts\Messenger\SyncMessage
+        autoconfigure:          true
+        autowire:               false
+        public:                 true
+        class:                  GS\GenericParts\Messenger\SyncMessage
         arguments:
             $messageBus:    '@Symfony\Component\Messenger\MessageBusInterface'
     ###< MESSENGER ###
@@ -63,45 +79,83 @@ services:
     
     ###> KERNEL SUBSCRIBER ###
     gs_generic_parts.init_subscriber:
-        public:         false
-        class:          GS\GenericParts\EventSubscriber\InitSubscriber
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
+        class:                  GS\GenericParts\EventSubscriber\InitSubscriber
         arguments:
             $defaultTimeZone:           '%gs_generic_parts.timezone%'
+            $bus:                       '@Symfony\Component\Messenger\MessageBusInterface'
     ###< KERNEL SUBSCRIBER ###
     
     
     ###> TWIG ###
     ###> COMPONENT ###  
-    GS\GenericParts\Twig\Component\GSAlertComponent:            ~
+    GS\GenericParts\Twig\Component\GSAlertComponent:
+        class:                  GS\GenericParts\Twig\Component\GSAlertComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
     GS\GenericParts\Twig\Component\GSDtComponent:
-        class:              GS\GenericParts\Twig\Component\GSDtComponent
-        public:             false
+        class:                  GS\GenericParts\Twig\Component\GSDtComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
         arguments:
             $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC' 
-    GS\GenericParts\Twig\Component\GSNavsComponent:             ~
-    GS\GenericParts\Twig\Component\GSSpriteComponent:           ~
-    GS\GenericParts\Twig\Component\GSSubmitButtonComponent:     ~
-    GS\GenericParts\Twig\Component\GSWatchComponent:            ~
+    GS\GenericParts\Twig\Component\GSNavsComponent:
+        class:                  GS\GenericParts\Twig\Component\GSNavsComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
+    GS\GenericParts\Twig\Component\GSSpriteComponent:
+        class:                  GS\GenericParts\Twig\Component\GSSpriteComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
+    GS\GenericParts\Twig\Component\GSSubmitButtonComponent:
+        class:                  GS\GenericParts\Twig\Component\GSSubmitButtonComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
+    GS\GenericParts\Twig\Component\GSWatchComponent:
+        class:                  GS\GenericParts\Twig\Component\GSWatchComponent
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
     
     ###> EXTENSION ###
-    GS\GenericParts\Twig\Extension\ByteForHumansExtension:      ~
+    GS\GenericParts\Twig\Extension\ByteForHumansExtension:
+        class:                  GS\GenericParts\Twig\Extension\ByteForHumansExtension
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
     GS\GenericParts\Twig\Extension\DefaultExtension:
-        class:              GS\GenericParts\Twig\Extension\DefaultExtension
-        public:             false
+        class:                  GS\GenericParts\Twig\Extension\DefaultExtension
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
         arguments:
             $faker:             '@gs_generic_parts.faker'
             $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC'
+            $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
     ###< TWIG ###
     
     
     ###> MESSENGER ###
     ###> HANDLERS ###
     gs_generic_parts.init_carbon_handler:
-        public:         false
-        class:          GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
+        class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
         arguments:
             $defaultLocale: '%gs_generic_parts.locale%'
     
-    GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:        ~
+    GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:
+        class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler
+        autoconfigure:          true
+        autowire:               false
+        public:                 false
     ###< HANDLERS ###
     ###< MESSENGER ###

@@ -1,3 +1,3 @@
 # documentation
 
-`composer require green-symfony/generic-parts`
+`composer require green-symfony/generic-parts-bundle`
