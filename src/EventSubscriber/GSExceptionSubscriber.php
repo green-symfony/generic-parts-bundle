@@ -2,6 +2,7 @@
 
 namespace GS\GenericParts\EventSubscriber;
 
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use GS\GenericParts\Service\{
 	GSArrayService
 };
