@@ -2,6 +2,9 @@
 
 namespace GS\GenericParts\EventSubscriber;
 
+use GS\GenericParts\Service\{
+	GSArrayService
+};
 use function Symfony\Component\String\u;
 use Symfony\Component\HttpFoundation\{
 	Response,
@@ -56,12 +59,9 @@ class GSExceptionSubscriber implements EventSubscriberInterface
 		$resultMessage			= $this->t->trans($exception->getMessage(), domain: 'gs_generic_parts');
 		
 		if (!empty($exceptionParams = $exception->getParams())) {
-			$params = [];
-			\array_walk($exceptionParams, static function($v, $k) use (&$params) { $params[] = $k.': '.$v; } );
-			
 			$resultMessage			= (
-				(string) u($message)->ensureEnd(': ')
-			) . '['.\implode(', ', $params).']';
+				(string) u($resultMessage)->ensureEnd(': ')
+			) . '['.GSArrayService::getKeyValueString($exceptionParams).']';
 		}
 		
 		return $resultMessage;
