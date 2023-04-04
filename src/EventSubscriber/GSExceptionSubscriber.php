@@ -28,7 +28,13 @@ class GSExceptionSubscriber implements EventSubscriberInterface
 				'code'		=> $code = $exception->getCode(),
 			],
 		];
-		$event->setResponse(new JsonResponse($responseData, $httpCode));
+		$response			= new JsonResponse(
+			$responseData,
+			$httpCode,
+		);
+		$response->setEncodingOptions(\JSON_UNESCAPED_UNICODE);
+		
+		$event->setResponse($response);
     }
 
     public static function getSubscribedEvents(): array

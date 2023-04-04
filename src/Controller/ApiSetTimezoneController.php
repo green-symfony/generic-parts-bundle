@@ -46,6 +46,8 @@ class ApiSetTimezoneController extends GSAbstractController
             return new JsonResponse();
         }
 
-        throw new GSPOSTRequestDoesnotContainParameter(params: ['tz']);
+        throw new GSPOSTRequestDoesnotContainParameter(
+			params: ['tz'],
+		);
     }
 }
