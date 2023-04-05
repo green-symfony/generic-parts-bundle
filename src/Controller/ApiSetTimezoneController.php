@@ -23,6 +23,9 @@ use Symfony\Component\Serializer\{
 	SerializerInterface,
 	Serializer
 };
+use GS\GenericParts\JsonResponse\{
+	GSJsonResponseTimezoneSuccessfullySet
+};
 
 class ApiSetTimezoneController extends GSAbstractController
 {
@@ -38,7 +41,7 @@ class ApiSetTimezoneController extends GSAbstractController
     public function index(
         Request $request,
         SerializerInterface $serializer,
-    ): JsonResponse {
+    ) {
 		try {
 			$data = $serializer->decode($request->getContent(), 'json');
 		} catch (\Exception $e) {
@@ -59,6 +62,9 @@ class ApiSetTimezoneController extends GSAbstractController
 		}
 
 		$request->getSession()->set($this->tzSessionName, $tz);
-		return new JsonResponse();
+		
+		return new GSJsonResponseTimezoneSuccessfullySet(
+			params: [$tz],
+		);
 	}
 }

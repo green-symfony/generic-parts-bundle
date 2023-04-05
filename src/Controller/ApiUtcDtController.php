@@ -28,7 +28,7 @@ class ApiUtcDtController extends GSAbstractController
     #[Route('/api/utc/dt')]
     public function index(
 		Request $request,
-	): JsonResponse {
+	) {
 		$carbon = Carbon::now();
 		
 		try {

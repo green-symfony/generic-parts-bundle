@@ -79,7 +79,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 			$container,
 			new FileLocator(
 				[
-					__DIR__.'/../Resources/'.$relPath,
+					__DIR__.'/../'.$relPath,
 				],
 			),
 		);

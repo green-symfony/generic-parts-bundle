@@ -79,9 +79,9 @@ services:
     
     
     ###> KERNEL SUBSCRIBER ###
-    gs_generic_parts.exception_subscriber:
+    gs_generic_parts.json_response_subscriber:
         autoconfigure:          true
-        class:                  GS\GenericParts\EventSubscriber\GSExceptionSubscriber
+        class:                  GS\GenericParts\EventSubscriber\GSJsonResponseSubscriber
         arguments:
             $t:                         '@translator.data_collector'
         

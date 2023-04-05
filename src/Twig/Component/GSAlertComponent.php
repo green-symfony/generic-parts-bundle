@@ -70,18 +70,6 @@ class GSAlertComponent
         return $resolver->resolve($data);
     }
 
-    /*
-    #[ExposeInTemplate('currentDT')]
-    public function getCurrentDataTime() {
-        return 'someData';
-    }
-
-    public function setMessage($message)
-    {
-        $this->message = '['.$message.']';
-    }
-    */
-
     // >>> helpers >>>
 
     protected function configureOptions(OptionsResolver $resolver)

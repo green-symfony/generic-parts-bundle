@@ -1,0 +1,25 @@
+{#
+	Usage:
+		{{ component('gs_alert', {
+			message:			'',
+
+			delay:				3000,
+			isTop:				false,
+			type:				'success',
+			isFlash:			true,
+			containerAttribute:	'',
+			containerClass:		'',
+			messageClass:		'',
+			messageStyle:		'',
+		}) }}
+#}
+
+<div {{ containerInnerAttribute ~ ' ' ~ containerAttribute }} class="alert alert-{{ type ~ ' ' ~ containerClass ~ ' ' ~ containerInnerClass }}">
+	<div
+		class="{{ messageClass }}"
+		style="{{ messageStyle }}"
+		role="alert"
+	>
+		{{ message }}
+	</div>
+</div>

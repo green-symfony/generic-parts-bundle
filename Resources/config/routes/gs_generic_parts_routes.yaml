@@ -1,2 +1,0 @@
-gs_generic_parts_routes:
-    resource:       '@GSGenericPartsBundle/Resources/config/routes.yaml'

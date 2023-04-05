@@ -15,6 +15,11 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 class GSGenericPartsBundle extends Bundle
 {
+	public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+	
 	public function build(ContainerBuilder $container)
     {
 		$container
@@ -31,22 +36,4 @@ class GSGenericPartsBundle extends Bundle
 		
 		return $this->extension;
 	}
-	
-	public function getPath(): string
-    {
-        return \dirname(__DIR__);
-    }
-	
-	/*
-	public function loadExtension(
-		array $config,
-		ContainerConfigurator $containerConfigurator,
-		ContainerBuilder $containerBuilder,
-	): void {
-		//\dd(\func_get_args());
-		
-		$containerConfigurator->import('../config/services.yaml');
-		$containerConfigurator->import('../config/routes.yaml');
-	}
-	*/
 }
