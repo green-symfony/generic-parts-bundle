@@ -1,0 +1,31 @@
+{
+    "name": "@green-symfony/generic-parts",
+    "version": "0.0.0",
+    "devDependencies": {
+        "@babel/cli": "^7.20.7",
+        "@babel/core": "^7 || ^6 || ^5",
+        "@babel/plugin-proposal-class-properties": "^7 || ^6 || ^5",
+        "@babel/preset-env": "^7 || ^6 || ^5",
+        "@hotwired/stimulus": "^3 || ^2",
+        "@symfony/webpack-encore": "^4 || ^3",
+        "core-js": "^3 || ^2",
+        "regenerator-runtime": "^1 || ^0",
+        "sass": "^1 || ^0",
+        "sass-loader": "^13 || ^12 || ^11",
+        "webpack": "^5 || ^4 || ^3",
+        "webpack-cli": "^4 || ^3 || ^2",
+        "webpack-notifier": "^1"
+    },
+    "peerDependencies": {
+        "@popperjs/core": "^2 || ^1",
+        "axios": "^1",
+        "bootstrap": "^5 || ^4 || ^3 || ^2",
+        "dotenv-webpack": "^8 || ^7 || ^6",
+        "fa-icon-element": "^1",
+        "stimulus-use": "^0.52.0",
+        "turbo": "^1.8.8"
+    },
+    "dependencies": {
+        "bootstrap": "^5.2.3"
+    }
+}

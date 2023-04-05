@@ -37,7 +37,7 @@ class ApiSetTimezoneController extends GSAbstractController
 		);
 	}
 	
-	#[Route('/api/set/timezone')]
+	#[Route('/api/set/timezone', priority: 0)]
     public function index(
         Request $request,
         SerializerInterface $serializer,

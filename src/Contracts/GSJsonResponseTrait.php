@@ -19,10 +19,6 @@ trait GSJsonResponseTrait
 		$this->httpCode			= $httpCode		?? static::HTTP_CODE;
 	}
 	
-	public function getMessage(): string {
-		return $this->message;
-	}
-	
 	public function getHttpCode(): int {
 		return $this->httpCode;
 	}

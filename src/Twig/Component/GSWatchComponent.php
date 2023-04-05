@@ -31,4 +31,23 @@ use Symfony\UX\LiveComponent\{
 class GSWatchComponent extends AbstractController
 {
     public $intervalMs			= 1000;
+	public $attr				= [
+		'class'		=> 'fs-6 d-inline badge text-bg-dark',
+		'style'		=> "font-family: gs-default, times-new-roman;",
+	];
+	
+	public function mount(
+		?array $attr = null,
+    ) {
+		if ($attr !== null) $this->assignAttr($attr);
+	}
+	
+	//###> HELPER ###
+	
+	private function assignAttr(array $attr): void
+	{
+		$attr					= \array_replace($this->attr, $attr);
+		
+		$this->attr				= $attr;
+	}
 }

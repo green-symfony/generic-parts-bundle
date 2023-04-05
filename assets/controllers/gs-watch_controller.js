@@ -6,17 +6,19 @@ import axios from 'axios';
 export default class extends Controller {
 	static values = {
 		intervalMs:		{type: Number, default: 1000},
+		attrString:		{type: String, default: ''},
 	};
 	
+	/*
+		first call in interval
+	*/
     static throttles = [
 		'triggerView',
 	];
 	
-	callback		= null;
 	timer			= null;
 	
 	connect() {
-		debugger;
 		useThrottle(this, {
 			wait:			this.intervalMsValue,
 		});
@@ -28,8 +30,7 @@ export default class extends Controller {
 	}
 
 	appear(entry) {
-		this.callback		= this.triggerView.bind(this);
-		this.timer			= setInterval(this.callback, 0);		
+		this.timer			= setInterval(this.triggerView.bind(this), 0);		
 	}
 	
 	disappear(entry) {
@@ -42,7 +43,8 @@ export default class extends Controller {
 	
 	async triggerView() {
 		const dt = await axios.get('/gs/generic-parts/api/utc/dt');
-		this.element.innerHTML = '<span class="display-6">'+dt.data+'</span>';
+		//this.element.innerHTML = '<span style="font-family: albertus;" class="fs-4">'+dt.data+'</span>';
+		this.element.innerHTML = '<span '+this.attrStringValue+'>'+dt.data+'</span>';
 	}
 	
 	clearInterval() {

@@ -13,5 +13,9 @@ abstract class AbstractGSJsonResponse implements GSJsonResponseInterface
 	
 	protected string $message;
 	
+	public function getMessage(): string {
+		return $this->message;
+	}
+	
 	###> HELPER ###
 }

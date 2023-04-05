@@ -46,7 +46,7 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
 	public function arrayToAttribute(
         array $input,
     ): string {
-        \array_walk($input, static fn(&$v, $k) => $v = $k . '=' . $v);
+        \array_walk($input, static fn(&$v, $k) => $v = $k . '="' . $v.'"');
         return \implode(' ', $input);
     }
 

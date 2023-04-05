@@ -2,12 +2,18 @@
 	Usage:
 		{{ component('gs_watch', {
 			intervalMs:				1000,
+			
+			attr:					{
+				class:		'',
+				style:		'',
+			},
 		}) }}
 #}
 
 <div
 	{{ stimulus_controller('gs-watch', {
-		intervalMs
+		intervalMs,
+		attrString:		attr|gs_array_to_attribute,
 	}) }}
 	class="d-block"
 >
