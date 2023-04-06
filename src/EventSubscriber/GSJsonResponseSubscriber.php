@@ -45,7 +45,7 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 			'http_code' => $httpCode = $controllerResult->getHttpCode(),
 		];
 		
-		$event->endProcess($event, $responseData, $httpCode);
+		$this->endProcess($event, $responseData, $httpCode);
 	}
 	
     public function onKernelException(ExceptionEvent $event): void
@@ -64,7 +64,7 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 			],
 		];
 		
-		$event->endProcess($event, $responseData, $httpCode);
+		$this->endProcess($event, $responseData, $httpCode);
     }
 
     public static function getSubscribedEvents(): array
