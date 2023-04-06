@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class GSCarbonService
 {
 	public static function forUser(
-		\Carbon $origin,
+		Carbon $origin,
 		\DateTime $sourceOfMeta = null,
 		string $tz = null,
 		string $locale = null,
