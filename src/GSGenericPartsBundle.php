@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass;
 
 class GSGenericPartsBundle extends Bundle
 {
@@ -24,8 +25,8 @@ class GSGenericPartsBundle extends Bundle
     {
 		parent::build($container);
 		$container
-			->addCompilerPass(new AddEventAliasPass([
-			]))
+			//->addCompilerPass(new ResolveEnvPlaceholdersPass)
+			->addCompilerPass(new AddEventAliasPass([]))
 		;
     }
 

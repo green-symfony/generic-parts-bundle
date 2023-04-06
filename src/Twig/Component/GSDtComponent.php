@@ -27,49 +27,27 @@ use Symfony\UX\LiveComponent\{
 };
 
 #[AsTwigComponent('gs_dt', template: '@GSGenericParts/components/gs_dt.html.twig')]
-class GSDtComponent extends AbstractController
+class GSDtComponent extends AbstractTwigComponent
 {
-    public const PUBLIC_DATA = [
-        'dt' => '',
-        'tz' => '',
-    ];
     public $dt;
     public $tz = '';
 
-    #[PreMount]
-    public function preMount(array $data)
-    {
-        return $this->resolveData($data);
-    }
-
     public function __construct(
         private $carFacImm,
+        private $timezone,
     ) {
     }
 
-    // >>> h >>>
-
-    public function resolveData(array $data = [])
+    // ###> HELPER ###
+    protected function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-        return $resolver->resolve($data);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-		$setDefaults = ['tz'];
-		
         $resolver
-            ->setDefaults(
-				\array_intersect_key(
-					self::PUBLIC_DATA,
-					\array_combine($setDefaults, $setDefaults),
-				)
-			)
+            ->setDefaults([
+				'tz'		=> $this->timezone,				
+			])
             ->setRequired('dt')
-            ->setAllowedTypes('dt', [\DateTime::class,			'null'])
-            ->setAllowedTypes('tz', ['string',					'null'])
+            ->setAllowedTypes('dt', [\DateTime::class, \DateTimeImmutable::class,			'null'])
+            ->setAllowedTypes('tz', ['string',												'null'])
         ;
     }
 }

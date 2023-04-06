@@ -19,7 +19,7 @@
 			"email":		"son5-29@mail.ru"
         }
     ],
-    "keywords":		["GSC", "green-symfony", "general-parts", "symfony-ux"],
+    "keywords":		["green-symfony", "general-parts", "symfony-ux"],
     "license":		"MIT",
     "require":		{
         "php": ">=7",
@@ -68,7 +68,8 @@
         "twig/intl-extra": "^3|^2|^1",
         "symfony/twig-bridge": "^6|^5|^4|^3",
         "symfony/security-core": "^6|^5|^4",
-        "symfony/security-bundle": "^6|^5|^4"
+        "symfony/security-bundle": "^6|^5|^4",
+        "symfony/dotenv": "^6|^5|^4|^3"
     },
     "config": {
         "allow-plugins": {

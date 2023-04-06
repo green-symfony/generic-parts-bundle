@@ -2,6 +2,9 @@
 
 namespace GS\GenericParts\Controller;
 
+use GS\GenericParts\Service\{
+	GSCarbonService
+};
 use GS\GenericParts\Exception\{
 	GSDateTimeBadLocaleOrTimezoneException
 };
@@ -43,9 +46,7 @@ class ApiUtcDtController extends GSAbstractController
 		
 		//$devLogger->info('LOCALE', [$locale]);
 		
-		$tz		= $carbon->tz;
-		
-		$dt		= (string) u($carbon->isoFormat('dddd, MMMM D, YYYY h:mm:ss A') . ' ['.$tz.']')->title(true);
+		$dt		= GSCarbonService::isoFormat($carbon);
 		
 		return $this->json(
 			$dt,

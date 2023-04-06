@@ -29,7 +29,15 @@ use Symfony\UX\LiveComponent\{
 };
 
 #[AsTwigComponent('gs_sprite', template: '@GSGenericParts/components/gs_sprite.html.twig')]
-class GSSpriteComponent extends AbstractController
+class GSSpriteComponent extends AbstractTwigComponent
 {
     public string $id;
+	
+	protected function configureOptions(OptionsResolver $resolver): void {
+		$resolver
+			->setRequired([
+				'id',
+			])
+		;
+	}
 }

@@ -2,6 +2,9 @@
 
 namespace GS\GenericParts\Twig\Extension;
 
+use GS\GenericParts\Contracts\{
+	GSIsoFormat
+};
 use GS\GenericParts\Service\{
 	GSCarbonService,
 	GSBufferService,
@@ -92,27 +95,23 @@ class DefaultExtension extends AbstractExtension
 	}
 	
     public function forUser(
-        \DateTime $data,
-        string $tz = null,
-        string $locale = null,
-        string $iso = 'LLL',
-        Request $request = null,
+        \DateTime|\DateTimeImmutable $data,
+        ?string $tz = null,
+        ?string $locale = null,
+        \DateTime|\DateTimeImmutable $sourceOfMeta = null,
+        ?GSIsoFormat $isoFormat = null,
+        ?Request $request = null,
     ) {
-        $cloneDateTime = $this->carFacImm->make($data)->toMutable();
+        $carbon			= $this->carFacImm->make($data)->toMutable();
         
-		$cloneDateTime = GSCarbonService::forUser(
-			origin:				$cloneDateTime,
+		$carbon	= GSCarbonService::forUser(
+			origin:				$carbon,
 			sourceOfMeta:		$sourceOfMeta,
 			tz:					$tz,
-			locale:				$locale,
+			locale:				$request?->attributes?->get('_locale'),
 		);
-		$cloneDateTime->tz($tz ?? $cloneDateTime->tz())->locale($locale ?? $cloneDateTime->locale());
-        if ($request && $locale = $request->attributes->get('_locale')) {
-            $cloneDateTime->locale($locale);
-        };
-        unset($locale);
-
-        return $cloneDateTime->isoFormat($iso);
+		
+        return GSCarbonService::isoFormat($carbon, $isoFormat);
     }
 
     public function echo($string)

@@ -29,7 +29,6 @@ export default class extends Controller {
 	timer			= null;
 	
 	connect() {
-		console.log('connect with gs_watch');
 		useThrottle(this, {
 			wait:			this.intervalMsValue,
 		});

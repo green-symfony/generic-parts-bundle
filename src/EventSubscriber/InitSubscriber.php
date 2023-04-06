@@ -41,14 +41,8 @@ class InitSubscriber implements EventSubscriberInterface
 	//###> EVENTS ###
 	public function onKernelRequest(RequestEvent $event)
     {
-		$url		= $event->getRequest()->getBaseUrl() . $event->getRequest()->getPathInfo();
-		
-        if ($event->isMainRequest()) {
-			$this->handleRequest($event);
-			$this->devLogger->info('MAIN REQUEST', [$url]);
-			return;
-		}
-		$this->devLogger->info('SUB REQUEST', [$url]);
+		//$url		= $event->getRequest()->getBaseUrl() . $event->getRequest()->getPathInfo();
+		$this->handleRequest($event);
     }
 	//###< EVENTS ###
 

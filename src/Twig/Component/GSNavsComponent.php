@@ -19,7 +19,7 @@ use Symfony\UX\TwigComponent\Attribute\{
 };
 
 #[AsTwigComponent('gs_navs', template: '@GSGenericParts/components/gs_navs.html.twig')]
-class GSNavsComponent
+class GSNavsComponent extends AbstractTwigComponent
 {
     public array $options = [
         // only one required
@@ -44,17 +44,9 @@ class GSNavsComponent
         $this->setDefaults($options);
     }
 
-    #[preMount(priority: 0)]
-    public function preMount(array $data)
-    {
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-        return $resolver->resolve($data);
-    }
-
     // >>> helpers >>>
 
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

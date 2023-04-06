@@ -2,20 +2,41 @@
 
 namespace GS\GenericParts\Service;
 
-use Carbon\Carbon;
+use Carbon\{
+	Carbon,
+	CarbonImmutable
+};
+use function Symfony\Component\String\u;
+use GS\GenericParts\Contracts\{
+	GSIsoFormat
+};
+use GS\GenericParts\IsoFormat\{
+	GSLLLIsoFormat
+};
 
 class GSCarbonService
 {
+	public static function isoFormat(
+		Carbon|CarbonImmutable $carbon,
+		?GSIsoFormat $isoFormat = null,
+		bool $isTitle = true,
+	): string {
+		$isoFormat	??= new GSLLLIsoFormat;
+		$tz			= $carbon->tz;
+		
+		return (string) u($carbon->isoFormat($isoFormat::get()) . ' ['.$tz.']')->title($isTitle);
+	}
+	
 	public static function forUser(
-		Carbon $origin,
-		\DateTime $sourceOfMeta = null,
-		string $tz = null,
-		string $locale = null,
+		Carbon|CarbonImmutable $origin,
+		\DateTimeImmutable|\DateTime $sourceOfMeta = null,
+		?string $tz = null,
+		?string $locale = null,
 	): Carbon {
-		$cloneOrigin			= $origin->clone();
+		$carbonClone			= ($origin instanceof Carbon) ? $origin->clone() : $origin;
 		return $sourceOfMeta ?
-			$cloneOrigin->tz($sourceOfMeta->tz)->locale($sourceOfMeta->locale) :
-			$cloneOrigin->tz($tz ?? $cloneOrigin->tz)->locale($locale ?? $cloneOrigin->locale)
+			$carbonClone->tz($sourceOfMeta->tz)->locale($sourceOfMeta->locale) :
+			$carbonClone->tz($tz ?? $carbonClone->tz)->locale($locale ?? $carbonClone->locale)
 		;
 	}
 }

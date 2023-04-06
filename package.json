@@ -1,6 +1,14 @@
 {
     "name": "@green-symfony/generic-parts",
-    "version": "0.0.0",
+	"version":	"0.0.0",
+	"symfony": {
+        "controllers": {
+            "gs_watch": {
+                "enabled":			true,
+                "fetch":			"lazy"
+            }
+        }
+    },
     "devDependencies": {
         "@babel/core": "^7.21.4",
         "@babel/preset-env": "^7.21.4",

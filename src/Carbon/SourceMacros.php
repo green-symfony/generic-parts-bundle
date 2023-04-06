@@ -19,7 +19,7 @@ class SourceMacros
     public static function forUser()
     {
         return static function (
-            \DateTime $sourceOfMeta = null,
+            \DateTime|\DateTimeImmutable $sourceOfMeta = null,
             string $tz = null,
             string $locale = null,
         ): \DateTime {
