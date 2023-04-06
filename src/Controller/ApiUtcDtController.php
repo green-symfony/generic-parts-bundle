@@ -28,6 +28,7 @@ class ApiUtcDtController extends GSAbstractController
     #[Route('/api/utc/dt')]
     public function index(
 		Request $request,
+		$devLogger,
 	) {
 		$carbon = Carbon::now();
 		
@@ -40,12 +41,14 @@ class ApiUtcDtController extends GSAbstractController
 			throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
 		}
 		
-		$dt		= (string) u($carbon->isoFormat('dddd, MMMM D, YYYY h:mm:ss A') . ' ['.$carbon->tz.']')->title(true);
+		$tz		= $carbon->tz;
+		
+		$dt		= (string) u($carbon->isoFormat('dddd, MMMM D, YYYY h:mm:ss A') . ' ['.$tz.']')->title(true);
 		
 		return $this->json(
 			$dt,
 			context:	[
-				'json_encode_options'		=> \JSON_UNESCAPED_UNICODE,
+				'json_encode_options'		=> \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
 			],
 		);
     }

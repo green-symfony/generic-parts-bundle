@@ -22,10 +22,12 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	public function prepend(ContainerBuilder $container)
 	{
 		foreach([
-			['config/packages',		'twig.yaml'],
+			['config/packages',		'monolog.yaml'],
 			['config/packages',		'messenger.yaml'],
 			['config/packages',		'framework.yaml'],
 			['config/packages',		'translation.yaml'],
+			['config',				'services.yaml'],
+			['config/packages',		'twig.yaml'],
 		] as [$relPath, $filename]) {
 			$this->loadYaml($container, $relPath, $filename);			
 		}
@@ -38,7 +40,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	*/
 	public function loadInternal(array $config, ContainerBuilder $container)
 	{
-		$this->loadYaml($container, 'config', 'services.yaml');
+		//$this->loadYaml($container, 'config', 'services.yaml');
 		$this->fillInServiceArgumentsWithConfigOfCurrentBundle($config, $container);
 		$this->registerBundleTagsForAutoconfiguration($container);
 		/*

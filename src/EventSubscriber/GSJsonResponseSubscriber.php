@@ -45,9 +45,7 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 			'http_code' => $httpCode = $controllerResult->getHttpCode(),
 		];
 		
-		$event->setResponse($this->getJsonResponse($responseData, $httpCode));
-		
-		$this->end($event);
+		$event->endProcess($event, $responseData, $httpCode);
 	}
 	
     public function onKernelException(ExceptionEvent $event): void
@@ -66,9 +64,7 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 			],
 		];
 		
-		$event->setResponse($this->getJsonResponse($responseData, $httpCode));
-		
-		$this->end($event);
+		$event->endProcess($event, $responseData, $httpCode);
     }
 
     public static function getSubscribedEvents(): array
@@ -81,12 +77,21 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 	
 	//###> HELPER ###
 	
-	private function getJsonResponse(array|string|int $data, int $httpCode): JsonResponse {
+	private function endProcess(
+		Event $event,
+		$responseData,
+		int $httpCode,
+	): void {
+		$event->setResponse($this->getJsonResponse($responseData, $httpCode));
+		$event->stopPropagation();
+	}
+	
+	private function getJsonResponse($data, int $httpCode): JsonResponse {
 		$response			= new JsonResponse(
 			$data,
 			$httpCode,
 		);
-		$response->setEncodingOptions(\JSON_UNESCAPED_UNICODE);
+		$response->setEncodingOptions(\JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);
 		return $response;
 	}
 	
@@ -100,9 +105,5 @@ class GSJsonResponseSubscriber implements EventSubscriberInterface
 		}
 		
 		return $resultMessage;
-	}
-	
-	private function end(Event $event): void {
-		$event->stopPropagation();
 	}
 }

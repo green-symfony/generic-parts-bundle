@@ -2,11 +2,21 @@ import { Controller } from '@hotwired/stimulus';
 import { useIntersection, useThrottle, useDebounce } from 'stimulus-use';
 import axios from 'axios';
 
+/*
+	Usage:
+		<div
+			{{ stimulus_controller('gs-watch', {
+				intervalMs,
+			}) }}
+		>
+			{# It'll write here #}
+		/div>
+*/
+
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
 	static values = {
 		intervalMs:		{type: Number, default: 1000},
-		attrString:		{type: String, default: ''},
 	};
 	
 	/*
@@ -43,8 +53,7 @@ export default class extends Controller {
 	
 	async triggerView() {
 		const dt = await axios.get('/gs/generic-parts/api/utc/dt');
-		//this.element.innerHTML = '<span style="font-family: albertus;" class="fs-4">'+dt.data+'</span>';
-		this.element.innerHTML = '<span '+this.attrStringValue+'>'+dt.data+'</span>';
+		this.element.textContent = dt.data;
 	}
 	
 	clearInterval() {

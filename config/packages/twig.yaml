@@ -1,0 +1,3 @@
+twig:
+    globals:
+        gs_generic_parts.timezone_session_name:               '%gs_generic_parts.timezone_session_name%'

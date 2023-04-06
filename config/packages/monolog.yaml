@@ -1,0 +1,21 @@
+monolog:
+    channels:
+    
+        - gs_generic_parts.debugger
+        
+    handlers:
+        
+        gs_generic_parts.debugger:
+            type:           rotating_file
+            max_files:      1
+            path:           "%kernel.logs_dir%/gs_generic_parts_%kernel.environment%_debugger.log"
+            level:          debug
+            channels:       ["gs_generic_parts.debugger"]
+            
+when@prod:
+
+    handlers:
+        
+        gs_generic_parts.debugger:
+            type:           ~
+            channels:       ["gs_generic_parts.debugger"]

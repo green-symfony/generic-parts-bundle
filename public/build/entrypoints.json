@@ -1,0 +1,14 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/public/bundles/gsgenericparts/build/runtime.js",
+        "/public/bundles/gsgenericparts/build/vendors-node_modules_hotwired_turbo_dist_turbo_es2017-esm_js-node_modules_symfony_stimulus-br-8d4438.js",
+        "/public/bundles/gsgenericparts/build/app.js"
+      ],
+      "css": [
+        "/public/bundles/gsgenericparts/build/app.css"
+      ]
+    }
+  }
+}

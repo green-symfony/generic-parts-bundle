@@ -24,17 +24,17 @@
     "require":		{
         "php": ">=7",
 		"fzaninotto/faker": "^1.5",
-		"nesbot/carbon": "^2.66",
+		"nesbot/carbon": "^2|^1",
         "symfony/filesystem": "^7|^6|^5|^4",
         "symfony/yaml": "^7|^6|^5|^4",
         "symfony/http-foundation": "^7|^6|^5|^4",
         "doctrine/migrations": "^3|^2",
         "symfony/asset": "^7|^6|^5|^4",
         "symfony/console": "^7|^6|^5|^4",
-        "symfony/dependency-injection": "^7|^6|^5|^4",
+        "symfony/dependency-injection": "^6|^5|^4",
         "symfony/config": "^7|^6|^5|^4",
         "symfony/polyfill-intl-grapheme": "^1.27",
-        "symfony/deprecation-contracts": "^3.2",
+        "symfony/deprecation-contracts": "^3|^2",
         "symfony/error-handler": "^7|^6|^5|^4",
         "symfony/event-dispatcher-contracts": "^3|^2",
         "doctrine/annotations": "^3|^2",
@@ -57,11 +57,18 @@
         "symfony/webpack-encore-bundle": "^1",
         "symfony/serializer-pack": "^1.2",
         "symfony/serializer": "^6|^5|^4",
-        "symfony/translation": "^6|^5|^4"
+        "symfony/translation": "^6|^5|^4",
+        "symfony/runtime": "^6|^5|^4",
+        "symfony/form": "^6|^5|^4",
+        "symfony/monolog-bundle": "^3|^2|^1"
     },
     "config": {
         "allow-plugins": {
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "symfony/runtime": true
         }
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.48"
     }
 }

@@ -8,8 +8,9 @@ services:
         autowire:           false
         autoconfigure:      false
         public:             false
-        #bind: # only for these services
-    
+        bind:
+            $devLogger:         '@monolog.logger.gs_generic_parts.debugger'
+            
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
         class:                  GS\GenericParts\Service\TestService
@@ -24,6 +25,9 @@ services:
         autowire:               true
         arguments:
             $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+        calls:
+        -   setContainer:
+            -   '@service_container'
             
     GS\GenericParts\Controller\ApiUtcDtController:
         parent:                 gs_generic_parts.abstract_controller
@@ -83,7 +87,7 @@ services:
         autoconfigure:          true
         class:                  GS\GenericParts\EventSubscriber\GSJsonResponseSubscriber
         arguments:
-            $t:                         '@translator.data_collector'
+            $t:                         '@translator.default'
         
     gs_generic_parts.init_subscriber:
         autoconfigure:          true

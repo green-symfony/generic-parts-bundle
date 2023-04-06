@@ -2,12 +2,10 @@
     "name": "@green-symfony/generic-parts",
     "version": "0.0.0",
     "devDependencies": {
-        "@babel/cli": "^7.20.7",
-        "@babel/core": "^7 || ^6 || ^5",
-        "@babel/plugin-proposal-class-properties": "^7 || ^6 || ^5",
-        "@babel/preset-env": "^7 || ^6 || ^5",
-        "@hotwired/stimulus": "^3 || ^2",
-        "@symfony/webpack-encore": "^4 || ^3",
+        "@babel/core": "^7.21.4",
+        "@babel/preset-env": "^7.21.4",
+        "@hotwired/stimulus": "^3.2.1",
+        "@symfony/webpack-encore": "^4.2.0",
         "core-js": "^3 || ^2",
         "regenerator-runtime": "^1 || ^0",
         "sass": "^1 || ^0",
@@ -16,16 +14,17 @@
         "webpack-cli": "^4 || ^3 || ^2",
         "webpack-notifier": "^1"
     },
-    "peerDependencies": {
+    "dependencies": {
+        "@hotwired/turbo": "^7.3.0",
         "@popperjs/core": "^2 || ^1",
+        "@symfony/stimulus-bridge": "^3.2.2",
         "axios": "^1",
-        "bootstrap": "^5 || ^4 || ^3 || ^2",
+        "babel-loader": "^9.1.2",
+        "bootstrap": "^5.2.3",
         "dotenv-webpack": "^8 || ^7 || ^6",
         "fa-icon-element": "^1",
-        "stimulus-use": "^0.52.0",
-        "turbo": "^1.8.8"
-    },
-    "dependencies": {
-        "bootstrap": "^5.2.3"
+        "stimulus-use": "^0",
+        "sweetalert2": "^11.7.3",
+        "turbo": "^1"
     }
 }

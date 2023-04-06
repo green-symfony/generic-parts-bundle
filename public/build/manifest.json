@@ -1,0 +1,16 @@
+{
+  "bundles/gsgenericparts/app.css": "/public/bundles/gsgenericparts/build/app.css",
+  "bundles/gsgenericparts/app.js": "/public/bundles/gsgenericparts/build/app.js",
+  "bundles/gsgenericparts/runtime.js": "/public/bundles/gsgenericparts/build/runtime.js",
+  "bundles/gsgenericparts/assets_controllers_gs-hello_controller_js.js": "/public/bundles/gsgenericparts/build/assets_controllers_gs-hello_controller_js.js",
+  "bundles/gsgenericparts/assets_controllers_gs-watch_controller_js.js": "/public/bundles/gsgenericparts/build/assets_controllers_gs-watch_controller_js.js",
+  "bundles/gsgenericparts/vendors-node_modules_hotwired_turbo_dist_turbo_es2017-esm_js-node_modules_symfony_stimulus-br-8d4438.js": "/public/bundles/gsgenericparts/build/vendors-node_modules_hotwired_turbo_dist_turbo_es2017-esm_js-node_modules_symfony_stimulus-br-8d4438.js",
+  "bundles/gsgenericparts/vendors-node_modules_stimulus-use_dist_index_js-node_modules_axios_lib_axios_js.js": "/public/bundles/gsgenericparts/build/vendors-node_modules_stimulus-use_dist_index_js-node_modules_axios_lib_axios_js.js",
+  "bundles/gsgenericparts/fonts/AlbertusNova.eot": "/public/bundles/gsgenericparts/build/fonts/AlbertusNova.442996e2.eot",
+  "bundles/gsgenericparts/fonts/AlbertusNova.ttf": "/public/bundles/gsgenericparts/build/fonts/AlbertusNova.9efb7f7f.ttf",
+  "bundles/gsgenericparts/fonts/Roboto-Regular.ttf": "/public/bundles/gsgenericparts/build/fonts/Roboto-Regular.25e40da9.ttf",
+  "bundles/gsgenericparts/fonts/AlbertusNova.woff": "/public/bundles/gsgenericparts/build/fonts/AlbertusNova.dfe97bf6.woff",
+  "bundles/gsgenericparts/fonts/Roboto-Regular.woff": "/public/bundles/gsgenericparts/build/fonts/Roboto-Regular.31012f9b.woff",
+  "bundles/gsgenericparts/fonts/AlbertusNova.woff2": "/public/bundles/gsgenericparts/build/fonts/AlbertusNova.0bf7d147.woff2",
+  "bundles/gsgenericparts/fonts/Roboto-Regular.woff2": "/public/bundles/gsgenericparts/build/fonts/Roboto-Regular.a2580627.woff2"
+}

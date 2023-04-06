@@ -1,2 +1,2 @@
-gs_generic_parts_routes:
-    resource:       '@GSGenericPartsBundle/config/routes.yaml'
+#gs_generic_parts_routes:
+#    resource:       '@GSGenericPartsBundle/config/routes.yaml'

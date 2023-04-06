@@ -13,9 +13,11 @@
 <div
 	{{ stimulus_controller('gs-watch', {
 		intervalMs,
-		attrString:		attr|gs_array_to_attribute,
 	}) }}
-	class="d-block"
+	{{ attr|gs_array_to_attribute|raw }}
 >
+	{{ render(controller('GS\\GenericParts\\Controller\\ApiUtcDtController::index'))|trim('" \'')|raw }}
+	{#
 	{{ include('@GSGenericParts/templates/_placeholder.html.twig') }}
+	#}
 </div>
