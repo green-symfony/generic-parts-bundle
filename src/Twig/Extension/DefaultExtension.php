@@ -4,8 +4,8 @@ namespace GS\GenericParts\Twig\Extension;
 
 use GS\GenericParts\Service\{
 	GSCarbonService,
-	BufferService,
-	HtmlService
+	GSBufferService,
+	GSHtmlService
 };
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\{
@@ -38,7 +38,7 @@ class DefaultExtension extends AbstractExtension
     }
 	
 	public function binary_img(string $input) {
-		return HtmlService::getImgHtmlByBinary($input);
+		return GSHtmlService::getImgHtmlByBinary($input);
 	}
 	
 	public function trim(mixed $input, ?string $string = null) {
@@ -81,7 +81,7 @@ class DefaultExtension extends AbstractExtension
 	
     public function clearOutputBuffer(): void
     {
-		BufferService::clear();
+		GSBufferService::clear();
     }
 
 
@@ -135,7 +135,7 @@ class DefaultExtension extends AbstractExtension
     public function lorem(
         int $quantity = 1000,
     ): string {
-        return $this->faker->realText($quantity);
+		return $this->faker->realText($quantity);
     }
 	
     //###< FUNCTIONS ###

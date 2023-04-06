@@ -1,8 +1,8 @@
 parameters:
     gs_generic_parts.timezone:                          'UTC'
     gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
-    gs_generic_parts.locale:                            'en'
-    
+    gs_generic_parts.locale:                            'ru'
+
 services:
     _defaults:
         autowire:           false
@@ -16,7 +16,12 @@ services:
             
             ###> SERVICES ###
             $devLogger:         '@monolog.logger.gs_generic_parts.debugger'
-
+            $carFacImm:         '@gs_generic_parts.carbon_factory'
+            #$carFacImm:         ''
+            $faker:             '@gs_generic_parts.faker'
+            #$faker:             ''
+            $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
+            
 
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
@@ -110,8 +115,6 @@ services:
     GS\GenericParts\Twig\Component\GSDtComponent:
         class:                  GS\GenericParts\Twig\Component\GSDtComponent
         autoconfigure:          true
-        arguments:
-            $carFacImm:         '@gs_generic_parts.carbon_factory' 
     GS\GenericParts\Twig\Component\GSNavsComponent:
         class:                  GS\GenericParts\Twig\Component\GSNavsComponent
         autoconfigure:          true
@@ -132,10 +135,6 @@ services:
     GS\GenericParts\Twig\Extension\DefaultExtension:
         class:                  GS\GenericParts\Twig\Extension\DefaultExtension
         autoconfigure:          true
-        arguments:
-            $faker:             '@gs_generic_parts.faker'
-            $carFacImm:         '@gs_generic_parts.carbon_factory'
-            $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
     ###< TWIG ###
     
     

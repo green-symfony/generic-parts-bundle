@@ -12,7 +12,7 @@ class ByteForHumansExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig\TwigFilter('gs_byte', $this->format_bytes(...)),
+            new \Twig\TwigFilter('gs_byte',					$this->format_bytes(...)),
         ];
     }
 

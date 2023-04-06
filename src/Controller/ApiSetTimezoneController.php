@@ -3,7 +3,7 @@
 namespace GS\GenericParts\Controller;
 
 use GS\GenericParts\Service\{
-	DataTimeValidator
+	GSDataTimeValidator
 };
 use GS\GenericParts\Exception\{
 	GSPOSTRequestDoesnotContainParameter,
@@ -55,7 +55,7 @@ class ApiSetTimezoneController extends GSAbstractController
 		}
 		$tz = $data['tz'];
 
-		if (!DataTimeValidator::isCarbonTimezone($tz)) {
+		if (!GSDataTimeValidator::isCarbonTimezone($tz)) {
 			throw new GSCarbonInvalidTimezone(
 				params: ['tz' => $tz],
 			);

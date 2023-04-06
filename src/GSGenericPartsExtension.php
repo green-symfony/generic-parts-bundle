@@ -3,6 +3,9 @@
 namespace GS\GenericParts;
 
 use Symfony\Component\DependencyInjection\Definition;
+use GS\GenericParts\Service\{
+	GSStringNormalizer
+};
 use GS\GenericParts\Configuration;
 use GS\GenericParts\Contracts\GSTag;
 use Symfony\Component\DependencyInjection\Reference;
@@ -17,6 +20,21 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
+	/**
+		-	load packages .yaml
+	*/
+	public function prepend(ContainerBuilder $container)
+	{
+		$this->loadYaml($container, [
+			['config/packages',		'monolog.yaml'],
+			['config/packages',		'messenger.yaml'],
+			['config/packages',		'framework.yaml'],
+			['config/packages',		'translation.yaml'],
+			['config',				'services.yaml'],
+			['config/packages',		'twig.yaml'],
+		]);
+	}
+
 	public function getConfiguration(
 		array $config,
 		ContainerBuilder $container,
@@ -28,30 +46,13 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
     }
 	
 	/**
-		-	load packages .yaml
-	*/
-	public function prepend(ContainerBuilder $container)
-	{
-		foreach([
-			['config/packages',		'monolog.yaml'],
-			['config/packages',		'messenger.yaml'],
-			['config/packages',		'framework.yaml'],
-			['config/packages',		'translation.yaml'],
-			['config',				'services.yaml'],
-			['config/packages',		'twig.yaml'],
-		] as [$relPath, $filename]) {
-			$this->loadYaml($container, $relPath, $filename);			
-		}
-	}
-	
-	/**
 		-	load services.yaml
 		-	config->services
 		-	bundle's tags
 	*/
 	public function loadInternal(array $config, ContainerBuilder $container)
 	{
-		$this->loadYaml($container, 'config', 'services.yaml');
+		//$this->loadYaml($container, 'config', 'services.yaml');
 		$this->fillInServiceArgumentsWithConfigOfCurrentBundle($config, $container);
 		$this->registerBundleTagsForAutoconfiguration($container);
 		/*
@@ -94,7 +95,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	private function fakerService(array $config, ContainerBuilder $container) {
 		$faker			= (new Definition(\Faker\Factory::class, []))
 			->setFactory([\Faker\Factory::class, 'create'])
-			->setArgument('$locale', $config['locale'])
+			->setArgument(0, GSStringNormalizer::getFullLocale($config['locale']))
 		;
 		//\dd($config['locale']);
 		$faker			= $container->setDefinition(
@@ -112,11 +113,30 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 		*/
 	}
 	
+	/**
+		@var	$relPath is a relPath or array with the following structure:
+			[
+				['relPath', 'filename'],
+				...
+			]
+	*/
 	private function loadYaml(
 		ContainerBuilder $container,
-		string $relPath,
-		string $filename,
+		string|array $relPath,
+		?string $filename = null,
 	): void {
+		
+		if (\is_array($relPath)) {
+			foreach($relPath as [$path, $filename]) {
+				$this->loadYaml($container, $path, $filename);			
+			}
+			return;
+		}
+		
+		if (\is_string($relPath) && $filename === null) {
+			throw new \Exception('Incorrect method arguments');
+		}
+		
 		$loader = new YamlFileLoader(
 			$container,
 			new FileLocator(
