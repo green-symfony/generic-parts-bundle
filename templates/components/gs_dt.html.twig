@@ -13,12 +13,11 @@
 <span>
 	{% if dt %}
 	
-		{% if tz is defined and tz %}
-			{{ dt|gs_for_user(tz=tz, locale=locale) ~ ' ['~tz~']' }}
-		{% else %}
-			{% set tz = app.session.get(TZ_SESSION_NAME, 'UTC') %}
-			{{ dt|gs_for_user(tz=tz, locale=locale) ~ ' ['~tz~']' }}
+		{% if tz is not defined or tz == '' %}
+			{% set tz = app.session.get(gs_generic_parts.timezone_session_name, 'UTC') %}
 		{% endif %}
+		
+		{{ dt|gs_for_user(tz=tz, locale=locale) }}
 	
 	{% else %}
 		{{ '' }}
