@@ -33,24 +33,32 @@ class InitSubscriber implements EventSubscriberInterface
 {
 	public function __construct(
 		private MessageBusInterface $bus,
-		private $defaultTimeZone,
+		private $timezone,
+		private $devLogger,
 	) {
 	}
 	
 	//###> EVENTS ###
-	public function onKernelRequest(RequestEvent $e)
+	public function onKernelRequest(RequestEvent $event)
     {
-        $this->handleRequest($e);
+		$url		= $event->getRequest()->getBaseUrl() . $event->getRequest()->getPathInfo();
+		
+        if ($event->isMainRequest()) {
+			$this->handleRequest($event);
+			$this->devLogger->info('MAIN REQUEST', [$url]);
+			return;
+		}
+		$this->devLogger->info('SUB REQUEST', [$url]);
     }
 	//###< EVENTS ###
 
 
 	//###> HELPERS ###
-    private function handleRequest($e)
+    private function handleRequest($event)
     {
         foreach (
             [
-				new SetDefaultDateTimeZone($this->defaultTimeZone),
+				new SetDefaultDateTimeZone($this->timezone),
 				new InitCarbon(),
             ] as $message
         ) {

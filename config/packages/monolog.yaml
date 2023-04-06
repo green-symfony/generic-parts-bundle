@@ -16,6 +16,4 @@ when@prod:
 
     handlers:
         
-        gs_generic_parts.debugger:
-            type:           ~
-            channels:       ["gs_generic_parts.debugger"]
+        gs_generic_parts.debugger:          ~

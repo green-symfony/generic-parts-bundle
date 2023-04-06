@@ -41,6 +41,8 @@ class ApiUtcDtController extends GSAbstractController
 			throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
 		}
 		
+		//$devLogger->info('LOCALE', [$locale]);
+		
 		$tz		= $carbon->tz;
 		
 		$dt		= (string) u($carbon->isoFormat('dddd, MMMM D, YYYY h:mm:ss A') . ' ['.$tz.']')->title(true);

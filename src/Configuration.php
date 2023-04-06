@@ -8,11 +8,31 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+	public function __construct(
+		private $locale,
+		private $timezone,
+	) {}
+	
 	public function getConfigTreeBuilder()
 	{
 		$treeBuilder = new TreeBuilder('gs_generic_parts');
 		
 		$treeBuilder->getRootNode()
+			->children()
+			
+				->scalarNode('locale')
+					->info('Locale for services')
+					#->defaultValue('%gs_generic_parts.locale%') Don't work, it's a simple string if defaultValue
+					->defaultValue($this->locale)
+				->end()
+			
+				->scalarNode('timezone')
+					->info('Timezone for services')
+					->defaultValue($this->timezone)
+				->end()
+		
+			->end()
+		
 			->append($this->generalParts())
 		;
 		
@@ -29,7 +49,6 @@ class Configuration implements ConfigurationInterface
 		return $treeBuilder->getRootNode()
 			->info('Тестовый всевозможный вариант treeBuilder')
 			->children()
-				
 				
 				->arrayNode('white_list')							# array node
 					->info('May be a string')

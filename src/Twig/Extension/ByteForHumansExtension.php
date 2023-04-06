@@ -4,7 +4,7 @@ namespace GS\GenericParts\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 
-class ByteForHumansExtension extends AbstractExtension implements GSTwigExtensionInterface
+class ByteForHumansExtension extends AbstractExtension
 {
 	
 	//###> FILTERS ###

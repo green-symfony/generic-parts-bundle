@@ -16,7 +16,8 @@ use Carbon\{
 class InitCarbonHandler
 {
 	public function __construct(
-		private $defaultLocale,
+		private $locale,
+		//private $devLogger,
 	) {
 	}
 	
@@ -35,7 +36,8 @@ class InitCarbonHandler
 
     private function modifyTranslations(): void
     {
-        Translator::get($this->defaultLocale)->setTranslations([
+		//$this->devLogger->info($this->locale);
+        Translator::get($this->locale)->setTranslations([
             // unit
             //'day' => ':count дня|:count дней',
             // key word

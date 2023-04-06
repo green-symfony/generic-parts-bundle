@@ -3,6 +3,7 @@
 namespace GS\GenericParts\Twig\Extension;
 
 use GS\GenericParts\Service\{
+	GSCarbonService,
 	BufferService,
 	HtmlService
 };
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\{
 };
 use Twig\Extension\AbstractExtension;
 
-class DefaultExtension extends AbstractExtension implements GSTwigExtensionInterface
+class DefaultExtension extends AbstractExtension
 {
     public function __construct(
         private $faker,
@@ -30,6 +31,7 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
         return [
             new \Twig\TwigFilter('gs_trim',						$this->trim(...)),
             new \Twig\TwigFilter('gs_for_user',					$this->forUser(...)),
+			/* Usage: attrVariable|<filter>|raw */
             new \Twig\TwigFilter('gs_array_to_attribute',		$this->arrayToAttribute(...)),
             new \Twig\TwigFilter('gs_binary_img',				$this->binary_img(...)),
         ];
@@ -50,9 +52,9 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
         return \implode(' ', $input);
     }
 
-	// ###< FILTERS ###
+	//###< FILTERS ###
 	
-	// ###> TESTS ###
+	//###> TESTS ###
 
     public function getTests()
     {
@@ -60,9 +62,9 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
         ];
     }
     
-	// ###< TESTS ###
+	//###< TESTS ###
 	
-    // ###> FUNCTIONS ###
+    //###> FUNCTIONS ###
 
     public function getFunctions()
     {
@@ -97,7 +99,14 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
         Request $request = null,
     ) {
         $cloneDateTime = $this->carFacImm->make($data)->toMutable();
-        $cloneDateTime->tz($tz ?? $cloneDateTime->tz())->locale($locale ?? $cloneDateTime->locale());
+        
+		$cloneDateTime = GSCarbonService::forUser(
+			origin:				$cloneDateTime,
+			sourceOfMeta:		$sourceOfMeta,
+			tz:					$tz,
+			locale:				$locale,
+		);
+		$cloneDateTime->tz($tz ?? $cloneDateTime->tz())->locale($locale ?? $cloneDateTime->locale());
         if ($request && $locale = $request->attributes->get('_locale')) {
             $cloneDateTime->locale($locale);
         };
@@ -129,7 +138,7 @@ class DefaultExtension extends AbstractExtension implements GSTwigExtensionInter
         return $this->faker->realText($quantity);
     }
 	
-    // ###< FUNCTIONS ###
+    //###< FUNCTIONS ###
 
     public function getTokenParsers()
     {

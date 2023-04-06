@@ -16,7 +16,7 @@
 	}) }}
 	{{ attr|gs_array_to_attribute|raw }}
 >
-	{{ render(controller('GS\\GenericParts\\Controller\\ApiUtcDtController::index'))|trim('" \'')|raw }}
+	{{- render(controller('GS\\GenericParts\\Controller\\ApiUtcDtController::index'))|trim('" \'') -}}
 	{#
 	{{ include('@GSGenericParts/templates/_placeholder.html.twig') }}
 	#}

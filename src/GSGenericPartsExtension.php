@@ -2,6 +2,7 @@
 
 namespace GS\GenericParts;
 
+use Symfony\Component\DependencyInjection\Definition;
 use GS\GenericParts\Configuration;
 use GS\GenericParts\Contracts\GSTag;
 use Symfony\Component\DependencyInjection\Reference;
@@ -16,6 +17,16 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
+	public function getConfiguration(
+		array $config,
+		ContainerBuilder $container,
+	) {
+        return new Configuration(
+			locale:			$container->getParameter('gs_generic_parts.locale'),
+			timezone:		$container->getParameter('gs_generic_parts.timezone'),
+		);
+    }
+	
 	/**
 		-	load packages .yaml
 	*/
@@ -40,7 +51,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	*/
 	public function loadInternal(array $config, ContainerBuilder $container)
 	{
-		//$this->loadYaml($container, 'config', 'services.yaml');
+		$this->loadYaml($container, 'config', 'services.yaml');
 		$this->fillInServiceArgumentsWithConfigOfCurrentBundle($config, $container);
 		$this->registerBundleTagsForAutoconfiguration($container);
 		/*
@@ -50,17 +61,46 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 		*/
 	}
 	
-	public function getConfiguration(array $config, ContainerBuilder $container)
-    {
-		return new Configuration();
-	}
-	
 	//###> HELPERS ###
 	
 	private function fillInServiceArgumentsWithConfigOfCurrentBundle(
 		array $config,
 		ContainerBuilder $container,
 	) {
+		$this->carbonService($config, $container);
+		$this->fakerService($config, $container);
+	}
+	
+	private function carbonService(array $config, ContainerBuilder $container) {	
+		$carbon			= new Definition(
+			class:			\Carbon\FactoryImmutable::class,
+			arguments:		[
+				'$settings'			=> [
+					'locale'					=> $config['locale'],
+					'strictMode'				=> true,
+					'timezone'					=> $config['timezone'],
+					'toStringFormat'			=> 'd.m.Y H:i:s P',
+					'monthOverflow'				=> true,
+					'yearOverflow'				=> true,
+				],
+			],
+		);
+		$container->setDefinition(
+			id:				'gs_generic_parts.carbon_factory',
+			definition:		$carbon,
+		);
+	}
+	
+	private function fakerService(array $config, ContainerBuilder $container) {
+		$faker			= (new Definition(\Faker\Factory::class, []))
+			->setFactory([\Faker\Factory::class, 'create'])
+			->setArgument('$locale', $config['locale'])
+		;
+		//\dd($config['locale']);
+		$faker			= $container->setDefinition(
+			id:				'gs_generic_parts.faker',
+			definition:		$faker,
+		);
 	}
 	
 	private function registerBundleTagsForAutoconfiguration(ContainerBuilder $container) {

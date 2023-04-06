@@ -9,8 +9,15 @@ services:
         autoconfigure:      false
         public:             false
         bind:
-            $devLogger:         '@monolog.logger.gs_generic_parts.debugger'
+            ###> PARAMETERS ###
+            $timezone:          '%gs_generic_parts.timezone%'
+            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
+            $locale:            '%gs_generic_parts.locale%'
             
+            ###> SERVICES ###
+            $devLogger:         '@monolog.logger.gs_generic_parts.debugger'
+
+
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
         class:                  GS\GenericParts\Service\TestService
@@ -23,8 +30,6 @@ services:
         public:                 true
         class:                  GS\GenericParts\Controller\GSAbstractController
         autowire:               true
-        arguments:
-            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
         calls:
         -   setContainer:
             -   '@service_container'
@@ -45,25 +50,25 @@ services:
     
     ###> API SERVICES ###
     ###> CARBON ###
-    gs_generic_parts.carbon_factory_ru_RU_UTC:
-        public:                 true
-        class:                  Carbon\FactoryImmutable
-        arguments:
-        -   locale:                   '%gs_generic_parts.locale%'
-            strictMode:               true
-            timezone:                 '%gs_generic_parts.timezone%'
-            toStringFormat:           'd.m.Y H:i:s P'
-            monthOverflow:            true # addXXX add(<>, <>)
-            yearOverflow:             true        
+    #gs_generic_parts.carbon_factory:
+    #    public:                 true
+    #    class:                  Carbon\FactoryImmutable
+    #    arguments:
+    #        $settings:
+    #            strictMode:               true
+    #            timezone:                 '%gs_generic_parts.timezone%'
+    #            toStringFormat:           'd.m.Y H:i:s P'
+    #            monthOverflow:            true # addXXX add(<>, <>)
+    #            yearOverflow:             true        
     ###< CARBON ###
     
     ###> FAKER ###
-    gs_generic_parts.faker:
-        public:                 true
-        class:                  Faker\Factory
-        factory:        ['Faker\Factory', 'create']
-        arguments:
-            - '%gs_generic_parts.locale%'
+    #gs_generic_parts.faker:
+    #    public:                 true
+    #    class:                  Faker\Factory
+    #    factory:                ['Faker\Factory', 'create']
+    #    arguments:
+    #        - '%gs_generic_parts.locale%'
     ###< FAKER ###
     
     ###> MESSENGER ###
@@ -93,7 +98,6 @@ services:
         autoconfigure:          true
         class:                  GS\GenericParts\EventSubscriber\InitSubscriber
         arguments:
-            $defaultTimeZone:           '%gs_generic_parts.timezone%'
             $bus:                       '@Symfony\Component\Messenger\MessageBusInterface'
     ###< KERNEL SUBSCRIBER ###
     
@@ -107,7 +111,7 @@ services:
         class:                  GS\GenericParts\Twig\Component\GSDtComponent
         autoconfigure:          true
         arguments:
-            $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC' 
+            $carFacImm:         '@gs_generic_parts.carbon_factory' 
     GS\GenericParts\Twig\Component\GSNavsComponent:
         class:                  GS\GenericParts\Twig\Component\GSNavsComponent
         autoconfigure:          true
@@ -130,7 +134,7 @@ services:
         autoconfigure:          true
         arguments:
             $faker:             '@gs_generic_parts.faker'
-            $carFacImm:         '@gs_generic_parts.carbon_factory_ru_RU_UTC'
+            $carFacImm:         '@gs_generic_parts.carbon_factory'
             $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
     ###< TWIG ###
     
@@ -140,8 +144,6 @@ services:
     gs_generic_parts.init_carbon_handler:
         class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\InitCarbonHandler
         autoconfigure:          true
-        arguments:
-            $defaultLocale: '%gs_generic_parts.locale%'
     
     GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler:
         class:                  GS\GenericParts\Messenger\KernelBootstrap\Command\Handler\SetDefaultDateTimeZoneHandler
