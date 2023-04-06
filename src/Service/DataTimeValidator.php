@@ -33,7 +33,7 @@ class DataTimeValidator
 	): bool {
 		return 
 			self::isTimezone($tz)
-			|| \preg_match('~^(?![^+\-0-9])[+\-]?[0-9]{2}[:]?[0-9]{2}\b~', $tz)
+			|| \preg_match('~^(?![^+\-0-9])[+\-][0-2][0-4][:]?[0-5][0-9]\b~', $tz)
 		;
 	}
 }
