@@ -1,25 +1,13 @@
 {#
+	TODO:	alert based on swal (needs gs_alert_controller)
+	
 	Usage:
 		{{ component('gs_alert', {
 			message:			'',
 
 			delay:				3000,
-			isTop:				false,
-			type:				'success',
-			isFlash:			true,
-			containerAttribute:	'',
-			containerClass:		'',
-			messageClass:		'',
-			messageStyle:		'',
+			style:				'success',
+			type:				'toast',
+			position:			'topright',
 		}) }}
 #}
-
-<div {{ containerInnerAttribute ~ ' ' ~ containerAttribute }} class="alert alert-{{ type ~ ' ' ~ containerClass ~ ' ' ~ containerInnerClass }}">
-	<div
-		class="{{ messageClass }}"
-		style="{{ messageStyle }}"
-		role="alert"
-	>
-		{{ message }}
-	</div>
-</div>
