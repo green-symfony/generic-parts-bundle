@@ -19,7 +19,7 @@ Applications that use Symfony Flex
 
 Open a command console and execute:
 
-###> Step 0.1: Install the bundle
+### Step 0.1: Install the bundle
 
 ```console
 	composer require green-symfony/generic-parts-bundle
@@ -38,13 +38,13 @@ yarn install --force
 Applications that don't use Symfony Flex
 --------
 
-###> Step 0.1: Install the bundle
+### Step 0.1: Install the bundle
 
 ```console
 	composer require green-symfony/generic-parts-bundle
 ```
 
-###> Step 0.2: Enable the Bundle
+### Step 0.2: Enable the Bundle
 
 Then, enable the bundle by adding it to the list of registered bundles
 in the `config/bundles.php` file of your project:
@@ -58,13 +58,13 @@ return [
 ];
 ```
 
-###> Step 1 Add entry in your webpack.config.js
+### Step 1 Add entry in your webpack.config.js
 
 ```js
 .addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
 ```
 
-###> Step 2: Enable entry in your [base.html.twig]
+### Step 2: Enable entry in your [base.html.twig]
 
 ```twig
 {% block stylesheets %}
@@ -79,7 +79,7 @@ return [
 In vendor/green-symfony/generic-parts-bundle
 ------
 
-###> Step 3: node_modules of bundle
+### Step 3: node_modules of bundle
 
 Open a command console and execute:
 
@@ -100,10 +100,10 @@ Basic features for Symfony Web Application which includes:
 -	`templates/_placeholder.html.twig` for showing loading
 
 *TwigFilters*
-gs_trim						|	php \trim(<string>)
-gs_for_user					|	return string by [\DateTime|\DateTimeImmutable] object with user locale and timezone
-gs_array_to_attribute		|	convert array to string (not for transform into html attribute, for debugging)
-gs_binary_img				|	return html img with binary image content
+|	gs_trim						|	php \trim(<string>)
+|	gs_for_user					|	return string by [\DateTime|\DateTimeImmutable] object with user locale and timezone
+|	gs_array_to_attribute		|	convert array to string (not for transform into html attribute, for debugging)
+|	gs_binary_img				|	return html img with binary image content
 
 *TwigFunctions*
 - gs_dump_array
