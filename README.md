@@ -56,7 +56,7 @@ return [
 .addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
 ```
 
-### Step 2: Enable entry in your [base.html.twig]
+### Step 2: Enable entry in your base.html.twig
 
 ```twig
 {% block stylesheets %}
@@ -68,7 +68,13 @@ return [
 {% endblock %}
 ```
 
-### Step 3: node_modules of bundle
+### Step 3: Add dependency in ***package.json*** (stimulus controllers)
+
+```php
+@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
+```
+
+### Step 4: Install node_modules of your app
 
 Open a command console and execute:
 
@@ -76,18 +82,10 @@ Open a command console and execute:
 yarn install --force
 ```
 
-### Step 4: Install node_modules dependency (stimulus controllers)
-
-add to the ***package.json***
-
-```php
-@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
-```
-
 ***In vendor/green-symfony/generic-parts-bundle***
 ------
 
-### Step 5: Install all the nesessery node_modules which needs to bundle's js
+### Step 5: Install node_modules of bundle
 
 Open a command console and execute:
 
