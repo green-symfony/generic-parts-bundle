@@ -25,9 +25,11 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-add to the *package.json*
+add to the [package.json]
 
-"@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus"
+```json
+@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
+```
 
 and execute 
 
@@ -92,8 +94,8 @@ Details
 Basic features for Symfony Web Application which includes:
 
 *Customized services*
-- \Carbon\CarbonFactory
-- \Faker\Generator
+- \\Carbon\\CarbonFactory
+- \\Faker\\Generator
 
 *Twig*
 -	email `base.html.twig` template for sending emails
@@ -102,7 +104,7 @@ Basic features for Symfony Web Application which includes:
 | TwigFilter				| description |
 |:--------------------------|:------------|
 | gs_trim					| php \trim(<string>) |
-| gs_for_user				| return string by [\DateTime or \\DateTimeImmutable] object with user locale and timezone |
+| gs_for_user				| return string by \\DateTime or \\DateTimeImmutable object with user locale and timezone |
 | gs_array_to_attribute		| convert array to string (not for transform into html attribute, for debugging) |
 | gs_binary_img				| return html img with binary image content |
 
@@ -125,6 +127,6 @@ Basic features for Symfony Web Application which includes:
 *EventSubscribers*
 -	kernel.request (for initialize):
 	-	php default timezone in UTC
-	-	add macros to [\Carbon\Carbon]
+	-	add macros to \\Carbon\\Carbon
 -	kernel.exception:
 	-	answer or exception of bundle API always measure up to described structure
