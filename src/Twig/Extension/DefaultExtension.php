@@ -40,13 +40,29 @@ class DefaultExtension extends AbstractExtension
         ];
     }
 	
-	public function binary_img(string $input) {
-		return GSHtmlService::getImgHtmlByBinary($input);
-	}
-	
 	public function trim(mixed $input, ?string $string = null) {
 		return ($string !== null) ? \trim($input, $string) : \trim($input);
 	}
+	
+    public function forUser(
+        \DateTime|\DateTimeImmutable $data,
+        ?string $tz = null,
+        ?string $locale = null,
+        \DateTime|\DateTimeImmutable $sourceOfMeta = null,
+        ?GSIsoFormat $isoFormat = null,
+        ?Request $request = null,
+    ): string {
+        $carbon			= $this->carFacImm->make($data)->toMutable();
+        
+		$carbon	= GSCarbonService::forUser(
+			origin:				$carbon,
+			sourceOfMeta:		$sourceOfMeta,
+			tz:					$tz,
+			locale:				$request?->attributes?->get('_locale'),
+		);
+		
+        return GSCarbonService::isoFormat($carbon, $isoFormat);
+    }
 
 	public function arrayToAttribute(
         array $input,
@@ -54,6 +70,10 @@ class DefaultExtension extends AbstractExtension
         \array_walk($input, static fn(&$v, $k) => $v = $k . '="' . $v.'"');
         return \implode(' ', $input);
     }
+	
+	public function binary_img(string $input) {
+		return GSHtmlService::getImgHtmlByBinary($input);
+	}
 
 	//###< FILTERS ###
 	
@@ -72,7 +92,7 @@ class DefaultExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig\TwigFunction('gs_dump_array',						$this->dump_array(...)),
+            new \Twig\TwigFunction('gs_dump_array',						$this->dumpArray(...)),
             new \Twig\TwigFunction('gs_lorem',							$this->lorem(...)),
             new \Twig\TwigFunction('gs_create_form',					$this->createForm(...)),
             new \Twig\TwigFunction('gs_time',							\time(...)),
@@ -88,31 +108,11 @@ class DefaultExtension extends AbstractExtension
     }
 
 
-    public function dump_array($input) {
+    public function dumpArray($input) {
 		\array_walk($input, static function($v, $k) {
 			echo \nl2br($k . ' => ' . $v . \PHP_EOL . \PHP_EOL);
 		});
 	}
-	
-    public function forUser(
-        \DateTime|\DateTimeImmutable $data,
-        ?string $tz = null,
-        ?string $locale = null,
-        \DateTime|\DateTimeImmutable $sourceOfMeta = null,
-        ?GSIsoFormat $isoFormat = null,
-        ?Request $request = null,
-    ) {
-        $carbon			= $this->carFacImm->make($data)->toMutable();
-        
-		$carbon	= GSCarbonService::forUser(
-			origin:				$carbon,
-			sourceOfMeta:		$sourceOfMeta,
-			tz:					$tz,
-			locale:				$request?->attributes?->get('_locale'),
-		);
-		
-        return GSCarbonService::isoFormat($carbon, $isoFormat);
-    }
 
     public function echo($string)
     {
