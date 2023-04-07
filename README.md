@@ -102,7 +102,7 @@ Basic features for Symfony Web Application which includes:
 | TwigFilter				| description |
 |:--------------------------|:------------|
 | gs_trim					| php \trim(<string>) |
-| gs_for_user				| return string by [\DateTime|\DateTimeImmutable] object with user locale and timezone |
+| gs_for_user				| return string by [\DateTime or \\DateTimeImmutable] object with user locale and timezone |
 | gs_array_to_attribute		| convert array to string (not for transform into html attribute, for debugging) |
 | gs_binary_img				| return html img with binary image content |
 
