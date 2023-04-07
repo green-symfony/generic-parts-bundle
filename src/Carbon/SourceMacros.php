@@ -22,7 +22,7 @@ class SourceMacros
             \DateTime|\DateTimeImmutable $sourceOfMeta = null,
             string $tz = null,
             string $locale = null,
-        ): \DateTime {
+        ): \DateTime|\DateTimeImmutable {
             return GSCarbonService::forUser(
 				origin:				self::this(),
 				sourceOfMeta:		$sourceOfMeta,

@@ -32,7 +32,7 @@ class GSCarbonService
 		\DateTimeImmutable|\DateTime $sourceOfMeta = null,
 		?string $tz = null,
 		?string $locale = null,
-	): Carbon {
+	): Carbon|CarbonImmutable {
 		$carbonClone			= ($origin instanceof Carbon) ? $origin->clone() : $origin;
 		return $sourceOfMeta ?
 			$carbonClone->tz($sourceOfMeta->tz)->locale($sourceOfMeta->locale) :
