@@ -25,9 +25,9 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-add to the [package.json]
+add to the ***package.json***
 
-```json
+```php
 @green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
 ```
 
