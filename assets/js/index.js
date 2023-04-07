@@ -1,3 +1,6 @@
+//###> LIB ###
+import 'font-awesome/scss/font-awesome.scss';
+
 //###> SIMPLE JS ###
 import './sync/set-timezone-with-client-one';
 
@@ -5,7 +8,3 @@ import './sync/set-timezone-with-client-one';
 import './turbo/confirmMethod.js';
 import './turbo/pageTransitions.js';
 import './turbo/prefetch.js';
-
-//###> LIB ###
-import '';
-

@@ -19,7 +19,7 @@
         "babel-loader": "^9 || ^8 || ^7 || ^6",
         "bootstrap": "^5 || ^4 || ^3",
         "dotenv-webpack": "^8 || ^7 || ^6",
-        "fa-icon": "*",
+        "font-awesome": "^4.7.0",
         "stimulus-use": "*",
         "sweetalert2": "^11 || ^10 || ^9 || ^8",
         "turbo": "^1"
