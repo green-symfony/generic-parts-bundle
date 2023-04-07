@@ -15,9 +15,6 @@ of the Composer documentation.
 ***In your applicaiton***
 --------
 
-Applications that use Symfony Flex
---------
-
 Open a command console and execute:
 
 ### Step 0.1: Install the bundle
@@ -26,15 +23,8 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-
-Applications that don't use Symfony Flex
+Applications that don't use Symfony Flex (0.2)
 --------
-
-### Step 0.1: Install the bundle
-
-```console
-	composer require green-symfony/generic-parts-bundle
-```
 
 ### Step 0.2: Enable the Bundle
 
