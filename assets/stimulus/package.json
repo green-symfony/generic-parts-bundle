@@ -1,0 +1,7 @@
+{
+	"name":			"@green-symfony/generic-parts-stimulus",
+	"version":		"0.0.0",
+	"description":	"Stimulus controllers in general for green-symfony/generic-parts-bundle",
+	"licence":		"MIT",
+	"main":			"dist/controllers.js"
+}
