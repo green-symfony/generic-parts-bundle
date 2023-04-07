@@ -1,0 +1,1 @@
+export {default as GSWatch} form './controllers/gs_watch_controller.js';

@@ -20,7 +20,13 @@ export default class extends Controller {
 	};
 	
 	/*
-		first call in interval
+		###> CALL FIRST AND WAIT INTERVAL ###
+		throttles:		|-(x)-_---_----_---|
+						   |-wait-interval-|
+		
+		###> CALL LAST WHEN INTERVAL ISSET ###
+		debounce:		|--x--_---_----(x)------------|
+									  |-wait-interval-|
 	*/
     static throttles = [
 		'triggerView',
