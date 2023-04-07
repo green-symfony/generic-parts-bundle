@@ -11,8 +11,9 @@ Make sure Composer is installed globally, as explained in the
 [installation chapter](https://getcomposer.org/doc/00-intro.md)
 of the Composer documentation.
 
-In your applicaiton
-------
+
+***In your applicaiton***
+--------
 
 Applications that use Symfony Flex
 --------
@@ -25,17 +26,6 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-add to the ***package.json***
-
-```php
-@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
-```
-
-and execute 
-
-```console
-yarn install --force
-```
 
 Applications that don't use Symfony Flex
 --------
@@ -60,7 +50,7 @@ return [
 ];
 ```
 
-### Step 1 Add entry in your webpack.config.js
+### Step 1: Add entry in your webpack.config.js
 
 ```js
 .addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
@@ -78,14 +68,32 @@ return [
 {% endblock %}
 ```
 
-In vendor/green-symfony/generic-parts-bundle
-------
-
 ### Step 3: node_modules of bundle
 
 Open a command console and execute:
 
-`yarn install --force`
+```console
+yarn install --force
+```
+
+### Step 4: Install node_modules dependency (stimulus controllers)
+
+add to the ***package.json***
+
+```php
+@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
+```
+
+***In vendor/green-symfony/generic-parts-bundle***
+------
+
+### Step 5: Install all the nesessery node_modules which needs to bundle's js
+
+Open a command console and execute:
+
+```console
+yarn install --force
+```
 
 
 Details
