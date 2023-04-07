@@ -11,7 +11,8 @@ Make sure Composer is installed globally, as explained in the
 [installation chapter](https://getcomposer.org/doc/00-intro.md)
 of the Composer documentation.
 
-***In your applicaiton***
+In your applicaiton
+------
 
 Applications that use Symfony Flex
 --------
@@ -28,7 +29,11 @@ add to the *package.json*
 
 "@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus"
 
-and execute `yarn install --force`
+and execute 
+
+```console
+yarn install --force
+```
 
 Applications that don't use Symfony Flex
 --------
@@ -55,7 +60,9 @@ return [
 
 ###> Step 1 Add entry in your webpack.config.js
 
-`.addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')`
+```js
+.addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
+```
 
 ###> Step 2: Enable entry in your [base.html.twig]
 
@@ -69,7 +76,8 @@ return [
 {% endblock %}
 ```
 
-***In vendor/green-symfony/generic-parts-bundle***
+In vendor/green-symfony/generic-parts-bundle
+------
 
 ###> Step 3: node_modules of bundle
 
@@ -83,39 +91,39 @@ Details
 
 Basic features for Symfony Web Application which includes:
 
-Customized services:
-	- \Carbon\CarbonFactory
-	- \Faker\Generator
+*Customized services*
+- \Carbon\CarbonFactory
+- \Faker\Generator
 
-Twig:
-	-	email `base.html.twig` template for sending emails
-	-	`templates/_placeholder.html.twig` for showing loading
+*Twig*
+-	email `base.html.twig` template for sending emails
+-	`templates/_placeholder.html.twig` for showing loading
 
-TwigFilters:
-	- gs_trim					|	php \trim(<string>)
-	- gs_for_user				|	return string by [\DateTime|\DateTimeImmutable] object with user locale and timezone
-	- gs_array_to_attribute		|	convert array to string (not for transform into html attribute, for debugging)
-	- gs_binary_img				|	return html img with binary image content
+*TwigFilters*
+gs_trim						|	php \trim(<string>)
+gs_for_user					|	return string by [\DateTime|\DateTimeImmutable] object with user locale and timezone
+gs_array_to_attribute		|	convert array to string (not for transform into html attribute, for debugging)
+gs_binary_img				|	return html img with binary image content
 
-TwigFunctions:
-	- gs_dump_array
-	- gs_lorem
-	- gs_create_form
-	- gs_time
-	- gs_echo
-	- gs_clear_output_buffer
+*TwigFunctions*
+- gs_dump_array
+- gs_lorem
+- gs_create_form
+- gs_time
+- gs_echo
+- gs_clear_output_buffer
 
-TwigComponents:
-	- gs_alert
-	- gs_dt
-	- gs_navs
-	- gs_sprite					| your should have */public/images/svg/sprite.svg* file
-	- gs_submit_button
-	- gs_watch
+*TwigComponents*
+- gs_alert
+- gs_dt
+- gs_navs
+- gs_sprite	(your should have */public/images/svg/sprite.svg* file)
+- gs_submit_button
+- gs_watch
 
-EventSubscribers:
-	-	kernel.request (for initialize):
-		-	php default timezone in UTC
-		-	add macros to [\Carbon\Carbon]
-	-	kernel.exception:
-		-	answer or exception of bundle API always measure up to described structure
+*EventSubscribers*
+-	kernel.request (for initialize):
+	-	php default timezone in UTC
+	-	add macros to [\Carbon\Carbon]
+-	kernel.exception:
+	-	answer or exception of bundle API always measure up to described structure
