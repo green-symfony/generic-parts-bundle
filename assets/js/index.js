@@ -7,5 +7,5 @@ import './turbo/pageTransitions.js';
 import './turbo/prefetch.js';
 
 //###> LIB ###
-import "fa-icon-element";
+import '';
 
