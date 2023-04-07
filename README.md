@@ -58,7 +58,7 @@ return [
 {% endblock %}
 ```
 
-### Step 3: Add dependency in ***package.json*** (stimulus controllers)
+### Step 3: Add dependency in ***/package.json*** (stimulus controllers)
 
 ```php
 @green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
@@ -72,16 +72,38 @@ Open a command console and execute:
 yarn install --force
 ```
 
+### Step 5: Register bundle's stimulus controllers in your ***/assets/bootstrap.js***
+
+```js
+import { startStimulusApp } from '@symfony/stimulus-bridge';
+import { GSWatch } from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true&export=GSWatch!@green-symfony/generic-parts-stimulus';
+
+export const app = startStimulusApp(require.context(
+    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
+    true,
+    /\.[jt]sx?$/
+));
+
+/* NOTE:
+	twig function {{ stimulus_controller(<>) }} converts '_' -> '-', so register controllers with '-' to avoid problems with finding registered controller
+*/
+
+/* ###> ALL THE CONTROLLERS OF THIS BUNDLE ### */
+app.register('gs-watch', GSWatch);
+/* ###< ALL THE CONTROLLERS OF THIS BUNDLE ### */
+```
+
 ***In vendor/green-symfony/generic-parts-bundle***
 ------
 
-### Step 5: Install node_modules of bundle
+### Step 6: Install node_modules of bundle
 
 Open a command console and execute:
 
 ```console
 yarn install --force
 ```
+
 
 
 Details
