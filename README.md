@@ -198,6 +198,6 @@ Of course you need to add from and to emails of this bundle in file ***/config/p
 ```yaml
 gs_generic_parts:
 	error_logger_email:
-        from:           '<>'
-        to:             '<>'
+		from:           '<>'
+		to:             '<>'
 ```
