@@ -148,3 +148,56 @@ Basic features for Symfony Web Application which includes:
 	-	add macros to \\Carbon\\Carbon
 -	kernel.exception:
 	-	answer or exception of bundle API always measure up to described structure
+	
+Extra Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
+--------
+
+### To enable ***monolog.logger.gs_generic_parts.debug*** service when only in concrete APP_ENVs
+
+```php
+// /vendor/symfony/http-kernel/Kernel.php
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use GS\GenericParts\Pass\{
+	GSSetAvailableEnvsForDebugLogger
+};
+
+protected function build(ContainerBuilder $container)
+{
+	$container
+		->addCompilerPass(new GSSetAvailableEnvsForDebugLogger(
+			appEnv:			$this->getEnvironment(),
+			availableEnvs:	['dev'],
+		))
+	;
+}
+```
+	
+### To enable sending error messanges of your site when in concrete APP_ENVs
+
+```php
+// /vendor/symfony/http-kernel/Kernel.php
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use GS\GenericParts\Pass\{
+	GSSetAvailableEnvsForEmailErrorLogger
+};
+
+protected function build(ContainerBuilder $container)
+{
+	$container
+		->addCompilerPass(new GSSetAvailableEnvsForEmailErrorLogger(
+			appEnv:			$this->getEnvironment(),
+			availableEnvs:	['prod'],
+		))
+	;
+}
+```
+
+Of course you need to add from and to emails of this bundle in file ***/config/packages/gs_generic_parts.yaml***
+```yaml
+gs_generic_parts:
+	error_logger_email:
+        from:           '<>'
+        to:             '<>'
+```
