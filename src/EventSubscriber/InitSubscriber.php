@@ -34,7 +34,7 @@ class InitSubscriber implements EventSubscriberInterface
 	public function __construct(
 		private MessageBusInterface $bus,
 		private $timezone,
-		private $devLogger,
+		private $debugLogger,
 	) {
 	}
 	

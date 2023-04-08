@@ -31,7 +31,7 @@ class ApiUtcDtController extends GSAbstractController
     #[Route('/api/utc/dt')]
     public function index(
 		Request $request,
-		$devLogger,
+		$debugLogger,
 	) {
 		$carbon = Carbon::now();
 		
@@ -44,7 +44,7 @@ class ApiUtcDtController extends GSAbstractController
 			throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
 		}
 		
-		//$devLogger->info('LOCALE', [$locale]);
+		//$debugLogger->info('LOCALE', [$locale]);
 		
 		$dt		= GSCarbonService::isoFormat($carbon);
 		

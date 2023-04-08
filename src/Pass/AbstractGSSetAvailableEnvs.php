@@ -16,20 +16,11 @@ abstract class AbstractGSSetAvailableEnvs implements CompilerPassInterface
 	
 	public function process(ContainerBuilder $container)
 	{
-		$disableErrorLogger		= !\in_array($this->appEnv, $this->availableEnvs);
-		/*
-		\dd(
-			$this->appEnv,
-			$this->availableEnvs,
-			$disableErrorLogger,
-		);
-		*/
-		if ($disableErrorLogger) {
-			$this->doDisable();
-		}
+		$disableErrorLogger			= !\in_array($this->appEnv, $this->availableEnvs);
+		if ($disableErrorLogger)	$this->doDisable($container);
 	}
 	
 	###> ABSTRACT ###
-	protected function doDisable(): void;
+	abstract protected function doDisable(ContainerBuilder $container): void;
 	###< ABSTRACT ###
 }
