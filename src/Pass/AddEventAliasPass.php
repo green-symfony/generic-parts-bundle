@@ -5,7 +5,6 @@ namespace GS\GenericParts\Pass;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use GS\GenericParts\Contracts\GSTag;
 
 class AddEventAliasPass implements CompilerPassInterface
 {

@@ -1,12 +1,34 @@
+###> APP ###
+/bundles/
+###> APP ###
+
+###> source files ###
+*.rar
+*.zip
+*.pdf
+*.img
+*.png
+*.jpg
+*.jpeg
+###< source files ###
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
 /.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
+/config/secrets/*/*.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
 ###< symfony/framework-bundle ###
+
+###> safe /vendor/symfony/http-kernel/Kernel.php for Kernel::build()
+/vendor/*
+!/vendor/symfony
+/vendor/symfony/*
+!/vendor/symfony/http-kernel
+/vendor/symfony/http-kernel/*
+!/vendor/symfony/http-kernel/Kernel.php
+###< safe /vendor/symfony/http-kernel/Kernel.php for Kernel::build()
 
 ###> phpunit/phpunit ###
 /phpunit.xml

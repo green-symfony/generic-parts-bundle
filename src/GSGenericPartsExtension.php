@@ -2,8 +2,10 @@
 
 namespace GS\GenericParts;
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\DependencyInjection\Definition;
 use GS\GenericParts\Service\{
+	GSServiceContainer,
 	GSStringNormalizer
 };
 use GS\GenericParts\Configuration;
@@ -20,17 +22,20 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
+	public const PREFIX = 'gs_generic_parts.';
+	
 	/**
 		-	load packages .yaml
 	*/
 	public function prepend(ContainerBuilder $container)
 	{
 		$this->loadYaml($container, [
-			['config/packages',		'monolog.yaml'],
 			['config/packages',		'messenger.yaml'],
 			['config/packages',		'framework.yaml'],
 			['config/packages',		'translation.yaml'],
 			['config',				'services.yaml'],
+			// needs services.yaml
+			['config/packages',		'monolog.yaml'],
 			['config/packages',		'twig.yaml'],
 		]);
 	}
@@ -40,8 +45,8 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 		ContainerBuilder $container,
 	) {
         return new Configuration(
-			locale:			$container->getParameter('gs_generic_parts.locale'),
-			timezone:		$container->getParameter('gs_generic_parts.timezone'),
+			locale:						$container->getParameter('gs_generic_parts.locale'),
+			timezone:					$container->getParameter('gs_generic_parts.timezone'),
 		);
     }
 	
@@ -52,7 +57,10 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	*/
 	public function loadInternal(array $config, ContainerBuilder $container)
 	{
-		//$this->loadYaml($container, 'config', 'services.yaml');
+		$this->loadYaml($container, [
+			//['config',					'services.yaml'],
+		]);
+		$this->fillInParameters($config, $container);
 		$this->fillInServiceArgumentsWithConfigOfCurrentBundle($config, $container);
 		$this->registerBundleTagsForAutoconfiguration($container);
 		/*
@@ -63,6 +71,29 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 	}
 	
 	//###> HELPERS ###
+	
+	private function fillInParameters(
+		array $config,
+		ContainerBuilder $container,
+	) {
+		/*
+		\dd(
+			$container->hasParameter('error_prod_logger_email'),
+			PropertyAccess::createPropertyAccessor()->getValue($config, '[error_prod_logger_email][from]'),
+		);
+		*/
+		
+		GSServiceContainer::setParametersForce($container,
+			callbackGetValue:		static function($key) use (&$config) {
+				return PropertyAccess::createPropertyAccessor()->getValue($config, $key);
+			},
+			parameterPrefix:		self::PREFIX,
+			keys:					[
+				'[error_logger_email][from]',
+				'[error_logger_email][to]',
+			],
+		);
+	}
 	
 	private function fillInServiceArgumentsWithConfigOfCurrentBundle(
 		array $config,

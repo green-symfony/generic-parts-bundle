@@ -1,8 +1,8 @@
 parameters:
     gs_generic_parts.timezone:                          'UTC'
-    gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
     gs_generic_parts.locale:                            'ru'
-
+    gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
+    
 services:
     _defaults:
         autowire:           false
@@ -16,10 +16,10 @@ services:
             
             ###> SERVICES ###
             $devLogger:         '@monolog.logger.gs_generic_parts.debugger'
-            $carFacImm:         '@gs_generic_parts.carbon_factory'
-            #$carFacImm:         ''
-            $faker:             '@gs_generic_parts.faker'
-            #$faker:             ''
+            #$carFacImm:         '@gs_generic_parts.carbon_factory'
+            $carFacImm:         ''
+            #$faker:             '@gs_generic_parts.faker'
+            $faker:             ''
             $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
             
 

@@ -4,7 +4,8 @@ namespace GS\GenericParts;
 
 use Symfony\Component\EventDispatcher\DependencyInjection\AddEventAliasesPass;
 use GS\GenericParts\Pass\{
-	AddEventAliasPass
+	AddEventAliasPass,
+	MonologLoggerPass
 };
 use GS\GenericParts\GSGenericPartsExtension;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -27,6 +28,7 @@ class GSGenericPartsBundle extends Bundle
 		$container
 			//->addCompilerPass(new ResolveEnvPlaceholdersPass)
 			->addCompilerPass(new AddEventAliasPass([]))
+			->addCompilerPass(new MonologLoggerPass)
 		;
     }
 
