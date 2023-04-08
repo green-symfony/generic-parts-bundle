@@ -149,8 +149,22 @@ Basic features for Symfony Web Application which includes:
 -	kernel.exception:
 	-	answer or exception of bundle API always measure up to described structure
 	
-Extra Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
+To look at awailable settings by default of this bundle open console and execute:
+
+```console
+php bin/console config:dump-reference gs_generic_parts
+````
+
+To look at real settings of this bundle open console and execute:
+
+```console
+php bin/console debug:config gs_generic_parts
+````
+
+Extra Settings
 --------
+
+### Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
 
 To enable ***monolog.logger.gs_generic_parts.debug*** service when only in concrete APP_ENVs
 
@@ -194,7 +208,7 @@ protected function build(ContainerBuilder $container)
 }
 ```
 
-Of course you need to add from and to emails of this bundle in file ***/config/packages/gs_generic_parts.yaml***
+Of course you need to add from and to emails of this bundle in file ***/config/packages/gs_generic_parts.yaml*** for instance
 ```yaml
 gs_generic_parts:
     error_logger_email:
