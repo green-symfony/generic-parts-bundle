@@ -152,7 +152,7 @@ Basic features for Symfony Web Application which includes:
 Extra Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
 --------
 
-### To enable ***monolog.logger.gs_generic_parts.debug*** service when only in concrete APP_ENVs
+To enable ***monolog.logger.gs_generic_parts.debug*** service when only in concrete APP_ENVs
 
 ```php
 // /vendor/symfony/http-kernel/Kernel.php
@@ -173,7 +173,7 @@ protected function build(ContainerBuilder $container)
 }
 ```
 	
-### To enable sending error messanges of your site when in concrete APP_ENVs
+To enable sending error messanges of your site when in concrete APP_ENVs
 
 ```php
 // /vendor/symfony/http-kernel/Kernel.php
