@@ -17,10 +17,10 @@ services:
             
             ###> SERVICES ###
             $debugLogger:         '@monolog.logger.gs_generic_parts.debug'
-            #$carFacImm:         '@gs_generic_parts.carbon_factory'
-            $carFacImm:         ''
-            #$faker:             '@gs_generic_parts.faker'
-            $faker:             ''
+            $carFacImm:         '@gs_generic_parts.carbon_factory'
+            #$carFacImm:         ''
+            $faker:             '@gs_generic_parts.faker'
+            #$faker:             ''
             $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
             
 

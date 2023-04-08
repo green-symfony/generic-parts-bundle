@@ -6,10 +6,11 @@ import './sync/set-timezone-with-client-one';
 
 //###> BUNDLE ###
 /**
-	With turbo prefetch stimulus controller trigger twice
+	With turbo prefetch COME UP TWO REQUESTS!
+	because stimulus controller trigger twice:
 		- page loads immediately	(1)
-		- after page load			(2)
+		- after AJAX loaded			(2)
+import './turbo/prefetch.js';
 */
-//import './turbo/prefetch.js';
 import './turbo/confirmMethod.js';
 import './turbo/pageTransitions.js';
