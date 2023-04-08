@@ -104,7 +104,7 @@
 					class="{{ option.class }}"
 					href="{{ option.url ? option.url : url(option.route, option.query) }}"
 					data-action="{{ dataActionEvents }}"
-					{{ option.attributes|gs_array_to_attribute() }}
+					{{ option.attributes|gs_array_to_attribute }}
 				>
 					{{- name|raw -}}
 				</a>
