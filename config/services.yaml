@@ -6,9 +6,9 @@ parameters:
     
 services:
     _defaults:
+        public:             false
         autowire:           false
         autoconfigure:      false
-        public:             false
         bind:
             ###> PARAMETERS ###
             $timezone:          '%gs_generic_parts.timezone%'
