@@ -167,6 +167,20 @@ twig:
 - gs_submit_button
 - gs_watch
 
+*Public files*
+
+### After `php bin/console a:i` command you have sprites.svg file
+
+***/bundles/gsgenericparts/images/svg/sprite.svg***
+
+This file contains sprites, you can add your own unique sprites.
+
+And access them with the 'gs_sprite' twig component:
+
+```twig
+{{ component('gs_sprite', { id: '<>' }) }}
+```
+
 *Customized services*
 - \\Carbon\\CarbonFactory
 - \\Faker\\Generator
