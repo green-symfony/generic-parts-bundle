@@ -4,43 +4,37 @@ namespace GS\GenericParts\Service;
 
 class GSClipService
 {
-    public $contents;
-    private $os;
-
-    public function __construct()
+    public static function copy(string|float|int $contents): void
     {
-        $this->os = \php_uname();
-    }
+		$os				= \php_uname();
+		
+        $contents		= \trim((string) $contents);
 
-    public function copy($contents): void
-    {
-        $this->contents = \trim($contents);
-
-        if (\preg_match('/windows/i', $this->os)) {
-            $this->windows();
+        if (\preg_match('~windows~i', $os)) {
+            $this->windows($contents);
             return;
         }
-        if (\preg_match('/darwin/i', $this->os)) {
-            $this->mac();
+        if (\preg_match('~darwin~i', $os)) {
+            $this->mac($contents);
             return;
         }
-        $this->linux();
+        $this->linux($contents);
     }
 
     // ###> HELPER ###
 
-    private function mac(): void
+    private function mac($contents): void
     {
-        \exec('echo ' . $this->contents . ' | pbcopy');
+        \exec('echo ' . $contents . ' | pbcopy');
     }
 
-    private function linux(): void
+    private function linux($contents): void
     {
-        \exec('echo ' . $this->contents . ' | xclip -sel clip');
+        \exec('echo ' . $contents . ' | xclip -sel clip');
     }
 
-    private function windows(): void
+    private function windows($contents): void
     {
-        \exec('echo | set /p="' . $this->contents . '" | clip');
+        \exec('echo | set /p="' . $contents . '" | clip');
     }
 }
