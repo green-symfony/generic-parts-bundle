@@ -104,6 +104,15 @@ Open a command console and execute:
 yarn install --force
 ```
 
+### Step 7: Load bundle's public
+
+```console
+php bin/console assets:install
+```
+or
+```console
+php bin/console a:i
+```
 
 
 Details
