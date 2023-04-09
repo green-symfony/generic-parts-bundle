@@ -118,15 +118,18 @@ Basic features for Symfony Web Application which includes:
 *Twig form style*
 You can add twig form style
 
-### Password Visibility
+Twig form widgets
+--------
 
-Open up you console and execute:
+### 1) Change view Symfony\Component\Form\Extension\Core\Type\PasswordType widget
+
+1.0) Open up you console and execute:
 
 ```console
 yarn add stimulus-password-visibility
 ```
 
-In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
+1.1) In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
 
 ```js
 import PasswordVisibility from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true!stimulus-password-visibility';
@@ -134,7 +137,7 @@ import PasswordVisibility from '@symfony/stimulus-bridge/lazy-controller-loader?
 app.register('password-visibility', PasswordVisibility);
 ```
 
-Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
+1.2) Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
 
 ```yaml
 twig:
@@ -143,10 +146,11 @@ twig:
         - '@GSGenericParts/form/gs_generic_parts_form_default.html.twig'
 ```
 
-*Twig*
+*Twig templates*
 -	email `base.html.twig` template for sending emails
 -	`templates/_placeholder.html.twig` for showing loading
 
+*Twig filters*
 | TwigFilter				| description |
 |:--------------------------|:------------|
 | gs_trim					| php \trim(<string>) |
@@ -154,7 +158,7 @@ twig:
 | gs_array_to_attribute		| convert array to string (not for transform into html attribute, for debugging) |
 | gs_binary_img				| return html img with binary image content |
 
-*TwigFunctions*
+*Twig functions*
 - gs_dump_array
 - gs_lorem
 - gs_create_form
@@ -162,7 +166,7 @@ twig:
 - gs_echo
 - gs_clear_output_buffer
 
-*TwigComponents*
+*Twig components*
 - gs_alert
 - gs_dt
 - gs_navs
@@ -170,7 +174,7 @@ twig:
 - gs_submit_button
 - gs_watch
 
-*EventSubscribers*
+*Event subscribers*
 -	kernel.request (for initialize):
 	-	php default timezone in UTC
 	-	add macros to \\Carbon\\Carbon
