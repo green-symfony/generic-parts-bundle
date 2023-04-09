@@ -11,13 +11,9 @@ Make sure Composer is installed globally, as explained in the
 [installation chapter](https://getcomposer.org/doc/00-intro.md)
 of the Composer documentation.
 
-
-***In your applicaiton***
---------
+### Step 1.0: Install the bundle
 
 Open a command console and execute:
-
-### Step 0.1: Install the bundle
 
 ```console
 	composer require green-symfony/generic-parts-bundle
@@ -26,7 +22,7 @@ Open a command console and execute:
 Applications that don't use Symfony Flex (0.2)
 --------
 
-### Step 0.2: Enable the Bundle
+### Step 1.1: Enable the Bundle
 
 Then, enable the bundle by adding it to the list of registered bundles
 in the `config/bundles.php` file of your project:
@@ -40,31 +36,13 @@ return [
 ];
 ```
 
-### Step 1: Add entry in your webpack.config.js
+### Step 2: Add dependencies of node_modules and stimulus controllers ***/package.json***
 
-```js
-.addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
-```
-
-### Step 2: Enable entry in your base.html.twig
-
-```twig
-{% block stylesheets %}
-	{{ encore_entry_link_tags('gs_generic_parts') }}
-{% endblock %}
-
-{% block javascripts %}
-	{{ encore_entry_script_tags('gs_generic_parts') }}
-{% endblock %}
-```
-
-### Step 3: Add dependency in ***/package.json*** (stimulus controllers)
-
-```php
+```json
 @green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
 ```
 
-### Step 4: Install node_modules of your app
+### Step 3: Install all the described node_modules dependencies in your app
 
 Open a command console and execute:
 
@@ -72,7 +50,7 @@ Open a command console and execute:
 yarn install --force
 ```
 
-### Step 5: Register bundle's stimulus controllers in your ***/assets/bootstrap.js***
+### Step 4: Now you can register bundle's stimulus controllers in your ***/assets/bootstrap.js***
 
 ```js
 import { startStimulusApp } from '@symfony/stimulus-bridge';
@@ -88,27 +66,35 @@ export const app = startStimulusApp(require.context(
 ));
 
 /* NOTE:
-	twig function {{ stimulus_controller(<>) }} converts '_' -> '-', so register controllers with '-' to avoid problems with finding registered controller
+	twig function {{ stimulus_controller(<>) }} converts '_' -> '-', 
+	so register controllers with '-' to avoid problems with finding registered controller
 */
 
 /* ###> ALL THE CONTROLLERS OF THIS BUNDLE ### */
-app.register('gs-watch', GSWatch);
-app.register('gs-local-money', GSLocalMoney);			/* for symfony MoneyType (form type) */
+app.register('gs-watch',				GSWatch);
+app.register('gs-local-money',			GSLocalMoney);			/* for symfony MoneyType widget */
 /* ###< ALL THE CONTROLLERS OF THIS BUNDLE ### */
 ```
 
-***In vendor/green-symfony/generic-parts-bundle***
-------
+### Step 5.0: Add entry in your ***/webpack.config.js***
 
-### Step 6: Install node_modules of bundle
-
-Open a command console and execute:
-
-```console
-yarn install --force
+```js
+.addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
 ```
 
-### Step 7: Load bundle's public
+### Step 5.1: Enable entry in your ***/templates/base.html.twig***
+
+```twig
+{% block stylesheets %}
+	{{ encore_entry_link_tags('gs_generic_parts') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('gs_generic_parts') }}
+{% endblock %}
+```
+
+### Step 6: Load bundle's public
 
 ```console
 php bin/console assets:install
@@ -117,7 +103,6 @@ or
 ```console
 php bin/console a:i
 ```
-
 
 Details
 ========

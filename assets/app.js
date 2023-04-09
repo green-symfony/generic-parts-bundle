@@ -5,4 +5,4 @@ import './js/index';
 import './styles/app.scss';
 
 //###> Stimulus ###
-//import './bootstrap'; in node_modules
+//import './bootstrap'; in your application
