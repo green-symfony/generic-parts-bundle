@@ -39,7 +39,9 @@ return [
 ### Step 2: Add dependencies of node_modules and stimulus controllers ***/package.json***
 
 ```json
-@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus
+{
+	"@green-symfony/generic-parts-stimulus": "file:vendor/green-symfony/generic-parts-bundle/assets/@green-symfony/generic-parts-stimulus"
+}
 ```
 
 ### Step 3: Install all the described node_modules dependencies in your app
@@ -114,13 +116,7 @@ Twig form widgets
 
 ### 1) Change view Symfony\Component\Form\Extension\Core\Type\PasswordType widget
 
-1.0) Open up you console and execute:
-
-```console
-yarn add stimulus-password-visibility
-```
-
-1.1) In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
+1.0) In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
 
 ```js
 import PasswordVisibility from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true!stimulus-password-visibility';
@@ -128,7 +124,7 @@ import PasswordVisibility from '@symfony/stimulus-bridge/lazy-controller-loader?
 app.register('password-visibility', PasswordVisibility);
 ```
 
-1.2) Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
+1.1) Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
 
 ```yaml
 twig:
@@ -137,7 +133,7 @@ twig:
         - '@GSGenericParts/form/gs_generic_parts_form_default.html.twig'
 ```
 
-extra 1.3) You can overwrite ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig***
+extra 1.2) You can overwrite ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig***
 
 ```yaml
 twig:

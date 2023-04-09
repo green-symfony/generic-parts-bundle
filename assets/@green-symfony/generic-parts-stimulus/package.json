@@ -17,6 +17,7 @@
         "dotenv-webpack": "^8 || ^7 || ^6",
         "font-awesome": "^4 || ^3 || ^2",
         "stimulus-use": "*",
+        "stimulus-password-visibility": "^2 || ^1",
         "sweetalert2": "^11 || ^10 || ^9 || ^8",
         "turbo": "^1"
 	},
