@@ -115,6 +115,34 @@ Basic features for Symfony Web Application which includes:
 - \\Carbon\\CarbonFactory
 - \\Faker\\Generator
 
+*Twig form style*
+You can add twig form style
+
+### Password Visibility
+
+Open up you console and execute:
+
+```console
+yarn add stimulus-password-visibility
+```
+
+In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
+
+```js
+import PasswordVisibility from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true!stimulus-password-visibility';
+
+app.register('password-visibility', PasswordVisibility);
+```
+
+Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
+
+```yaml
+twig:
+    form_themes:
+        - 'bootstrap_5_layout.html.twig'
+        - '@GSGenericParts/form/gs_generic_parts_form_default.html.twig'
+```
+
 *Twig*
 -	email `base.html.twig` template for sending emails
 -	`templates/_placeholder.html.twig` for showing loading
