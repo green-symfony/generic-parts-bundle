@@ -1,5 +1,8 @@
 {% use 'bootstrap_5_layout.html.twig' %}
 
+
+{# ###> PASSWORD VISIBILITY ###}
+
 {%- block password_widget -%}
 	{%- set type = type|default('password') -%}
     
@@ -34,3 +37,53 @@
 		</button>
 	</div>
 {%- endblock password_widget -%}
+
+{# ###< PASSWORD VISIBILITY ###}
+
+
+{# ###> INPUT TYPE NUMBER + Symfony\Component\Form\Extension\Core\Type\MoneyType = LOCAL MONEY ###}
+
+{% block money_widget -%}
+	{%- set attr = attr|merge({
+		'data-controller':											'gs-local-money',
+		'data-gs-local-money-locale-value':							app.request.locale,
+		
+	}) -%}
+		{# ###> HAS DEFAULT VALUE IN CONTROLLER ###
+		
+		'data-gs-local-money-change-speed-value':					700,
+		
+		###< HAS DEFAULT VALUE IN CONTROLLER ### #}
+    {{- parent() -}}
+{%- endblock money_widget %}
+
+{# ###< INPUT TYPE NUMBER + Symfony\Component\Form\Extension\Core\Type\MoneyType = LOCAL MONEY ###}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

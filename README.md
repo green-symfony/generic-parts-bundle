@@ -76,7 +76,10 @@ yarn install --force
 
 ```js
 import { startStimulusApp } from '@symfony/stimulus-bridge';
-import { GSWatch } from '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true&export=GSWatch!@green-symfony/generic-parts-stimulus';
+import {
+	GSWatch,
+	GSLocalMoney
+} from '@green-symfony/generic-parts-stimulus';
 
 export const app = startStimulusApp(require.context(
     '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
@@ -90,6 +93,7 @@ export const app = startStimulusApp(require.context(
 
 /* ###> ALL THE CONTROLLERS OF THIS BUNDLE ### */
 app.register('gs-watch', GSWatch);
+app.register('gs-local-money', GSLocalMoney);			/* for symfony MoneyType (form type) */
 /* ###< ALL THE CONTROLLERS OF THIS BUNDLE ### */
 ```
 
@@ -148,11 +152,54 @@ twig:
         - '@GSGenericParts/form/gs_generic_parts_form_default.html.twig'
 ```
 
-*Twig templates*
+extra 1.3) You can overwrite ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig***
+
+```yaml
+twig:
+    form_themes:
+        - 'bootstrap_5_layout.html.twig'
+        - 'form/gs_generic_parts_form_default.html.twig'
+```
+
+Just define ***/templates/form/gs_generic_parts_form_default.html.twig*** in your application
+and change the content
+
+```twig
+{% use '@!GSGenericParts/form/gs_generic_parts_form_default.html.twig' %}
+
+{# ###> PASSWORD VISIBILITY ### #}
+
+{%- block password_widget -%}
+	{{- parent() -}}
+	
+	Your code here
+	
+{%- endblock password_widget -%}
+
+{# ###< PASSWORD VISIBILITY ### #}
+
+
+{# ###> INPUT TYPE NUMBER + Symfony\Component\Form\Extension\Core\Type\MoneyType = LOCAL MONEY ### #}
+
+{% block money_widget -%}
+	{{- parent() -}}
+	
+	Your code here
+
+{%- endblock money_widget %}
+
+{# ###< INPUT TYPE NUMBER + Symfony\Component\Form\Extension\Core\Type\MoneyType = LOCAL MONEY ### #}
+
+{# ... #}
+```
+
+Twig templates
+--------
 -	email `base.html.twig` template for sending emails
 -	`templates/_placeholder.html.twig` for showing loading
 
-*Twig filters*
+Twig filters
+--------
 | TwigFilter				| description |
 |:--------------------------|:------------|
 | gs_trim					| php \trim(<string>) |
@@ -160,7 +207,8 @@ twig:
 | gs_array_to_attribute		| convert array to string (not for transform into html attribute, for debugging) |
 | gs_binary_img				| return html img with binary image content |
 
-*Twig functions*
+Twig functions
+--------
 - gs_dump_array
 - gs_lorem
 - gs_create_form
@@ -168,7 +216,8 @@ twig:
 - gs_echo
 - gs_clear_output_buffer
 
-*Twig components*
+Twig components
+--------
 - gs_alert
 - gs_dt
 - gs_navs
@@ -176,7 +225,8 @@ twig:
 - gs_submit_button
 - gs_watch
 
-*Public files*
+Public files
+--------
 
 ### After `php bin/console a:i` command you have sprites.svg file
 
@@ -190,11 +240,13 @@ And access them with the 'gs_sprite' twig component:
 {{ component('gs_sprite', { id: '<>' }) }}
 ```
 
-*Customized services*
+Customized services
+--------
 - \\Carbon\\CarbonFactory
 - \\Faker\\Generator
 
-*Event subscribers*
+Event subscribers
+--------
 -	kernel.request (for initialize):
 	-	php default timezone in UTC
 	-	add macros to \\Carbon\\Carbon

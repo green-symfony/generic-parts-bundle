@@ -13,13 +13,11 @@
         "webpack-notifier": "^1"
     },
     "dependencies": {
-        "@hotwired/turbo": "^7 || ^6 || ^5 || ^4",
         "@popperjs/core": "^2 || ^1",
-        "axios": "^1",
         "babel-loader": "^9 || ^8 || ^7 || ^6",
         "bootstrap": "^5 || ^4 || ^3",
         "dotenv-webpack": "^8 || ^7 || ^6",
-        "font-awesome": "^4.7.0",
+        "font-awesome": "^4 || ^3 || ^2",
         "stimulus-use": "*",
         "sweetalert2": "^11 || ^10 || ^9 || ^8",
         "turbo": "^1"

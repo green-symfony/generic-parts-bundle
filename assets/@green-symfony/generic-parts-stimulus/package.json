@@ -3,10 +3,12 @@
 	"version":		"0.0.0",
 	"description":	"Stimulus controllers in general for green-symfony/generic-parts-bundle",
 	"licence":		"MIT",
-	"main":			"dist/controllers.js",
-	"peerDependencies":		{
+	"main":			"controllers.js",
+	"dependencies":	{
 		"@hotwired/stimulus": "^3 || ^2 || ^1",
 		"@hotwired/turbo": "^7 || ^6 || ^5 || ^4",
-		"@symfony/stimulus-bridge": "^3 || ^2"
+		"@symfony/stimulus-bridge": "^3 || ^2",
+		"stimulus-use": "^1 || ^0",
+		"parse-money": "^1 || ^0"
 	}
 }
