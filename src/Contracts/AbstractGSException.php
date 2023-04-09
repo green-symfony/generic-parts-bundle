@@ -3,18 +3,19 @@
 namespace GS\GenericParts\Contracts;
 
 use Symfony\Component\HttpFoundation\{
-	Response
+    Response
 };
+
 use function Symfony\Component\String\u;
 
 abstract class AbstractGSException extends \Exception implements GSJsonResponseInterface
 {
-	use GSJsonResponseTrait;
-	
-	###> CAN OVERRIDE IT ###
-	public const MESSAGE		= self::class;
-	public const HTTP_CODE		= Response::HTTP_INTERNAL_SERVER_ERROR;
-	###< CAN OVERRIDE IT ###
-	
-	###> HELPER ###
+    use GSJsonResponseTrait;
+
+    ###> CAN OVERRIDE IT ###
+    public const MESSAGE        = self::class;
+    public const HTTP_CODE      = Response::HTTP_INTERNAL_SERVER_ERROR;
+    ###< CAN OVERRIDE IT ###
+
+    ###> HELPER ###
 }

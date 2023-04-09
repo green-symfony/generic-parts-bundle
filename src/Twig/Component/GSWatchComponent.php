@@ -30,33 +30,34 @@ use Symfony\UX\LiveComponent\{
 #[AsTwigComponent('gs_watch', template: '@GSGenericParts/components/gs_watch.html.twig')]
 class GSWatchComponent extends AbstractTwigComponent
 {
-    public $intervalMs			= 1000;
-	public $attr				= [
-		'class'		=> 'fs-6 d-inline badge text-bg-dark',
-		'style'		=> "font-family: gs-default, times-new-roman;",
-	];
-	
-	public function mount(
-		?array $attr = null,
+    public $intervalMs          = 1000;
+    public $attr                = [
+        'class'     => 'fs-6 d-inline badge text-bg-dark',
+        'style'     => "font-family: gs-default, times-new-roman;",
+    ];
+
+    public function mount(
+        ?array $attr = null,
     ) {
-		$this->assignAttr($attr);
-	}
-	
-	protected function configureOptions(OptionsResolver $resolver): void {
-		$resolver
-			->setDefined([
-				'intervalMs',
-				'attr',
-			])
-		;
-	}
-	
-	//###> HELPER ###
-	private function assignAttr(?array $attr): void
-	{
-		$attr	??=	[];
-		$attr	= \array_replace($this->attr, $attr);
-		
-		$this->attr				= $attr;
-	}
+        $this->assignAttr($attr);
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver
+            ->setDefined([
+                'intervalMs',
+                'attr',
+            ])
+        ;
+    }
+
+    //###> HELPER ###
+    private function assignAttr(?array $attr): void
+    {
+        $attr   ??= [];
+        $attr   = \array_replace($this->attr, $attr);
+
+        $this->attr             = $attr;
+    }
 }

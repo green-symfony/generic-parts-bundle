@@ -4,10 +4,10 @@ namespace GS\GenericParts\Exception;
 
 use GS\GenericParts\Contracts\AbstractGSException;
 use Symfony\Component\HttpFoundation\{
-	Response
+    Response
 };
 
 class GSSerializerParseException extends AbstractGSException
 {
-	public const MESSAGE = 'exception.serializer_parse';
+    public const MESSAGE = 'exception.serializer_parse';
 }

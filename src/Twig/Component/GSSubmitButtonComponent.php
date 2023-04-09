@@ -30,15 +30,16 @@ use Symfony\UX\LiveComponent\{
 #[AsTwigComponent('gs_submit_button', template: '@GSGenericParts/components/gs_submit_button.html.twig')]
 class GSSubmitButtonComponent extends AbstractTwigComponent
 {
-    public string $class		= 'btn btn-outline-secondary';
-    public array $attr			= [];
+    public string $class        = 'btn btn-outline-secondary';
+    public array $attr          = [];
     public string $text;
-	
-	protected function configureOptions(OptionsResolver $resolver): void {
-		$resolver
-			->setRequired([
-				'text',
-			])
-		;
-	}
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver
+            ->setRequired([
+                'text',
+            ])
+        ;
+    }
 }

@@ -3,12 +3,12 @@
 namespace GS\GenericParts\Twig\Extension;
 
 use GS\GenericParts\Contracts\{
-	GSIsoFormat
+    GSIsoFormat
 };
 use GS\GenericParts\Service\{
-	GSCarbonService,
-	GSBufferService,
-	GSHtmlService
+    GSCarbonService,
+    GSBufferService,
+    GSHtmlService
 };
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\{
@@ -26,24 +26,25 @@ class DefaultExtension extends AbstractExtension
         private FormFactoryInterface $formFactory,
     ) {
     }
-    
-	//###> FILTERS ###
+
+    //###> FILTERS ###
 
     public function getFilters()
     {
         return [
-            new \Twig\TwigFilter('gs_trim',						$this->trim(...)),
-            new \Twig\TwigFilter('gs_for_user',					$this->forUser(...)),
-			/* Usage: attrVariable|<filter>|raw */
-            new \Twig\TwigFilter('gs_array_to_attribute',		$this->arrayToAttribute(...)),
-            new \Twig\TwigFilter('gs_binary_img',				$this->binary_img(...)),
+            new \Twig\TwigFilter('gs_trim', $this->trim(...)),
+            new \Twig\TwigFilter('gs_for_user', $this->forUser(...)),
+            /* Usage: attrVariable|<filter>|raw */
+            new \Twig\TwigFilter('gs_array_to_attribute', $this->arrayToAttribute(...)),
+            new \Twig\TwigFilter('gs_binary_img', $this->binary_img(...)),
         ];
     }
-	
-	public function trim(mixed $input, ?string $string = null) {
-		return ($string !== null) ? \trim($input, $string) : \trim($input);
-	}
-	
+
+    public function trim(mixed $input, ?string $string = null)
+    {
+        return ($string !== null) ? \trim($input, $string) : \trim($input);
+    }
+
     public function forUser(
         \DateTime|\DateTimeImmutable $data,
         ?string $tz = null,
@@ -52,67 +53,69 @@ class DefaultExtension extends AbstractExtension
         ?GSIsoFormat $isoFormat = null,
         ?Request $request = null,
     ): string {
-        $carbon			= $this->carFacImm->make($data)->toMutable();
-        
-		$carbon	= GSCarbonService::forUser(
-			origin:				$carbon,
-			sourceOfMeta:		$sourceOfMeta,
-			tz:					$tz,
-			locale:				$request?->attributes?->get('_locale'),
-		);
-		
+        $carbon         = $this->carFacImm->make($data)->toMutable();
+
+        $carbon = GSCarbonService::forUser(
+            origin:             $carbon,
+            sourceOfMeta:       $sourceOfMeta,
+            tz:                 $tz,
+            locale:             $request?->attributes?->get('_locale'),
+        );
+
         return GSCarbonService::isoFormat($carbon, $isoFormat);
     }
 
-	public function arrayToAttribute(
+    public function arrayToAttribute(
         array $input,
     ): string {
-        \array_walk($input, static fn(&$v, $k) => $v = $k . '="' . $v.'"');
+        \array_walk($input, static fn(&$v, $k) => $v = $k . '="' . $v . '"');
         return \implode(' ', $input);
     }
-	
-	public function binary_img(string $input) {
-		return GSHtmlService::getImgHtmlByBinary($input);
-	}
 
-	//###< FILTERS ###
-	
-	//###> TESTS ###
+    public function binary_img(string $input)
+    {
+        return GSHtmlService::getImgHtmlByBinary($input);
+    }
+
+    //###< FILTERS ###
+
+    //###> TESTS ###
 
     public function getTests()
     {
         return [
         ];
     }
-    
-	//###< TESTS ###
-	
+
+    //###< TESTS ###
+
     //###> FUNCTIONS ###
 
     public function getFunctions()
     {
         return [
-            new \Twig\TwigFunction('gs_dump_array',						$this->dumpArray(...)),
-            new \Twig\TwigFunction('gs_lorem',							$this->lorem(...)),
-            new \Twig\TwigFunction('gs_create_form',					$this->createForm(...)),
-            new \Twig\TwigFunction('gs_time',							\time(...)),
-            new \Twig\TwigFunction('gs_microtime',						$this->microtime(...)),
-            new \Twig\TwigFunction('gs_echo',							$this->echo(...)),
-            new \Twig\TwigFunction('gs_clear_output_buffer',			$this->clearOutputBuffer(...)),
+            new \Twig\TwigFunction('gs_dump_array', $this->dumpArray(...)),
+            new \Twig\TwigFunction('gs_lorem', $this->lorem(...)),
+            new \Twig\TwigFunction('gs_create_form', $this->createForm(...)),
+            new \Twig\TwigFunction('gs_time', \time(...)),
+            new \Twig\TwigFunction('gs_microtime', $this->microtime(...)),
+            new \Twig\TwigFunction('gs_echo', $this->echo(...)),
+            new \Twig\TwigFunction('gs_clear_output_buffer', $this->clearOutputBuffer(...)),
         ];
     }
-	
+
     public function clearOutputBuffer(): void
     {
-		GSBufferService::clear();
+        GSBufferService::clear();
     }
 
 
-    public function dumpArray($input) {
-		\array_walk($input, static function($v, $k) {
-			echo \nl2br($k . ' => ' . $v . \PHP_EOL . \PHP_EOL);
-		});
-	}
+    public function dumpArray($input)
+    {
+        \array_walk($input, static function ($v, $k) {
+            echo \nl2br($k . ' => ' . $v . \PHP_EOL . \PHP_EOL);
+        });
+    }
 
     public function echo($string)
     {
@@ -134,9 +137,9 @@ class DefaultExtension extends AbstractExtension
     public function lorem(
         int $quantity = 1000,
     ): string {
-		return $this->faker->realText($quantity);
+        return $this->faker->realText($quantity);
     }
-	
+
     //###< FUNCTIONS ###
 
     public function getTokenParsers()
@@ -147,8 +150,8 @@ class DefaultExtension extends AbstractExtension
     public function getNodeVisitors()
     {
         return [];
-	}
-	
+    }
+
     public function getOperators()
     {
         return [];
@@ -163,5 +166,4 @@ class DefaultExtension extends AbstractExtension
     {
         return self::class;
     }
-	
 }

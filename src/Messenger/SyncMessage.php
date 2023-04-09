@@ -13,7 +13,7 @@ class SyncMessage
         // this bus service for HandleTrait
         MessageBusInterface $messageBus,
     ) {
-		$this->messageBus	= $messageBus;
+        $this->messageBus   = $messageBus;
     }
 
     /*

@@ -31,38 +31,38 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class InitSubscriber implements EventSubscriberInterface
 {
-	public function __construct(
-		private MessageBusInterface $bus,
-		private $timezone,
-		private $debugLogger,
-	) {
-	}
-	
-	//###> EVENTS ###
-	public function onKernelRequest(RequestEvent $event)
-    {
-		//$url		= $event->getRequest()->getBaseUrl() . $event->getRequest()->getPathInfo();
-		$this->handleRequest($event);
+    public function __construct(
+        private MessageBusInterface $bus,
+        private $timezone,
+        private $debugLogger,
+    ) {
     }
-	//###< EVENTS ###
+
+    //###> EVENTS ###
+    public function onKernelRequest(RequestEvent $event)
+    {
+        //$url      = $event->getRequest()->getBaseUrl() . $event->getRequest()->getPathInfo();
+        $this->handleRequest($event);
+    }
+    //###< EVENTS ###
 
 
-	//###> HELPERS ###
+    //###> HELPERS ###
     private function handleRequest($event)
     {
         foreach (
             [
-				new SetDefaultDateTimeZone($this->timezone),
-				new InitCarbon(),
+                new SetDefaultDateTimeZone($this->timezone),
+                new InitCarbon(),
             ] as $message
         ) {
             $this->bus->dispatch($message);
         }
     }
-	//###< HELPERS ###
+    //###< HELPERS ###
 
-	/** implements EventSubscriberInterface */
-	public static function getSubscribedEvents(): array
+    /** implements EventSubscriberInterface */
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => ['onKernelRequest', 256],

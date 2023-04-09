@@ -3,18 +3,18 @@
 namespace GS\GenericParts\Carbon;
 
 use GS\GenericParts\Service\{
-	GSCarbonService
+    GSCarbonService
 };
 
 class SourceMacros
 {
     /*
-		DateTime in User locale and timezone
-		
+        DateTime in User locale and timezone
+
         Usage:
-			$carbonForUser			= Carbon::forUser(tz: <>, locale: <>);
-			$carbonForUser			= Carbon::forUser($sourceData);
-			$carbonForUser			= $carbon->forUser($sourceData);
+            $carbonForUser          = Carbon::forUser(tz: <>, locale: <>);
+            $carbonForUser          = Carbon::forUser($sourceData);
+            $carbonForUser          = $carbon->forUser($sourceData);
     */
     public static function forUser()
     {
@@ -24,11 +24,11 @@ class SourceMacros
             string $locale = null,
         ): \DateTime|\DateTimeImmutable {
             return GSCarbonService::forUser(
-				origin:				self::this(),
-				sourceOfMeta:		$sourceOfMeta,
-				tz:					$tz,
-				locale:				$locale,
-			);
+                origin:             self::this(),
+                sourceOfMeta:       $sourceOfMeta,
+                tz:                 $tz,
+                locale:             $locale,
+            );
         };
     }
 }

@@ -4,10 +4,10 @@ namespace GS\GenericParts\Exception;
 
 use GS\GenericParts\Contracts\AbstractGSException;
 use Symfony\Component\HttpFoundation\{
-	Response
+    Response
 };
 
 class GSDateTimeBadLocaleOrTimezoneException extends AbstractGSException
 {
-	public const MESSAGE = 'exception.bad_locale_or_timezone';
+    public const MESSAGE = 'exception.bad_locale_or_timezone';
 }

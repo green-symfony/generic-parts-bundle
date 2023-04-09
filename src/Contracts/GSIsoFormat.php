@@ -4,5 +4,5 @@ namespace GS\GenericParts\Contracts;
 
 interface GSIsoFormat
 {
-	public static function get(): string;
+    public static function get(): string;
 }

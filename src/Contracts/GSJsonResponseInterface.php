@@ -3,13 +3,13 @@
 namespace GS\GenericParts\Contracts;
 
 use Symfony\Component\HttpFoundation\{
-	Response
+    Response
 };
 
 interface GSJsonResponseInterface
 {
-	###> CAN OVERRIDE IT ###
-	public const MESSAGE		= self::class;
-	public const HTTP_CODE		= Response::HTTP_OK;
-	###< CAN OVERRIDE IT ###
+    ###> CAN OVERRIDE IT ###
+    public const MESSAGE        = self::class;
+    public const HTTP_CODE      = Response::HTTP_OK;
+    ###< CAN OVERRIDE IT ###
 }

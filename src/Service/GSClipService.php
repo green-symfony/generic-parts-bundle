@@ -4,7 +4,7 @@ namespace GS\GenericParts\Service;
 
 class GSClipService
 {
-	public $contents;
+    public $contents;
     private $os;
 
     public function __construct()
@@ -26,21 +26,21 @@ class GSClipService
         }
         $this->linux();
     }
-	
-	// ###> HELPER ###
-	
+
+    // ###> HELPER ###
+
     private function mac(): void
     {
-        \exec('echo '.$this->contents.' | pbcopy');
+        \exec('echo ' . $this->contents . ' | pbcopy');
     }
 
     private function linux(): void
     {
-        \exec('echo '.$this->contents.' | xclip -sel clip');
+        \exec('echo ' . $this->contents . ' | xclip -sel clip');
     }
-	
+
     private function windows(): void
     {
-        \exec('echo | set /p="'.$this->contents.'" | clip');
+        \exec('echo | set /p="' . $this->contents . '" | clip');
     }
 }

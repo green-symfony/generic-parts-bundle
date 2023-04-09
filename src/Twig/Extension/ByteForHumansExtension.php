@@ -6,13 +6,12 @@ use Twig\Extension\AbstractExtension;
 
 class ByteForHumansExtension extends AbstractExtension
 {
-	
-	//###> FILTERS ###
-	
+    //###> FILTERS ###
+
     public function getFilters()
     {
         return [
-            new \Twig\TwigFilter('gs_byte',					$this->format_bytes(...)),
+            new \Twig\TwigFilter('gs_byte', $this->format_bytes(...)),
         ];
     }
 
@@ -32,6 +31,6 @@ class ByteForHumansExtension extends AbstractExtension
         $pre = $pre[$exp - 1]; //$pre = $pre[$exp - 1] . ($si ? "" : "i");
         return \sprintf("%.1f %sB", $bytes / \pow($unit, $exp), $pre);
     }
-	
-	//###< FILTERS ###
+
+    //###< FILTERS ###
 }

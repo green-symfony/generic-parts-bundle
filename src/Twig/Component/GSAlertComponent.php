@@ -21,13 +21,14 @@ use Symfony\UX\TwigComponent\Attribute\{
 #[AsTwigComponent('gs_alert', template: '@GSGenericParts/components/gs_alert.html.twig')]
 class GSAlertComponent extends AbstractTwigComponent
 {
-	public string $message;
-	
-	protected function configureOptions(OptionsResolver $resolver): void {
-		$resolver
-			->setRequired([
-				'message',
-			])
-		;
-	}
+    public string $message;
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver
+            ->setRequired([
+                'message',
+            ])
+        ;
+    }
 }

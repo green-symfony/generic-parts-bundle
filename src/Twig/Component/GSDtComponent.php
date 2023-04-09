@@ -5,6 +5,7 @@ namespace GS\GenericParts\Twig\Component;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use function Symfony\Component\String\u;
+
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\Validator\{
     Constraints,
@@ -43,11 +44,11 @@ class GSDtComponent extends AbstractTwigComponent
     {
         $resolver
             ->setDefaults([
-				'tz'		=> $this->timezone,				
-			])
+                'tz'        => $this->timezone,
+            ])
             ->setRequired('dt')
-            ->setAllowedTypes('dt', [\DateTime::class, \DateTimeImmutable::class,			'null'])
-            ->setAllowedTypes('tz', ['string',												'null'])
+            ->setAllowedTypes('dt', [\DateTime::class, \DateTimeImmutable::class,           'null'])
+            ->setAllowedTypes('tz', ['string',                                              'null'])
         ;
     }
 }

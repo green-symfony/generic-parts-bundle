@@ -3,13 +3,13 @@
 namespace GS\GenericParts\JsonResponse;
 
 use GS\GenericParts\Contracts\{
-	AbstractGSJsonResponse
+    AbstractGSJsonResponse
 };
 use Symfony\Component\HttpFoundation\{
-	Response
+    Response
 };
 
 class GSJsonResponseTimezoneSuccessfullySet extends AbstractGSJsonResponse
 {
-	public const MESSAGE		= 'json_api_answer.timezone_successfully_set';
+    public const MESSAGE        = 'json_api_answer.timezone_successfully_set';
 }

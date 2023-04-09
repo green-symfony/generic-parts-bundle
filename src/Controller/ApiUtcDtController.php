@@ -3,16 +3,18 @@
 namespace GS\GenericParts\Controller;
 
 use GS\GenericParts\Service\{
-	GSCarbonService
+    GSCarbonService
 };
 use GS\GenericParts\Exception\{
-	GSDateTimeBadLocaleOrTimezoneException
+    GSDateTimeBadLocaleOrTimezoneException
 };
+
 use function Symfony\Component\String\u;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{
-	Response,
-	JsonResponse
+    Response,
+    JsonResponse
 };
 use Symfony\Component\Routing\Annotation\Route;
 use Carbon\Carbon;
@@ -20,39 +22,39 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApiUtcDtController extends GSAbstractController
 {
-	public function __construct(
-		$tzSessionName,
-	) {
-		parent::__construct(
-			$tzSessionName,
-		);
-	}
-	
+    public function __construct(
+        $tzSessionName,
+    ) {
+        parent::__construct(
+            $tzSessionName,
+        );
+    }
+
     #[Route('/api/utc/dt')]
     public function index(
-		Request $request,
-		$debugLogger,
-	) {
-		$carbon = Carbon::now();
-		
-		try {
-			$carbon = $carbon->forUser(
-				locale:	$locale		= $request->getLocale(),
-				tz:		$tz			= $request->getSession()->get($this->tzSessionName),
-			);
-		} catch (\Exception $e) {
-			throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
-		}
-		
-		//$debugLogger->info('LOCALE', [$locale]);
-		
-		$dt		= GSCarbonService::isoFormat($carbon);
-		
-		return $this->json(
-			$dt,
-			context:	[
-				'json_encode_options'		=> \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
-			],
-		);
+        Request $request,
+        $debugLogger,
+    ) {
+        $carbon = Carbon::now();
+
+        try {
+            $carbon = $carbon->forUser(
+                locale: $locale     = $request->getLocale(),
+                tz:     $tz         = $request->getSession()->get($this->tzSessionName),
+            );
+        } catch (\Exception $e) {
+            throw new GSDateTimeBadLocaleOrTimezoneException(params: ['locale' => $locale, 'tz' => $tz]);
+        }
+
+        //$debugLogger->info('LOCALE', [$locale]);
+
+        $dt     = GSCarbonService::isoFormat($carbon);
+
+        return $this->json(
+            $dt,
+            context:    [
+                'json_encode_options'       => \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
+            ],
+        );
     }
 }

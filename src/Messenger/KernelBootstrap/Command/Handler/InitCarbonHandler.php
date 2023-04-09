@@ -15,12 +15,12 @@ use Carbon\{
 #[AsMessageHandler]
 class InitCarbonHandler
 {
-	public function __construct(
-		private $locale,
-		//private $debugLogger,
-	) {
-	}
-	
+    public function __construct(
+        private $locale,
+        //private $debugLogger,
+    ) {
+    }
+
     public function __invoke(InitCarbon $_0)
     {
         $this->setCarbonMacro();
@@ -36,7 +36,7 @@ class InitCarbonHandler
 
     private function modifyTranslations(): void
     {
-		//$this->debugLogger->info($this->locale);
+        //$this->debugLogger->info($this->locale);
         Translator::get($this->locale)->setTranslations([
             // unit
             //'day' => ':count дня|:count дней',

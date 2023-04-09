@@ -12,20 +12,20 @@ use Symfony\UX\TwigComponent\Attribute\{
 
 abstract class AbstractTwigComponent
 {
-	/* params which you set by your self
-	public function mount(
-	) {}
-	*/
-	
-	#[preMount(priority: 0)]
+    /* params which you set by your self
+    public function mount(
+    ) {}
+    */
+
+    #[preMount(priority: 0)]
     public function preMount(array $data)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         return $resolver->resolve($data);
     }
-	
-	// ###> ABSTRACT ###
-	abstract protected function configureOptions(OptionsResolver $resolver): void;
-	// ###< ABSTRACT ###
+
+    // ###> ABSTRACT ###
+    abstract protected function configureOptions(OptionsResolver $resolver): void;
+    // ###< ABSTRACT ###
 }

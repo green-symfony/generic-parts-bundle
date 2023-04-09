@@ -32,12 +32,13 @@ use Symfony\UX\LiveComponent\{
 class GSSpriteComponent extends AbstractTwigComponent
 {
     public string $id;
-	
-	protected function configureOptions(OptionsResolver $resolver): void {
-		$resolver
-			->setRequired([
-				'id',
-			])
-		;
-	}
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver
+            ->setRequired([
+                'id',
+            ])
+        ;
+    }
 }
