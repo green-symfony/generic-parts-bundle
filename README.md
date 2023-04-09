@@ -111,13 +111,6 @@ Details
 
 Basic features for Symfony Web Application which includes:
 
-*Customized services*
-- \\Carbon\\CarbonFactory
-- \\Faker\\Generator
-
-*Twig form style*
-You can add twig form style
-
 Twig form widgets
 --------
 
@@ -173,6 +166,10 @@ twig:
 - gs_sprite	(your should have */public/images/svg/sprite.svg* file)
 - gs_submit_button
 - gs_watch
+
+*Customized services*
+- \\Carbon\\CarbonFactory
+- \\Faker\\Generator
 
 *Event subscribers*
 -	kernel.request (for initialize):
