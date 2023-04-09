@@ -25,10 +25,8 @@ class GSServiceContainer
 		}
 	}
 	
-	public static function setParametersForce(
-		ContainerBuilder $containerBuilder,
-		callable|\Closure $callbackGetValue,
-		/**
+	/**
+		@var $keys:
 			pass the keys in property accessor syntax
 			if you need to get value from callback with $sourceArray
 			to use property accessor:
@@ -36,7 +34,10 @@ class GSServiceContainer
 				
 			in callbackGetValue:
 				PropertyAccess::createPropertyAccessor()->getValue($sourceArray, $key);
-		*/
+	*/
+	public static function setParametersForce(
+		ContainerBuilder $containerBuilder,
+		callable|\Closure $callbackGetValue,
 		array $keys,
 		?string $parameterPrefix = null,
 	): void {

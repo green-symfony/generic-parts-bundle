@@ -17,6 +17,9 @@ final class GSBufferService
 	) {
 	}
 	
+	/**
+		Works with php output buffer
+	*/
 	public static function clear(): void 
 	{
 		while (\ob_get_level()) \ob_end_clean();

@@ -16,12 +16,12 @@ services:
             $locale:            '%gs_generic_parts.locale%'
             
             ###> SERVICES ###
-            $debugLogger:         '@monolog.logger.gs_generic_parts.debug'
-            $carFacImm:         '@gs_generic_parts.carbon_factory'
+            $debugLogger:           '@monolog.logger.gs_generic_parts.debug'
+            $carFacImm:             '@gs_generic_parts.carbon_factory'
             #$carFacImm:         ''
-            $faker:             '@gs_generic_parts.faker'
+            $faker:                 '@gs_generic_parts.faker'
             #$faker:             ''
-            $formFactory:       '@Symfony\Component\Form\FormFactoryInterface'
+            $formFactory:           '@Symfony\Component\Form\FormFactoryInterface'
             
 
     ###> TEST SERVICE ###
