@@ -60,11 +60,11 @@ export default class extends Controller {
 
 	normalize(event) {
 		this.$el = event.target; // target 
+		this.assignNormalizedLocalValue();
 		this.doNormalize();
 	}
 	
 	onSubmit(event) {
-		this.assignNormalizedLocalValue();
 		this.$el.value = this.currentAmount;
 	}
 	
