@@ -64,6 +64,7 @@ export default class extends Controller {
 	}
 	
 	onSubmit(event) {
+		this.assignNormalizedLocalValue();
 		this.$el.value = this.currentAmount;
 	}
 	
