@@ -14,7 +14,7 @@
 	{{ stimulus_controller('gs_watch', {
 		intervalMs,
 	}) }}
-	{{ attr|gs_array_to_attribute|raw }}
+	{{- attr|gs_array_to_attribute -}}
 >
 	{{- render(controller('GS\\GenericParts\\Controller\\ApiUtcDtController::index'))|trim('" \'') -}}
 	{#

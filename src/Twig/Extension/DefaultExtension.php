@@ -34,8 +34,7 @@ class DefaultExtension extends AbstractExtension
         return [
             new \Twig\TwigFilter('gs_trim',						$this->trim(...)),
             new \Twig\TwigFilter('gs_for_user',					$this->forUser(...)),
-            /* Usage:	attrVariable|<filter>|raw */
-            new \Twig\TwigFilter('gs_array_to_attribute',		$this->arrayToAttribute(...)),
+            new \Twig\TwigFilter('gs_array_to_attribute',		$this->arrayToAttribute(...), ['is_safe' => ['html']]),
             new \Twig\TwigFilter('gs_binary_img',				$this->binary_img(...)),
 			/* Usage:	<>|gs_local_money(app.request.locale) */
             new \Twig\TwigFilter('gs_local_money',				$this->localMoney(...)),
@@ -75,12 +74,17 @@ class DefaultExtension extends AbstractExtension
 
         return GSCarbonService::isoFormat($carbon, $isoFormat);
     }
-
+	
+	/* Usage:
+		{{- attr|gs_array_to_attribute -}}
+	*/
     public function arrayToAttribute(
         array $input,
     ): string {
-        \array_walk($input, static fn(&$v, $k) => $v = $k . '="' . $v . '"');
-        return \implode(' ', $input);
+        \array_walk($input, static fn(&$v, $k) => $v = ( (string) $k ) . '="' . ( \is_bool($v) ? ( $v ? 'true' : 'false' ) : $v ) . '"');
+        $outputString			= \implode(' ', $input);
+		//if ($outputString != '') \dd($outputString);
+		return $outputString;
     }
 
     public function binary_img(string $input)
