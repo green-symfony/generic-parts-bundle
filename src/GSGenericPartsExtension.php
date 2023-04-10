@@ -10,7 +10,10 @@ use GS\GenericParts\Service\{
 };
 use GS\GenericParts\Configuration;
 use GS\GenericParts\Contracts\GSTag;
-use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\{
+	Parameter,
+	Reference
+};
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -22,7 +25,21 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
-    public const PREFIX = 'gs_generic_parts.';
+    public const PREFIX					= 'gs_generic_parts';
+	
+	
+	/*	bundle config -> paramter			parameter defined in bundle config */
+    public const LOCALE						= '[locale]';
+	protected $localeParameter;
+    public const TIMEZONE					= '[timezone]';
+	protected $timezoneParameter;
+    public const ERROR_LOGGER_EMAIL_FROM	= '[error_logger_email][from]';
+    public const ERROR_LOGGER_EMAIL_TO		= '[error_logger_email][to]';
+	
+	public function getAlias()
+    {
+		return self::PREFIX;
+	}
 
     /**
         -   load packages .yaml
@@ -83,17 +100,27 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         );
         */
 
+		$pa			= PropertyAccess::createPropertyAccessor();
         GSServiceContainer::setParametersForce(
             $container,
-            callbackGetValue:       static function ($key) use (&$config) {
-                return PropertyAccess::createPropertyAccessor()->getValue($config, $key);
+            callbackGetValue:       static function ($key) use (&$config, $pa) {
+                return $pa->getValue($config, $key);
             },
             parameterPrefix:        self::PREFIX,
             keys:                   [
                 '[error_logger_email][from]',
                 '[error_logger_email][to]',
+				
+                self::LOCALE,
+                self::TIMEZONE,
+                self::ERROR_LOGGER_EMAIL_FROM,
+                self::ERROR_LOGGER_EMAIL_TO,
             ],
         );
+		
+		/* to use in this object */
+		$this->localeParameter			= new Parameter(self::PREFIX.self::LOCALE);
+		$this->timezoneParameter		= new Parameter(self::PREFIX.self::TIMEZONE);
     }
 
     private function fillInServiceArgumentsWithConfigOfCurrentBundle(
@@ -110,9 +137,9 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
             class:          \Carbon\FactoryImmutable::class,
             arguments:      [
                 '$settings'         => [
-                    'locale'                    => $config['locale'],
+                    'locale'                    => $this->localeParameter,
                     'strictMode'                => true,
-                    'timezone'                  => $config['timezone'],
+                    'timezone'                  => $this->timezoneParameter,
                     'toStringFormat'            => 'd.m.Y H:i:s P',
                     'monthOverflow'             => true,
                     'yearOverflow'              => true,
@@ -129,7 +156,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
     {
         $faker          = (new Definition(\Faker\Factory::class, []))
             ->setFactory([\Faker\Factory::class, 'create'])
-            ->setArgument(0, GSStringNormalizer::getFullLocale($config['locale']))
+            ->setArgument(0, $this->localeParameter)
         ;
         //\dd($config['locale']);
         $faker          = $container->setDefinition(

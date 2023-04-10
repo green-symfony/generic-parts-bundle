@@ -8,10 +8,12 @@ use GS\GenericParts\Service\{
     GSServiceContainer
 };
 use GS\GenericParts\GSGenericPartsExtension;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use GS\GenericParts\Contracts\GSTag;
+use Symfony\Component\DependencyInjection\{
+	Parameter,
+	Reference
+};
 
 class MonologLoggerPass implements CompilerPassInterface
 {
@@ -32,10 +34,10 @@ class MonologLoggerPass implements CompilerPassInterface
         ContainerBuilder $container
     ): void {
         $emailFrom                          = $container->getParameter(
-            GSGenericPartsExtension::PREFIX . '[error_logger_email][from]'
+            new Parameter(GSGenericPartsExtension::PREFIX . GSGenericPartsExtension::ERROR_LOGGER_EMAIL_FROM)
         );
         $emailTo                            = $container->getParameter(
-            GSGenericPartsExtension::PREFIX . '[error_logger_email][to]'
+            new Parameter(GSGenericPartsExtension::PREFIX . GSGenericPartsExtension::ERROR_LOGGER_EMAIL_TO)
         );
         /*
         \dd(
