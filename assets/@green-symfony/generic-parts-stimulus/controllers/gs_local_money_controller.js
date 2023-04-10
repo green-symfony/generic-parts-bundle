@@ -30,9 +30,14 @@ export default class extends Controller {
 
 	$el					= null;
 	currentAmount		= null;
+	prevLocal			= null;
 	
 	normalizeCallback	= null;
 	onSubmitCallback	= null;
+	
+	localValueChanged() {
+		this.assignNormalizedLocalValue();
+	}
 	
 	connect() {
 		useDebounce(this, {
@@ -43,7 +48,6 @@ export default class extends Controller {
 		this.element.addEventListener('input',	this.normalizeCallback);
 		this.element.closest('form').addEventListener('submit', this.onSubmitCallback, true);
 		this.$el				= this.element;
-		
 		this.assignNormalizedLocalValue();
 		
 		this.doNormalize();
@@ -72,12 +76,13 @@ export default class extends Controller {
 	}
 	
 	assignNormalizedLocalValue() {
-		if (!this.localeValue)				return;
+		if (!this.localeValue || this.localValue === this.prevLocal) return;
 		
 		const matches						= this.localeValue.match(/^[a-z]{2}/i);
 		
 		if (!matches)						return;
 		
-		this.localeValue					= matches[0];
+		this.prevLocal						= matches[0];
+		this.localeValue					= this.prevLocal;
 	}
 }
