@@ -34,6 +34,8 @@ export default class extends Controller {
 		});
 		this.normalizeCallback = this.normalize.bind(this);
 		this.element.addEventListener('input', this.normalizeCallback);
+		
+		this.assignNormalizedLocalValue();
 	}
 	
 	disconnect() {
@@ -44,5 +46,17 @@ export default class extends Controller {
 		const $el = event.target;
 		const money = parseMoney($el.value + ' ' + this.localeValue);
 		$el.value = money.amount.toLocaleString(this.localeValue);
+	}
+	
+	// ###> HELPER ###
+	
+	assignNormalizedLocalValue() {
+		if (!this.localeValue)				return;
+		
+		const matches						= this.localeValue.match(/^[a-z]{2}/i);
+		
+		if (!matches)						return;
+		
+		this.localeValue					= matches[0];
 	}
 }
