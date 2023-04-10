@@ -28,24 +28,38 @@ export default class extends Controller {
 		'normalize',
 	];
 
+	$el					= null;
+	currentAmount		= null;
+	
+	normalizeCallback	= null;
+	onSubmitCallback	= null;
+	
 	connect() {
 		useDebounce(this, {
 			wait: this.changeSpeedValue,
 		});
-		this.normalizeCallback = this.normalize.bind(this);
-		this.element.addEventListener('input', this.normalizeCallback);
+		this.normalizeCallback	= this.normalize.bind(this);
+		this.onSubmitCallback	= this.onSubmit.bind(this);
+		this.element.addEventListener('input',	this.normalizeCallback);
+		this.element.closest('form').addEventListener('submit', this.onSubmitCallback, true);
 		
 		this.assignNormalizedLocalValue();
 	}
 	
 	disconnect() {
-		this.element.removeEventListener('input', this.normalizeCallback);
+		this.element.removeEventListener('input',	this.normalizeCallback);
+		this.element.closest('form').removeEventListener('submit',	this.onSubmitCallback, true);
 	}
 
 	normalize(event) {
-		const $el = event.target;
-		const money = parseMoney($el.value + ' ' + this.localeValue);
-		$el.value = money.amount.toLocaleString(this.localeValue);
+		this.$el = event.target; // target 
+		const money = parseMoney(this.$el.value + ' ' + this.localeValue);
+		this.currentAmount = money.amount;
+		this.$el.value = this.currentAmount.toLocaleString(this.localeValue);
+	}
+	
+	onSubmit(event) {
+		this.$el.value = this.currentAmount;
 	}
 	
 	// ###> HELPER ###

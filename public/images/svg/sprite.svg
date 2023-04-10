@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<!-- You can overwrite this file
+<!-- After php bin/console a:i you get this file in your /public
+	and you can change it
 	
 	Usage:
 	
@@ -16,7 +17,7 @@
 	</svg>
 	
 	#2
-	{{ component('gs_sprite', { id: '<>' }) }}
+	{{ component('gs_sprite', { id: 'eye' }) }} 		# eye for instance
 -->
 
 	<!-- ###> Here you can add your own unique svg sprites to access them in templates ### -->
