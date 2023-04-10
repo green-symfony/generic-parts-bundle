@@ -31,34 +31,22 @@ use Symfony\UX\LiveComponent\{
 class GSSubmitButtonComponent extends AbstractTwigComponent
 {
     public string $class        = 'btn btn-outline-primary';
-    public array $attr          = [
-		'data-turbo'	=> false,
-	];
+    public array $attr          = [];
     public string $text;
-
-	public function mount(
-		array $attr = [],
-	) {
-		$this->setAttr($attr);
-	}
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setRequired([
-                'text',
-            ])
 			->setDefined([
 				'class',
 				'attr',
 			])
+            ->setRequired([
+                'text',
+            ])
         ;
 	}
  
 	// ###> HELPER ###
-	
-	private function setAttr(array $innerAttr) {
-		$this->attr			= \array_replace_recursive($innerAttr, $this->attr);
-	}
 
 }

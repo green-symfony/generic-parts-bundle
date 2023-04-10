@@ -71,7 +71,11 @@ export default class extends Controller {
 	// ###> HELPER ###
 	
 	doNormalize() {
-		const money = parseMoney(this.$el.value + ' ' + this.localeValue);
+		const value = this.$el.value.trim();
+		
+		if (!value.match(/[0-9]/)) return;
+		
+		const money = parseMoney(value + ' ' + this.localeValue);
 		this.currentAmount = money.amount;
 		this.$el.value = this.currentAmount.toLocaleString(this.localeValue);
 	}

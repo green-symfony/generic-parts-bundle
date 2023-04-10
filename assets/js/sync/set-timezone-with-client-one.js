@@ -24,6 +24,6 @@ fetch('/gs/generic-parts/api/set/timezone', {
 		
 	})
 	.catch(error => {
-		console.error(error);
+		
 	})
 ;
