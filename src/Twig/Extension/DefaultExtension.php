@@ -32,14 +32,25 @@ class DefaultExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig\TwigFilter('gs_trim', $this->trim(...)),
-            new \Twig\TwigFilter('gs_for_user', $this->forUser(...)),
-            /* Usage: attrVariable|<filter>|raw */
-            new \Twig\TwigFilter('gs_array_to_attribute', $this->arrayToAttribute(...)),
-            new \Twig\TwigFilter('gs_binary_img', $this->binary_img(...)),
+            new \Twig\TwigFilter('gs_trim',						$this->trim(...)),
+            new \Twig\TwigFilter('gs_for_user',					$this->forUser(...)),
+            /* Usage:	attrVariable|<filter>|raw */
+            new \Twig\TwigFilter('gs_array_to_attribute',		$this->arrayToAttribute(...)),
+            new \Twig\TwigFilter('gs_binary_img',				$this->binary_img(...)),
+			/* Usage:	<>|gs_local_money(app.request.locale) */
+            new \Twig\TwigFilter('gs_local_money',				$this->localMoney(...)),
         ];
     }
 
+    public function localMoney(string|int|float $input, string $locale): string|int|float {
+		$output	= $input;
+		
+		$try	= (new \NumberFormatter($locale, \NumberFormatter::DEFAULT_STYLE))->format((float) $input);
+		if ($try !== false) $output = $try;
+		
+		return $output;
+	}
+	
     public function trim(mixed $input, ?string $string = null)
     {
         return ($string !== null) ? \trim($input, $string) : \trim($input);
