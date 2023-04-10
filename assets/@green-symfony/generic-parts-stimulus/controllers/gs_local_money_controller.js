@@ -42,8 +42,11 @@ export default class extends Controller {
 		this.onSubmitCallback	= this.onSubmit.bind(this);
 		this.element.addEventListener('input',	this.normalizeCallback);
 		this.element.closest('form').addEventListener('submit', this.onSubmitCallback, true);
+		this.$el				= this.element;
 		
 		this.assignNormalizedLocalValue();
+		
+		this.doNormalize();
 	}
 	
 	disconnect() {
@@ -53,9 +56,7 @@ export default class extends Controller {
 
 	normalize(event) {
 		this.$el = event.target; // target 
-		const money = parseMoney(this.$el.value + ' ' + this.localeValue);
-		this.currentAmount = money.amount;
-		this.$el.value = this.currentAmount.toLocaleString(this.localeValue);
+		this.doNormalize();
 	}
 	
 	onSubmit(event) {
@@ -63,6 +64,12 @@ export default class extends Controller {
 	}
 	
 	// ###> HELPER ###
+	
+	doNormalize() {
+		const money = parseMoney(this.$el.value + ' ' + this.localeValue);
+		this.currentAmount = money.amount;
+		this.$el.value = this.currentAmount.toLocaleString(this.localeValue);
+	}
 	
 	assignNormalizedLocalValue() {
 		if (!this.localeValue)				return;
