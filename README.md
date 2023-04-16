@@ -50,7 +50,7 @@ and generate classes for composer autoloader
 composer dump-autoload
 ```
 
-### Step 2 (optional): Add dependencies of node_modules and stimulus controllers
+### Step 2 (webpack): Add dependencies of node_modules and stimulus controllers
 
 If you have installed `symfony/webpack-encore-bundle`
 
@@ -66,7 +66,7 @@ add this line into your `/package.json`
 }
 ```
 
-### Step 3: Install all the described node_modules dependencies in your app
+### Step 3 (webpack): Install all the described node_modules dependencies in your app
 
 Open a command console and execute:
 
@@ -74,7 +74,7 @@ Open a command console and execute:
 yarn install --force
 ```
 
-### Step 4: Now you can register bundle's stimulus controllers in your ***/assets/bootstrap.js***
+### Step 4 (webpack): Now you can register bundle's stimulus controllers in your ***/assets/bootstrap.js***
 
 ```js
 import { startStimulusApp } from '@symfony/stimulus-bridge';
@@ -100,13 +100,13 @@ app.register('gs-local-money',			GSLocalMoney);			/* for symfony MoneyType widge
 /* ###< ALL THE CONTROLLERS OF THIS BUNDLE ### */
 ```
 
-### Step 5.0: Add entry in your ***/webpack.config.js***
+### Step 5.0 (webpack): Add entry in your ***/webpack.config.js***
 
 ```js
 .addEntry('gs_generic_parts', '/vendor/green-symfony/generic-parts-bundle/assets/app.js')
 ```
 
-### Step 5.1: Enable entry in your ***/templates/base.html.twig***
+### Step 5.1 (webpack): Enable entry in your ***/templates/base.html.twig***
 
 ```twig
 {% block stylesheets %}
