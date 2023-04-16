@@ -41,13 +41,21 @@ class GSServiceContainer
         array $keys,
         ?string $parameterPrefix = null,
     ): void {
-        $parameterPrefix        ??= '';
-
         foreach ($keys as $key) {
-            $containerBuilder->setParameter($parameterPrefix . $key, $callbackGetValue($key));
+            $containerBuilder->setParameter(
+				self::getParameterName($parameterPrefix, $key),
+				$callbackGetValue($key)
+			);
         }
     }
 
+    public static function getParameterName(
+		string|int|float|null $prefix,
+		string|int|float $key,
+	): string {
+		return self::getNormalizedPrefix($prefix) . self::getNormalizedKey($key);
+	}
+	
     public static function removeDefinitions(
         ContainerBuilder $containerBuilder,
         array $ids,
@@ -58,4 +66,23 @@ class GSServiceContainer
             }
         }
     }
+	
+	// ###> HELPER ###
+	
+	private static function getNormalizedPrefix(int|float|string|null $prefix): string {
+		
+		$prefix        ??= '';
+		if ($prefix != '') $prefix = $prefix . '.';
+		
+		return $prefix;
+	}
+	
+	private static function getNormalizedKey(int|float|string $key): string {
+		
+		$key		= \strtr((string) $key, [
+			']['		=> '.',
+		]);
+		
+		return \trim($key, '[]');
+	}
 }

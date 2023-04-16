@@ -34,10 +34,16 @@ class MonologLoggerPass implements CompilerPassInterface
         ContainerBuilder $container
     ): void {
         $emailFrom                          = $container->getParameter(
-            new Parameter(GSGenericPartsExtension::PREFIX . GSGenericPartsExtension::ERROR_LOGGER_EMAIL_FROM)
+            new Parameter(GSServiceContainer::getParameterName(
+				GSGenericPartsExtension::PREFIX,
+				GSGenericPartsExtension::ERROR_LOGGER_EMAIL_FROM,
+			))
         );
         $emailTo                            = $container->getParameter(
-            new Parameter(GSGenericPartsExtension::PREFIX . GSGenericPartsExtension::ERROR_LOGGER_EMAIL_TO)
+            new Parameter(GSServiceContainer::getParameterName(
+				GSGenericPartsExtension::PREFIX,
+				GSGenericPartsExtension::ERROR_LOGGER_EMAIL_TO,
+			))
         );
         /*
         \dd(

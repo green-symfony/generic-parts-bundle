@@ -34,12 +34,14 @@ class ApiUtcDtController extends GSAbstractController
     public function index(
         Request $request,
         $debugLogger,
+        $locale = null,
     ) {
         $carbon = Carbon::now();
-
+		
+		\dd($locale ?? $request->getLocale());
         try {
             $carbon = $carbon->forUser(
-                locale: $locale     = $request->getLocale(),
+                locale: $locale     = $locale ?? $request->getLocale(),
                 tz:     $tz         = $request->getSession()->get($this->tzSessionName),
             );
         } catch (\Exception $e) {

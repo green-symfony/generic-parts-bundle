@@ -118,8 +118,14 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         );
 		
 		/* to use in this object */
-		$this->localeParameter			= new Parameter(self::PREFIX.self::LOCALE);
-		$this->timezoneParameter		= new Parameter(self::PREFIX.self::TIMEZONE);
+		$this->localeParameter		= new Parameter(GSServiceContainer::getParameterName(
+			self::PREFIX,
+			self::LOCALE,
+		));
+		$this->timezoneParameter	= new Parameter(GSServiceContainer::getParameterName(
+			self::PREFIX,
+			self::TIMEZONE,
+		));
     }
 
     private function fillInServiceArgumentsWithConfigOfCurrentBundle(
