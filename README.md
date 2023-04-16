@@ -84,9 +84,16 @@ add this line into your `/package.json`
 
 ### Step 3 (webpack): Install all the described node_modules dependencies in your app
 
+in your `/webpack.config.js` file
+
+```js
+.enableSassLoader()
+```
+
 Open a command console and execute:
 
 ```console
+yarn add sass-loader
 yarn install --force
 ```
 
