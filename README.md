@@ -36,6 +36,18 @@ return [
 ];
 ```
 
+If you used clone
+
+```console
+git clone https://github.com/green-symfony/generic-parts-bundle.git
+```
+
+generate classes for composer autoloader
+
+```console
+composer dump-autoload
+```
+
 ### Step 2 (optional): Add dependencies of node_modules and stimulus controllers
 
 If you have installed `symfony/webpack-encore-bundle`
