@@ -39,7 +39,6 @@ add it into your `/composer.json`
 ],
 "require": {
 	"green-symfony/generic-parts-bundle": "TODO",
-	...
 }
 ```
 
