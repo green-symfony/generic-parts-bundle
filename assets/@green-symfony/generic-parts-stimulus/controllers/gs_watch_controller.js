@@ -59,7 +59,7 @@ export default class extends Controller {
 	}
 
 	async triggerView() {
-		const dt = await axios.get('/gs/generic-parts/api/utc/dt');
+		const dt = await axios.get('/gs/generic-parts/api/dt');
 		this.element.textContent = dt.data;
 	}
 

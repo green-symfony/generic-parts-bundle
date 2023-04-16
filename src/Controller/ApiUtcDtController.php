@@ -30,7 +30,7 @@ class ApiUtcDtController extends GSAbstractController
         );
     }
 
-    #[Route('/api/utc/dt')]
+    #[Route('/api/dt')]
     public function index(
         Request $request,
         $debugLogger,
