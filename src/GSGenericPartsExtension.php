@@ -36,7 +36,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
     public const ERROR_LOGGER_EMAIL_FROM	= '[error_logger_email][from]';
     public const ERROR_LOGGER_EMAIL_TO		= '[error_logger_email][to]';
 	
-	public function getAlias()
+	public function getAlias(): string
     {
 		return self::PREFIX;
 	}

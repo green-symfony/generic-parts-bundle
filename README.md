@@ -19,7 +19,8 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-## 1.0.0) or use `git clone`
+1.0.0) or use `git clone`
+--------
 
 ```console
 git clone https://github.com/green-symfony/generic-parts-bundle.git
@@ -36,15 +37,20 @@ add it into your `/composer.json`
 		"url":			"where/you/want/in/your/project/generic-parts-bundle"
 	}
 ],
+"require": {
+	"green-symfony/generic-parts-bundle": "TODO",
+	...
+}
 ```
 
-### 1.0.2) and generate classes for composer autoloader
+### 1.0.2) update and generate classes for composer autoloader
 
 ```console
-composer dump-autoload
+composer update
+composer dump-autoload -o
 ```
 
-Applications that don't use Symfony Flex (0.2)
+Applications that don't use Symfony Flex
 --------
 
 ### Step 1.1: Enable the Bundle
@@ -281,6 +287,13 @@ php bin/console debug:config gs_generic_parts
 
 Extra Settings
 --------
+
+### You can take .gitignore in your project
+
+TODO:
+-	uncomment lines for enable saving Kernel.php in your repository
+
+### You can also take Makefile in your project
 
 ### Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
 
