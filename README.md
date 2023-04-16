@@ -19,14 +19,13 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
-1.0.0) or use `git clone`
---------
+## 1.0.0) or use `git clone`
 
 ```console
 git clone https://github.com/green-symfony/generic-parts-bundle.git
 ```
 
-# 1.0.1) move this directory into `where/you/want/in/your/project/generic-parts-bundle`
+### 1.0.1) move this directory into `where/you/want/in/your/project/generic-parts-bundle`
 
 add it into your `/composer.json` 
 
@@ -39,7 +38,7 @@ add it into your `/composer.json`
 ],
 ```
 
-# 1.0.2) and generate classes for composer autoloader
+### 1.0.2) and generate classes for composer autoloader
 
 ```console
 composer dump-autoload
