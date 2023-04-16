@@ -93,7 +93,6 @@ in your `/webpack.config.js` file
 Open a command console and execute:
 
 ```console
-yarn add sass-loader
 yarn install --force
 ```
 
