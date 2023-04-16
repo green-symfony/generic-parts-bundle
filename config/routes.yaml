@@ -1,4 +1,5 @@
 gs_generic_parts_routes:
     type:           annotation
     resource:       ../src/Controller
-    prefix:         /gs/generic-parts
+    # don't change prefix
+    prefix:         /{_locale<%gs_generic_parts.regex_locale%>?'ru'}/gs/generic-parts

@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/gs/generic-parts')]
 abstract class GSAbstractController extends AbstractController
 {
     public function __construct(

@@ -4,3 +4,4 @@ framework:
     fragments:
         enabled:    true
         path:       /_fragment
+    ###< FRAGMENT ###

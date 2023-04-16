@@ -25,8 +25,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
-    public const PREFIX					= 'gs_generic_parts';
-	
+    public const PREFIX						= 'gs_generic_parts';
 	
 	/*	bundle config -> paramter			parameter defined in bundle config */
     public const LOCALE						= '[locale]';

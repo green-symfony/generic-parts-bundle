@@ -1,8 +1,11 @@
 parameters:
     gs_generic_parts.timezone:                          'UTC'
-    gs_generic_parts.locale:                            'ru'
+    gs_generic_parts.locale:                            'ru_RU'
     gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
     
+    ###> REGEX ###
+    gs_generic_parts.regex_locale:                      '(?:\w{2,5})?'
+    ###< REGEX ###
     
 services:
     _defaults:

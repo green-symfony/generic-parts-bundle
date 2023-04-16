@@ -48,13 +48,10 @@ class ApiUtcDtController extends GSAbstractController
 
         //$debugLogger->info('LOCALE', [$locale]);
 
-        $dt     = GSCarbonService::isoFormat($carbon);
+        $dt     	= GSCarbonService::isoFormat($carbon);
 
-        return $this->json(
-            $dt,
-            context:    [
-                'json_encode_options'       => \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
-            ],
-        );
+		$response	= $this->json($dt);
+		$response->setEncodingOptions(\JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);
+        return $response;
     }
 }
