@@ -36,7 +36,15 @@ return [
 ];
 ```
 
-### Step 2: Add dependencies of node_modules and stimulus controllers ***/package.json***
+### Step 2 (optional): Add dependencies of node_modules and stimulus controllers
+
+If you have installed `symfony/webpack-encore-bundle`
+
+```console
+composer require symfony/webpack-encore-bundle
+```
+
+add this line into your `/package.json`
 
 ```json
 {
