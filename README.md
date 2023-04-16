@@ -42,7 +42,9 @@ If you used clone
 git clone https://github.com/green-symfony/generic-parts-bundle.git
 ```
 
-generate classes for composer autoloader
+move this directory into `vendor/green-symfony/generic-parts-bundle`
+
+and generate classes for composer autoloader
 
 ```console
 composer dump-autoload
