@@ -87,6 +87,25 @@ add this line into your `/package.json`
 in your `/webpack.config.js` file
 
 ```js
+// ###> DOTENV (optional) ###
+// the highest priority
+.addPlugin(new Dotenv( {
+		safe:		false,
+		path:		'./.env.local',
+		systemvars: true,
+		silent:		true,
+	}
+))
+.addPlugin(new Dotenv( {
+		safe:		false,
+		path:		'./.env',
+		systemvars: true,
+		silent:		true,
+	}
+))
+// ###< DOTENV (optional) ###
+
+// required
 .enableSassLoader()
 ```
 
