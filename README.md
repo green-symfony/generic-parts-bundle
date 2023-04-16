@@ -169,6 +169,16 @@ or
 php bin/console a:i
 ```
 
+### Step 7: Register new routes in `/config/routes/gs_generic_parts_routes.yaml`
+
+with the following content
+
+```yaml
+gs_generic_parts_routes:
+    # for api sets users timezone in session with name of yaml parameter %gs_generic_parts.timezone_session_name%
+    resource:       '@GSGenericPartsBundle/config/routes.yaml'
+```
+
 Details
 ========
 
