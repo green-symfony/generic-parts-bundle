@@ -152,7 +152,7 @@ Basic features for Symfony Web Application which includes:
 Twig form widgets
 --------
 
-### 1) Change view Symfony\Component\Form\Extension\Core\Type\PasswordType widget
+### 1) Change form view PasswordType and MoneyType widget
 
 1.0) In your applicaiton register new stimulus controller in ***/assets/bootstrap.js***
 
@@ -165,6 +165,7 @@ app.register('password-visibility', PasswordVisibility);
 1.1) Add ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig*** form theme 
 
 ```yaml
+// /config/packages/twig.yaml 
 twig:
     form_themes:
         - 'bootstrap_5_layout.html.twig'
@@ -174,6 +175,7 @@ twig:
 extra 1.2) You can overwrite ***@GSGenericParts/form/gs_generic_parts_form_default.html.twig***
 
 ```yaml
+// /config/packages/twig.yaml 
 twig:
     form_themes:
         - 'bootstrap_5_layout.html.twig'
