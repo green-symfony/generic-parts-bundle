@@ -32,7 +32,7 @@ in the `config/bundles.php` file of your project:
 
 return [
     // ...
-    <vendor>\<bundle-name>\<bundle-long-name>::class => ['all' => true],
+    GS\GenericParts\GSGenericPartsBundle::class => ['all' => true],
 ];
 ```
 
