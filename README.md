@@ -19,6 +19,31 @@ Open a command console and execute:
 	composer require green-symfony/generic-parts-bundle
 ```
 
+or use `git clone`
+
+```console
+git clone https://github.com/green-symfony/generic-parts-bundle.git
+```
+
+move this directory into `where/you/want/in/your/project/generic-parts-bundle`
+
+add it into your `/composer.json` 
+
+```json
+"repositories":		[
+	{
+		"type":			"path",
+		"url":			"where/you/want/in/your/project/generic-parts-bundle"
+	}
+],
+```
+
+and generate classes for composer autoloader
+
+```console
+composer dump-autoload
+```
+
 Applications that don't use Symfony Flex (0.2)
 --------
 
@@ -34,20 +59,6 @@ return [
     // ...
     GS\GenericParts\GSGenericPartsBundle::class => ['all' => true],
 ];
-```
-
-If you used clone
-
-```console
-git clone https://github.com/green-symfony/generic-parts-bundle.git
-```
-
-move this directory into `vendor/green-symfony/generic-parts-bundle`
-
-and generate classes for composer autoloader
-
-```console
-composer dump-autoload
 ```
 
 ### Step 2 (webpack): Add dependencies of node_modules and stimulus controllers
