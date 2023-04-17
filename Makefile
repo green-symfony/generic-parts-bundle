@@ -10,3 +10,9 @@ prod:
 
 stop:
 	symfony server:stop
+
+dev_fixture:
+	bin/console d:s:d -f -q && \
+	bin/console d:m:m -q && \
+	bin/console d:s:u -f --complete && \
+	bin/console d:f:l
