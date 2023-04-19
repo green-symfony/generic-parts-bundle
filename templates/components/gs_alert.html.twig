@@ -1,5 +1,5 @@
 {#
-	TODO:	alert based on swal (needs gs_alert_controller)
+	TODO:	alert based on swal (needs gs_alert)
 	
 	Usage:
 		{{ component('gs_alert', {
@@ -10,4 +10,22 @@
 			type:				'toast',
 			position:			'topright',
 		}) }}
+		
 #}
+
+<div
+	{{ stimulus_controller('gs_alert') }}
+>
+	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<img src="..." class="rounded me-2" alt="...">
+			<strong class="me-auto">Alert</strong>
+			<small>now</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+			message
+		</div>
+	</div>
+</div>
+

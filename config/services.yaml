@@ -21,6 +21,7 @@ services:
             ###> SERVICES ###
             $debugLogger:           '@monolog.logger.gs_generic_parts.debug'
             $carFacImm:             '@gs_generic_parts.carbon_factory'
+            $bus:                   '@gs_generic_parts.messenger.bus'
             #$carFacImm:         ''
             $faker:                 '@gs_generic_parts.faker'
             #$faker:             ''
@@ -87,7 +88,7 @@ services:
         public:                 true
         class:                  GS\GenericParts\Messenger\SyncMessage
         arguments:
-            $messageBus:    '@Symfony\Component\Messenger\MessageBusInterface'
+            $messageBus:            '@gs_generic_parts.messenger.bus'
     ###< MESSENGER ###
     ###< API SERVICES ###
 
@@ -105,9 +106,8 @@ services:
         
     gs_generic_parts.init_subscriber:
         autoconfigure:          true
+        autowire:               true
         class:                  GS\GenericParts\EventSubscriber\InitSubscriber
-        arguments:
-            $bus:                       '@Symfony\Component\Messenger\MessageBusInterface'
     ###< KERNEL SUBSCRIBER ###
     
     
@@ -130,6 +130,9 @@ services:
         autoconfigure:          true
     GS\GenericParts\Twig\Component\GSWatchComponent:
         class:                  GS\GenericParts\Twig\Component\GSWatchComponent
+        autoconfigure:          true
+    GS\GenericParts\Twig\Component\GSFlashBag:
+        class:                  GS\GenericParts\Twig\Component\GSFlashBag
         autoconfigure:          true
     
     ###> EXTENSION ###

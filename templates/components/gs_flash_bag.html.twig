@@ -1,0 +1,8 @@
+{% for message in app.flashes('notice') %}
+	{{ component(
+		'gs_alert',
+		{
+			message,
+		})
+	}}
+{% endfor %}
