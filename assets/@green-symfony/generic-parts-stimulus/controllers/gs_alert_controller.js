@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import Swal from 'sweetalert2/src/sweetalert2.js';
-import { gsUseFadeTransition } from '@green-symfony/generic-parts/public/functions';
+import { gsUseFadeTransition } from '@green-symfony/generic-parts-stimulus/public/functions';
 
 /*
 Usage:
@@ -10,11 +10,15 @@ Usage:
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
 
+	static values = {
+		'delay':					{ type: Number, default: 3000 },
+	};
+
 	connect() {
 		
 		gsUseFadeTransition(this, this.element);
 		
-		this.leave().then(() => { this.element.remove(); });
+		setTimeout(() => this.leave().then(() => { this.element.remove(); }), this.delayValue);
 		/*
 		Swal.fire({
 			toast: true,

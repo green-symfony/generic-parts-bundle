@@ -10,22 +10,23 @@
 			type:				'toast',
 			position:			'topright',
 		}) }}
-		
 #}
 
-<div
-	{{ stimulus_controller('gs_alert') }}
->
-	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-		<div class="toast-header">
-			<img src="..." class="rounded me-2" alt="...">
-			<strong class="me-auto">Alert</strong>
-			<small>now</small>
+	<div
+		{{ stimulus_controller('gs_alert', {
+			delay:		3000,
+		}) }}
+		class="show toast"
+		role="alert"
+		aria-live="assertive"
+		aria-atomic="true"
+	>
+	<div class="toast-header">
+		<img src="{{- asset(app_images_public_path ~ '/alert/stump.png') -}}" style="width: 25px;" class="rounded me-2" alt="stump">
+			<strong class="me-auto">{{- 'alert'|trans -}}</strong>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
-			message
+			{{ message }}
 		</div>
 	</div>
-</div>
-

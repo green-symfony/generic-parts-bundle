@@ -1,5 +1,19 @@
 ###> APP ###
-/bundles/
+
+###> bundles ###
+/bundles/*
+
+# TODO: uncomment this section
+###> only not sprite.svg ###
+#!/bundles/gsgenericparts/
+#/bundles/gsgenericparts/*
+#!/bundles/gsgenericparts/images
+#/bundles/gsgenericparts/images/*
+#!/bundles/gsgenericparts/images/svg
+#/bundles/gsgenericparts/images/svg/*
+#!/bundles/gsgenericparts/images/svg/sprite.svg
+###< only not sprite.svg ###
+###< bundles ###
 ###> APP ###
 
 ###> source files ###
@@ -21,7 +35,8 @@
 /var/
 ###< symfony/framework-bundle ###
 
-###> TODO: uncomment the rest part, safe /vendor/symfony/http-kernel/Kernel.php for Kernel::build()
+# TODO: uncomment this section
+###> safe /vendor/symfony/http-kernel/Kernel.php for Kernel::build()
 /vendor/*
 #!/vendor/symfony
 #/vendor/symfony/*
