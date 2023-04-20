@@ -5,17 +5,32 @@
 
 {%- block password_widget -%}
 	{%- set type = type|default('password') -%}
-    
+	{%- set gs_input_password_wgt_attrigutes = {
+		'name':									full_name,
+		'type':									type,
+		'class':								'form-control',
+		'data-password-visibility-target':		'input',
+		'spellcheck':							false,
+	} -%}
+	{% if required is defined and required %}
+		{% set gs_input_password_wgt_attrigutes = gs_input_password_wgt_attrigutes|merge({
+			'required':								'required',
+		}) %}
+	{% endif %}
+	{%- set row_attr = gs_input_password_wgt_attrigutes|merge(row_attr|default([])) -%}
+	
 	<div
 		{{ stimulus_controller('password-visibility') }}
 		class="position-relative"
 	>
-		<input name={{ full_name }} class="form-control" type="{{ type }}" data-password-visibility-target="input" spellcheck="false" />
+		<input
+			{{ row_attr|gs_array_to_attribute }}
+		/>
 
 		<button
 			tabindex="-1"
-			style="width: 30px;"
-			class="position-absolute end-0 top-0 h-100 bg-transparent border-0"
+			style="width: 35px;"
+			class="me-1 position-absolute end-0 top-0 h-100 bg-transparent border-0"
 			type="button"
 			data-action="password-visibility#toggle"
 		>
