@@ -22,10 +22,17 @@ use Symfony\UX\TwigComponent\Attribute\{
 class GSAlertComponent extends AbstractTwigComponent
 {
     public string $message;
+	
+    public int $delay					= 3000;
+    public bool $persist				= false;
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
+			->setDefaults([
+				'delay'			=> $this->delay,
+				'persist'		=> $this->persist,
+			])
             ->setRequired([
                 'message',
             ])

@@ -6,6 +6,7 @@
 			message:			'',
 
 			delay:				3000,
+			persist:			false,
 			style:				'success',
 			type:				'toast',
 			position:			'topright',
@@ -14,7 +15,8 @@
 
 	<div
 		{{ stimulus_controller('gs_alert', {
-			delay:		3000,
+			delay,
+			persist,
 		}) }}
 		class="show toast"
 		role="alert"
