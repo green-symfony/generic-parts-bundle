@@ -3,6 +3,10 @@ parameters:
     gs_generic_parts.locale:                            'ru_RU'
     gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
     
+    ###> KERNEL ###
+    gs_generic_parts.project_dir:                       '%kernel.project_dir%'
+    ###< KERNEL ###
+    
     ###> REGEX ###
     gs_generic_parts.regex_locale:                      '(?:\w{2,5})?'
     ###< REGEX ###
@@ -26,7 +30,6 @@ services:
             $faker:                 '@gs_generic_parts.faker'
             #$faker:             ''
             $formFactory:           '@Symfony\Component\Form\FormFactoryInterface'
-            
 
     ###> TEST SERVICE ###
     gs_generic_parts.test_service:
@@ -93,8 +96,12 @@ services:
     ###< API SERVICES ###
 
     
-    ###> EXCEPTION ###
-    ###< EXCEPTION ###
+    ###> SERVICES ###
+    gs_generic_parts.conf_service:
+        class:      GS\GenericParts\Service\GSConfService
+        arguments:
+            $projectDir:    '%gs_generic_parts.project_dir%'
+    ###< SERVICES ###
     
     
     ###> KERNEL SUBSCRIBER ###
@@ -156,3 +163,4 @@ services:
         autoconfigure:          true
     ###< HANDLERS ###
     ###< MESSENGER ###
+    

@@ -382,3 +382,31 @@ gs_generic_parts:
         from:           '<>'
         to:             '<>'
 ```
+
+Services
+--------
+
+# Reading yaml of project configs `gs_generic_parts.conf_service` 
+
+In your `/config/services.yaml`
+
+```yaml
+services:
+    _defaults:
+        autowire:           true
+        autoconfigure:      true
+        bind:
+            $confService: '@gs_generic_parts.conf_service'
+```
+
+Usage:
+
+```php
+// Get some config's value
+
+$orderInitialMarking	= $this->confService->getPackage(
+	filename:					'workflow', // or 'workflow.yaml'
+	propertyAccessString:		'[framework][workflows][order][initial_marking]',
+);
+```
+
