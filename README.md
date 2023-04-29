@@ -324,16 +324,16 @@ php bin/console debug:config gs_generic_parts
 Extra Settings
 --------
 
-### You can take .gitignore in your project
+### You can take `.gitignore` in your project
 
 TODO:
--	uncomment lines for enable saving Kernel.php in your repository
+-	uncomment lines for enable saving
 
-### You can also take Makefile in your project
+### You can also take `Makefile` in your project
 
 ### Compiler Pass for your ***/vendor/symfony/http-kernel/Kernel.php***
 
-To enable ***monolog.logger.gs_generic_parts.debug*** service when only in concrete APP_ENVs
+To enable `monolog.logger.gs_generic_parts.debug` service when only in concrete APP_ENVs
 
 ```php
 // /vendor/symfony/http-kernel/Kernel.php
