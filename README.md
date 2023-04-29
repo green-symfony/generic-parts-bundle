@@ -383,10 +383,9 @@ gs_generic_parts:
         to:             '<>'
 ```
 
-Services
---------
+# Services
 
-# Reading yaml of project configs `gs_generic_parts.conf_service` 
+## Reading yaml of project configs `gs_generic_parts.conf_service` 
 
 In your `/config/services.yaml`
 
