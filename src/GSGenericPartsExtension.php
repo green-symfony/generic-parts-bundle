@@ -5,8 +5,8 @@ namespace GS\GenericParts;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\DependencyInjection\Definition;
 use GS\GenericParts\Service\{
-    GSServiceContainer,
-    GSStringNormalizer
+    GS\Service\Service,
+    StringNormalizer
 };
 use GS\GenericParts\Configuration;
 use GS\GenericParts\Contracts\GSTag;
@@ -100,7 +100,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         */
 
 		$pa			= PropertyAccess::createPropertyAccessor();
-        GSServiceContainer::setParametersForce(
+        GS\Service\Service::setParametersForce(
             $container,
             callbackGetValue:       static function ($key) use (&$config, $pa) {
                 return $pa->getValue($config, $key);
@@ -118,11 +118,11 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         );
 		
 		/* to use in this object */
-		$this->localeParameter		= new Parameter(GSServiceContainer::getParameterName(
+		$this->localeParameter		= new Parameter(GS\Service\Service::getParameterName(
 			self::PREFIX,
 			self::LOCALE,
 		));
-		$this->timezoneParameter	= new Parameter(GSServiceContainer::getParameterName(
+		$this->timezoneParameter	= new Parameter(GS\Service\Service::getParameterName(
 			self::PREFIX,
 			self::TIMEZONE,
 		));

@@ -4,7 +4,7 @@ namespace GS\GenericParts\Service;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class GSServiceContainer
+class GS\Service\Service
 {
     public function __construct()
     {
@@ -78,7 +78,7 @@ class GSServiceContainer
 	}
 	
 	private static function getNormalizedKey(int|float|string $key): string {
-		
+		asdffsd[asdf
 		$key		= \strtr((string) $key, [
 			']['		=> '.',
 		]);

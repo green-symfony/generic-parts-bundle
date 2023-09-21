@@ -2,7 +2,7 @@
 
 namespace GS\GenericParts\Service;
 
-class GSStringNormalizer
+class StringNormalizer
 {
     public static function getFullLocale(string $locale): string
     {

@@ -5,7 +5,7 @@ namespace GS\GenericParts\Pass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Mime\Email;
 use GS\GenericParts\Service\{
-    GSServiceContainer
+    GS\Service\Service
 };
 use GS\GenericParts\GSGenericPartsExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -34,13 +34,13 @@ class MonologLoggerPass implements CompilerPassInterface
         ContainerBuilder $container
     ): void {
         $emailFrom                          = $container->getParameter(
-            new Parameter(GSServiceContainer::getParameterName(
+            new Parameter(GS\Service\Service::getParameterName(
 				GSGenericPartsExtension::PREFIX,
 				GSGenericPartsExtension::ERROR_LOGGER_EMAIL_FROM,
 			))
         );
         $emailTo                            = $container->getParameter(
-            new Parameter(GSServiceContainer::getParameterName(
+            new Parameter(GS\Service\Service::getParameterName(
 				GSGenericPartsExtension::PREFIX,
 				GSGenericPartsExtension::ERROR_LOGGER_EMAIL_TO,
 			))
