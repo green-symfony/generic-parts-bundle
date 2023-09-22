@@ -22,16 +22,32 @@ use Symfony\Component\DependencyInjection\Loader\{
 };
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use GS\Service\Service\{
+    ServiceContainer,
+    StringNormalizer
+};
 
 class GSGenericPartsExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     public const PREFIX						= 'gs_generic_parts';
 	
 	/*	bundle config -> paramter			parameter defined in bundle config */
-    public const LOCALE						= '[locale]';
-	protected $localeParameter;
-    public const TIMEZONE					= '[timezone]';
-	protected $timezoneParameter;
+	/*TODO: change the naming to this way:
+	
+    public const EMAIL_ERROR_LOGGER_ROOT_KEY = 'email_error_logger';
+    public const EMAIL_ERROR_LOGGER_FROM_KEY = 'from';
+    public const EMAIL_ERROR_LOGGER_TO_KEY = 'to';
+    
+	public const EMAIL_ERROR_LOGGER_PA_FROM_KEY = '['.self::EMAIL_ERROR_LOGGER_ROOT_KEY.']'.'['.self::EMAIL_ERROR_LOGGER_FROM_KEY.']';
+    public const EMAIL_ERROR_LOGGER_PA_TO_KEY = '['.self::EMAIL_ERROR_LOGGER_ROOT_KEY.']'.'['.self::EMAIL_ERROR_LOGGER_TO_KEY.']';
+	
+	through ServiceContainer::getParameterName(self::PREFIX, self::EMAIL_ERROR_LOGGER_PA_FROM_KEY)
+			ServiceContainer::getParameterName(self::PREFIX, self::EMAIL_ERROR_LOGGER_PA_TO_KEY)
+			
+			they will be abailable like:
+		%gs_generic_parts.email_error_logger.from%
+		%gs_generic_parts.email_error_logger.to%
+	*/
     public const ERROR_LOGGER_EMAIL_FROM	= '[error_logger_email][from]';
     public const ERROR_LOGGER_EMAIL_TO		= '[error_logger_email][to]';
 	
@@ -60,10 +76,7 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         array $config,
         ContainerBuilder $container,
     ) {
-        return new Configuration(
-            locale:                     $container->getParameter('gs_generic_parts.locale'),
-            timezone:                   $container->getParameter('gs_generic_parts.timezone'),
-        );
+        return new Configuration();
     }
 
     /**
@@ -99,75 +112,26 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         );
         */
 
-		$pa			= PropertyAccess::createPropertyAccessor();
+		$pa = PropertyAccess::createPropertyAccessor();
         GS\Service\Service::setParametersForce(
             $container,
             callbackGetValue:       static function ($key) use (&$config, $pa) {
                 return $pa->getValue($config, $key);
             },
-            parameterPrefix:        self::PREFIX,
-            keys:                   [
-                '[error_logger_email][from]',
-                '[error_logger_email][to]',
-				
-                self::LOCALE,
-                self::TIMEZONE,
+            parameterPrefix: self::PREFIX,
+            keys: [
                 self::ERROR_LOGGER_EMAIL_FROM,
                 self::ERROR_LOGGER_EMAIL_TO,
             ],
         );
 		
 		/* to use in this object */
-		$this->localeParameter		= new Parameter(GS\Service\Service::getParameterName(
-			self::PREFIX,
-			self::LOCALE,
-		));
-		$this->timezoneParameter	= new Parameter(GS\Service\Service::getParameterName(
-			self::PREFIX,
-			self::TIMEZONE,
-		));
     }
 
     private function fillInServiceArgumentsWithConfigOfCurrentBundle(
         array $config,
         ContainerBuilder $container,
     ) {
-        $this->carbonService($config, $container);
-        $this->fakerService($config, $container);
-    }
-
-    private function carbonService(array $config, ContainerBuilder $container)
-    {
-        $carbon         = new Definition(
-            class:          \Carbon\FactoryImmutable::class,
-            arguments:      [
-                '$settings'         => [
-                    'locale'                    => $this->localeParameter,
-                    'strictMode'                => true,
-                    'timezone'                  => $this->timezoneParameter,
-                    'toStringFormat'            => 'd.m.Y H:i:s P',
-                    'monthOverflow'             => true,
-                    'yearOverflow'              => true,
-                ],
-            ],
-        );
-        $container->setDefinition(
-            id:             'gs_generic_parts.carbon_factory',
-            definition:     $carbon,
-        );
-    }
-
-    private function fakerService(array $config, ContainerBuilder $container)
-    {
-        $faker          = (new Definition(\Faker\Factory::class, []))
-            ->setFactory([\Faker\Factory::class, 'create'])
-            ->setArgument(0, $this->localeParameter)
-        ;
-        //\dd($config['locale']);
-        $faker          = $container->setDefinition(
-            id:             'gs_generic_parts.faker',
-            definition:     $faker,
-        );
     }
 
     private function registerBundleTagsForAutoconfiguration(ContainerBuilder $container)
