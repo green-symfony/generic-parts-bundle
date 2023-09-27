@@ -31,26 +31,26 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
 {
     public const PREFIX						= 'gs_generic_parts';
 	
-	/*	bundle config -> paramter			parameter defined in bundle config */
-	/*TODO: change the naming to this way:
+	/*	bundle config -> paramter
+	*/
+	
+    public const LOCALE = 'locale';
+    public const TIMEZONE = 'timezone';
+    public const TIMEZONE_SESSION_NAME = 'timezone_session_name';
 	
     public const EMAIL_ERROR_LOGGER_ROOT_KEY = 'email_error_logger';
     public const EMAIL_ERROR_LOGGER_FROM_KEY = 'from';
     public const EMAIL_ERROR_LOGGER_TO_KEY = 'to';
     
-	public const EMAIL_ERROR_LOGGER_PA_FROM_KEY = '['.self::EMAIL_ERROR_LOGGER_ROOT_KEY.']'.'['.self::EMAIL_ERROR_LOGGER_FROM_KEY.']';
-    public const EMAIL_ERROR_LOGGER_PA_TO_KEY = '['.self::EMAIL_ERROR_LOGGER_ROOT_KEY.']'.'['.self::EMAIL_ERROR_LOGGER_TO_KEY.']';
-	
-	through ServiceContainer::getParameterName(self::PREFIX, self::EMAIL_ERROR_LOGGER_PA_FROM_KEY)
-			ServiceContainer::getParameterName(self::PREFIX, self::EMAIL_ERROR_LOGGER_PA_TO_KEY)
-			
-			they will be abailable like:
-		%gs_generic_parts.email_error_logger.from%
-		%gs_generic_parts.email_error_logger.to%
-	*/
-    public const ERROR_LOGGER_EMAIL_FROM	= '[error_logger_email][from]';
-    public const ERROR_LOGGER_EMAIL_TO		= '[error_logger_email][to]';
-	
+	public const EMAIL_ERROR_LOGGER_PA_FROM_KEY = ''
+		. '[' . self::EMAIL_ERROR_LOGGER_ROOT_KEY . ']'
+		. '[' . self::EMAIL_ERROR_LOGGER_FROM_KEY . ']'
+	;
+    public const EMAIL_ERROR_LOGGER_PA_TO_KEY = ''
+		. '[' . self::EMAIL_ERROR_LOGGER_ROOT_KEY . ']'
+		. '[' . self::EMAIL_ERROR_LOGGER_TO_KEY . ']'
+	;
+    
 	public function getAlias(): string
     {
 		return self::PREFIX;
@@ -76,7 +76,12 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
         array $config,
         ContainerBuilder $container,
     ) {
-        return new Configuration();
+        return new Configuration(
+			timezoneSessionName: $container->getParameter(ServiceContainer::getParameterName(
+				self::PREFIX,
+				self::TIMEZONE_SESSION_NAME,
+			)),
+		);
     }
 
     /**
@@ -120,12 +125,23 @@ class GSGenericPartsExtension extends ConfigurableExtension implements PrependEx
             },
             parameterPrefix: self::PREFIX,
             keys: [
-                self::ERROR_LOGGER_EMAIL_FROM,
-                self::ERROR_LOGGER_EMAIL_TO,
+                '['.self::LOCALE.']',
+                '['.self::TIMEZONE.']',
+                self::EMAIL_ERROR_LOGGER_PA_FROM_KEY,
+                self::EMAIL_ERROR_LOGGER_PA_TO_KEY,
             ],
         );
 		
-		/* to use in this object */
+		/* to use in this object
+		$this->localeParameter = new Parameter(ServiceContainer::getParameterName(
+			self::PREFIX,
+			self::LOCALE,
+		));
+		$this->timezoneParameter = new Parameter(ServiceContainer::getParameterName(
+			self::PREFIX,
+			self::TIMEZONE,
+		));
+		*/
     }
 
     private function fillInServiceArgumentsWithConfigOfCurrentBundle(

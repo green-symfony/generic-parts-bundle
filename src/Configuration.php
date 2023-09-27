@@ -10,6 +10,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     public function __construct(
+		private readonly string $timezoneSessionName,
     ) {
     }
 
@@ -20,7 +21,21 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
 
-				//...
+				->scalarNode(GSGenericPartsExtension::LOCALE)
+					->isRequired()
+                    ->info('Locale for services')
+                    #->defaultValue('%gs_generic_parts.locale%') Don't work, it's a simple string if defaultValue
+                ->end()
+
+                ->scalarNode(GSGenericPartsExtension::TIMEZONE)
+					->isRequired()
+                    ->info('Timezone for services')
+                ->end()
+
+                ->scalarNode(GSGenericPartsExtension::TIMEZONE_SESSION_NAME)
+                    ->info('The session name')
+					->defaultValue($this->timezoneSessionName)
+                ->end()
 
             ->end()
 

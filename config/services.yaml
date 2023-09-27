@@ -1,7 +1,10 @@
 parameters:
-    gs_generic_parts.timezone:                          'UTC'
-    gs_generic_parts.locale:                            'ru_RU'
+    #gs_generic_parts.timezone:                          'UTC'
+    #gs_generic_parts.locale:                            'ru_RU'
+    
+    ###> DEFAULT ###
     gs_generic_parts.timezone_session_name:             'gs_generic_parts.tz_session_name'
+    ###< DEFAULT ###
     
     ###> KERNEL ###
     gs_generic_parts.project_dir:                       '%kernel.project_dir%'
@@ -19,8 +22,8 @@ services:
         bind:
             ###> PARAMETERS ###
             $timezone:          '%gs_generic_parts.timezone%'
-            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
             $locale:            '%gs_generic_parts.locale%'
+            $tzSessionName:     '%gs_generic_parts.timezone_session_name%'
             
             ###> SERVICES ###
             $debugLogger:           '@monolog.logger.gs_generic_parts.debug'
@@ -91,7 +94,7 @@ services:
         public:                 true
         class:                  GS\GenericParts\Messenger\SyncMessage
         arguments:
-            $messageBus:            '@gs_generic_parts.messenger.bus'
+            $messageBus: '@gs_generic_parts.messenger.bus'
     ###< MESSENGER ###
     ###< API SERVICES ###
 
@@ -109,7 +112,7 @@ services:
         autoconfigure:          true
         class:                  GS\GenericParts\EventSubscriber\GSJsonResponseSubscriber
         arguments:
-            $t:                         '@translator.default'
+            $t: '@translator.default'
         
     gs_generic_parts.init_subscriber:
         autoconfigure:          true
